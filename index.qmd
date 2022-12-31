@@ -1,0 +1,31 @@
+---
+title: "Visualizing Social Data"
+---
+
+
+```{r set-dependencies, include=FALSE}
+# Site-wide targets dependencies
+withr::with_dir(here::here(), {
+  targets::tar_load(project_zips)
+  targets::tar_load(xaringan_slides)
+  targets::tar_load(xaringan_pdfs)
+})
+```
+
+
+![](images/plotter-cropped.gif)
+
+This is the course website for the Spring 2023 edition of SOCIOL 232, Visualizing Social Data, taught at [Duke University](https://duke.edu) by [Kieran Healy](https://kieranhealy.org/).
+
+
+## Syllabus & Schedule
+
+- Consult the [syllabus](/syllabus/) for details about the class.
+
+- Consult the [schedule](/schedule/) for weekly topics and readings.
+
+## Software
+
+We will do all of our visualization work in this class using [R](https://cran.r-project.org/) and use  [RStudio](https://www.posit.co/) to manage our code and projects. [R](https://cran.r-project.org/) is a freely-available programming language that is designed for statistical computing and widely used across the natural and social sciences, as well as in the rapidly-growing world of "data science" generally. [RStudio](https://www.posit.co/) is an integrated development environment, or IDE, for R, a kind of control center from which you can manage the engine-room of R itself. It is also freely available.
+
+If you haven't used these tools before, don't worry. The course does not presuppose any familiarity with them. We will get them installed and running during the first week.

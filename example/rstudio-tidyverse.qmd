@@ -1,0 +1,40 @@
+---
+title: "R, RStudio, and the tidyverse"
+---
+
+## Part 1: The basics of R and dplyr
+
+For this week's problem set, you need to work through a few of RStudio's introductory primers. You'll do these in your browser and type code and see results there.
+
+You'll learn some of the basics of R, as well as some powerful methods for manipulating data with the **dplyr** package.
+
+Complete these primers. It seems like there are a lot, but they're short and go fairly quickly (especially as you get the hang of the syntax). Also, **I have no way of seeing what you do or what you get wrong or right**, and that's totally fine! If you get stuck and want to skip some (or if it gets too easy), go right ahead and skip them!
+
+- **The Basics**
+	- [Visualization Basics](https://posit.cloud/learn/primers/1.1)
+	- [Programming Basics](https://posit.cloud/learn/primers/1.2)
+- **Work with Data**
+	- [Working with Tibbles](https://posit.cloud/learn/primers/2.1)
+	- [Isolating Data with dplyr](https://posit.cloud/learn/primers/2.2)
+	- [Deriving Information with dplyr](https://posit.cloud/learn/primers/2.3)
+
+
+## Part 2: Getting familiar with RStudio
+
+The RStudio primers you just worked through are a great introduction to writing and running R code, but you typically won't type code in a browser when you work with R. Instead, you'll use an *integrated development environment* like RStudio, which lets you type and save code in scripts or documents, run code, and see the results of what you have written..
+
+
+## Part 3: RStudio Projects
+
+[Read this super short chapter on RStudio projects to learn how to create and use them](https://r4ds.had.co.nz/workflow-projects.html#rstudio-projects)
+
+In general, you can create a new project by going to File > New Project > New Directory > Empty Project, which will create a new folder on your computer that is empty except for a single `.Rproj` file. Double click on that file to open an RStudio instance that is pointed at the correct folder.
+
+
+## Part 4: Getting familiar with R Markdown
+
+To ensure that the analysis and graphics you make are reproducible, you'll do the majority of your work in this class using **R Markdown** files. Watch this video:
+
+<div class="ratio ratio-16x9">
+<iframe src="https://player.vimeo.com/video/178485416?color=428bca" frameborder="0"  allow="autoplay; fullscreen" allowfullscreen></iframe>
+</div>

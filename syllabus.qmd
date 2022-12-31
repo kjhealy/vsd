@@ -1,0 +1,94 @@
+---
+title: "Syllabus"
+link-citations: false
+---
+
+
+```{r setup, message=FALSE, warning=FALSE, include=FALSE}
+library(dplyr)
+library(tibble)
+library(pander)
+```
+
+::: {.grid .course-details .course-details-smaller}
+
+::: {.g-col-6}
+### Instructor
+
+- {{< fa user >}} &nbsp; [{{< var instructor.name_no_title >}}]({{< var instructor.url >}})
+- {{< fa university >}} &nbsp; {{< var instructor.office >}}
+- {{< fa envelope >}} &nbsp; <a href="mailto:{{< var instructor.email >}}">{{< var instructor.email >}}</a>
+- {{< fa brands mastodon >}} &nbsp; [{{< var instructor.mastodon >}}](https://mastodon.social/{{< var instructor.mastodon >}})
+<!-- - {{< fa calendar-check >}} &nbsp; [Schedule an appointment]({{< var instructor.appointment_url >}}) -->
+:::
+
+::: {.g-col-6}
+### Course details
+
+- {{< fa calendar-alt >}} &nbsp; {{< var course.dates >}}
+- {{< fa calendar >}} &nbsp; {{< var course.days >}}
+- {{< fa clock >}} &nbsp; {{< var course.time >}}
+- {{< fa location-dot >}} &nbsp; {{< var course.location >}}
+<!-- - {{< fa brands slack >}} &nbsp; [Slack]({{< var course.slack >}}) -->
+:::
+
+:::
+
+## About this Course
+
+This will teach you how to use modern, widely-used tools to create insightful, beautiful, reproducible visualizations of social science data. You will also learn about the theory and practice of efforts to visualize social-scientific data, and society more generally. We will think about different ways of looking at data, about where social science data comes from in the first place, and about the implications of choosing to represent it in different ways.
+
+By the end of the course you will
+
+- Understand the basic principles behind effective data visualization.
+- Have a practical sense for why some graphs and figures work well,
+  while others may fail to inform or actively mislead.
+- Know how to create a wide range of plots in R using ggplot2.
+- Know a fair amount about how to use R for things other than data visualization.
+- Know how to refine plots for effective presentation.
+- Have an understanding of issues surrounding the collection and
+  representation of data in the social sciences and beyond.
+
+## Core Texts
+
+I recommend (but do not require you buy) three books. Draft versions of all of them are available for free online. 
+
+- [@healy:2019] The print version can be purchased at [Amazon](https://amzn.to/2vfAixM) and other bookshops.
+- [@wickhamgrolemund:2017] The print version can be purchased at [Amazon](https://www.amazon.com/R-Data-Science-Hadley-Wickham/dp/1491910399/) and other bookshops.
+- [@wilke:2019] The print version can be purchased at [Amazon](https://www.amazon.com/gp/product/1492031089) and other bookshops.
+
+## Software
+
+We will do all of our visualization work in this class using [R](https://cran.r-project.org/) and use  [RStudio](https://www.rstudio.com/) to manage our code and projects. [R](https://cran.r-project.org/) is a freely-available programming language that is designed for statistical computing and widely used across the natural and social sciences, as well as in the rapidly-growing world of "data science" generally. [RStudio](https://www.rstudio.com/) is an integrated development environment, or IDE, for R, a kind of control center from which you can manage the engine-room of R itself. It is also freely available. 
+
+If you haven't used these tools before, don't worry. The course does not presuppose any familiarity with them. We will get up and running with them during the first week. 
+
+## Schedule
+
+The [schedule](schedule.html) is likely to change as we go. Links to readings, lecture notes, assignments, and other materials from class will be posted via this website. 
+ 
+### Course policies
+
+- Attendance is required, and important. I am a reasonable person; if you need to be absent please _let me know in advance_ insofar as that is possible.
+- Do the assigned readings in advance of class. 
+- Submit problem sets, or other assignments, on time. 
+
+### Required Work and Grading
+
+Three kinds of work are required: problem sets and class participation, a midterm project, and a final project. 
+
+- Weekly **Class Participation** and **Problem Sets** will let you reflect on any reading and practice your coding and visualization skills. Problem sets are due on _Tuesdays_ by 6:00pm.
+- A **Midterm Project**  
+- A **Final Project**  
+
+There is no final exam.
+
+**Grade components**: Problem Sets and Class Participation: 50% / Midterm Project 20% / Final Project 30%.
+
+## How you should approach this course
+
+The material covered in the course has a lot of _continuity_ and it is _cumulative_. You will be learning a set of practical skills. This means that techniques we learn early on will be necessary for understanding things that come later. It also means that regular practice will help you a lot. So, this is not a "Topic of the week" course where you can tune out for a few weeks while expecting to be able to easily drop back in later. The material we cover each week will not be overwhelming, though. If you participate during class and keep up with the weekly assignments you'll be in a very strong position to do well in the class. 
+
+## Duke Community Standard
+
+Like all classes at the university, this course is conducted under the Duke Community Standard. Duke University is a community dedicated to scholarship, leadership, and service and to the principles of honesty, fairness, respect, and accountability. Citizens of this community commit to reflect upon and uphold these principles in all academic and nonacademic endeavors, and to protect and promote a culture of integrity. To uphold the Duke Community Standard you will not lie, cheat, or steal in academic endeavors; you will conduct yourself honorably in all your endeavors; and you will act if the Standard is compromised.

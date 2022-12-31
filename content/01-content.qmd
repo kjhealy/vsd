@@ -1,0 +1,35 @@
+---
+title: "1. Orientation"
+date: "2023-01-13"
+---
+
+```{r slides, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+
+slide_details <- tibble::tribble(
+  ~youtube_id,   ~title, ~slide, ~active,
+  "", "", "1", TRUE)
+
+```
+
+## Summary
+
+To get started, we need to install some tools. R is a free and open-source package for statistical analysis that is widely used in the social, health, physical, and computational sciences. R is powerful, flexible, and has excellent graphics capabilities. It also has a large and rapidly growing community of users. Although there are a variety of approaches to working with data in R, in recent years, the "[tidyverse](https://www.tidyverse.org)" has emerged as a cohesive and consistent approach to the everyday tasks of data wrangling and analysis. The [tidyverse](https://www.tidyverse.org) is a suite of tools for data management, manipulation, analysis, and visualization within the R software environment for statistical computing. This seminar provides an intensive, hands-on introduction to using tidyverse tools for doing your own work. 
+The course is not focused on particular statistical methods or modeling techniques. Rather, we will learn how to visualize data using R. But this will also involve doing everyday data-related tasks that statistical analysis depends on. These include topics such as getting your own data into R, exploring the structure of your data, recoding variables, reshaping tables, and so on. 
+
+## Readings
+
+- Read the [syllabus](/syllabus.qmd), [content](/content/index.qmd), [examples](/example/index.qmd), and [assignments](/assignment/index.qmd) pages for this class.
+
+## Slides
+
+The slides for today are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_buttons("/slides/01-slides")
+slide_tabs(slide_details, "/slides/01-slides.html")
+```
+
+:::{.callout-tip}
+**Tip**: If you type <kbd>?</kbd> (or <kbd>shift</kbd> + <kbd>/</kbd>) while going through the slides, you can see a list of special slide-specific commands.
+:::

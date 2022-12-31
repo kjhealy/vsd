@@ -1,0 +1,24 @@
+---
+title: "About"
+---
+
+Course materials and website for [Visualizing Social Data](https://visualizingsociety.com), which [I](https://kieranhealy.org/about) am teaching at Duke University in the Spring of 2023. 
+
+### Acknowledgements
+
+Many thanks to the frighteningly energetic and exceedingly helpful [Andrew Heiss](https://www.andrewheiss.com) for, as usual, being ahead of the adoption curve with these tools and making several of his own courses [publicly available](https://www.andrewheiss.com/teaching/). Much of the back-end code and the `targets` pipeline used here has been lightly-adapted from Andrew's work. 
+
+### Tools
+
+Previously I built this and similar sites using a combination of RMarkdown, [hugo](https://gohugo.io), a [Makefile](https://www.gnu.org/software/make/), and various pieces of string. This time around I'm experimenting with [Quarto](https://quarto.org) to produce the website (instead of `hugo`), alongside the  [`targets`](https://docs.ropensci.org/targets/) package to manage the build pipeline (instead of `make`), and the [`renv`](https://rstudio.github.io/renv/) package to control the build environment (instead of, uh, `nothing`). I suppose I should really be using Quarto to make all the slides as well. But I have a lot of pre-existing plain-text slides that I am not going to redo from scratch right now. So the slides are still made using [`xaringan`](https://github.com/yihui/xaringan), with assistance from [`xaringanExtra`](https://pkg.garrickadenbuie.com/xaringanExtra/#/) and my own convenience [`kjhslides`](https://kjhealy.github.io/kjhslides) package.
+
+The idea is that you can build the whole thing—site, slides, and all—in a controlled way with a recent version of [R](https://r-project.org) and [RStudio](https://posit.co). 
+
+0. The repository for the whole project is [on GitHub](https://github.com/kjhealy/vsd).
+1. Open `vsd.Rproj` to launch the [project](https://r4ds.had.co.nz/workflow-projects.html). in RStudio.
+2. RStudio should ask whether you want to install the [`renv` package](https://rstudio.github.io/renv/), or you can install it yourself by running `install.packages("renv")` in the R console.
+3. Run `renv::restore()` in the R console to install all the required packages for the project.
+4. Run `targets::tar_make()` in the R console to build everything.
+
+In practice there will probably be some hiccups, but in my experience `renv` really has greatly narrowed the yawning abyss of [dependency hell](https://en.wikipedia.org/wiki/Dependency_hell) that one much traverse to reproduce a complex project.
+

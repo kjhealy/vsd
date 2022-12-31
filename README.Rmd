@@ -1,0 +1,38 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+withr::with_dir(here::here(), {
+  targets::tar_load(workflow_graph)
+})
+```
+
+## SOCIOL 232 / Visualizing Social Data / Spring 2023
+
+## Kieran Healy, Duke University
+
+This repo contains Course materials and website for [Visualizing Social Data](https://visualizingsociety.com), which [I](https://kieranhealy.org/about) am teaching at Duke University in the Spring of 2023. 
+
+### Acknowledgements
+
+Many thanks to the frighteningly energetic and exceedingly helpful [Andrew Heiss](https://www.andrewheiss.com) for, as usual, being ahead of the adoption curve with these tools and making several of his own courses [publicly available](https://www.andrewheiss.com/teaching/). Much of the back-end code and the `targets` pipeline used here has been lightly-adapted from Andrew's work. 
+
+### Dependency graph
+
+Everything is a [DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph) now. The overall structure of the site is a bit messy in part because it does a bunch of work to produce the slides, convert them to PDF with `decktape`, zips up assignments and projects, and other things.
+
+```{r echo=FALSE, results="asis"}
+# Make sure there are newlines between the code block boundaries and the output
+# from `workflow`, which also needs to be separated by newlines
+cat("``` mermaid\n")
+cat(workflow_graph, sep = "\n")
+cat("\n```")
+```
+

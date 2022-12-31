@@ -1,0 +1,46 @@
+---
+title: "Problem set 01"
+date: "2023-01-13"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.align = "center")
+```
+
+## Task 1: Get up and running with R, RStudio, and the Tidyverse
+
+The first thing we need to do is install the tools we'll be using. We'll follow the steps in [Example 01](/example/01-example.html) in class. 
+
+## Task 2: Get introduced to R
+
+Complete these primers. 
+
+- **The Basics**
+	- [Visualization Basics](https://posit.cloud/learn/primers/1.1)
+	- [Programming Basics](https://posit.cloud/learn/primers/1.2)
+- **Work with Data**
+	- [Working with Tibbles](https://posit.cloud/learn/primers/2.1)
+	- [Isolating Data with dplyr](https://posit.cloud/learn/primers/2.2)
+	- [Deriving Information with dplyr](https://posit.cloud/learn/primers/2.3)
+
+
+## Task 3: Get familiar with RStudio
+
+The RStudio primers were set up to run in a browser in a semi-interactive way. But you typically won't type code in a browser when you work with R. Instead, you'll use RStudio. RStudio is an *integrated development environment*, or IDE. It is an application that acts as a kind of staging zone for the various related things you have to do when doing data analysis. It lets you type and save code in scripts or documents, run that code in R itself, see the results of what you have written, and manage various other tasks.
+
+## Task 4: RStudio Projects
+
+[Read this very short chapter on RStudio projects to learn how to create and use them.](https://r4ds.had.co.nz/workflow-projects.html#rstudio-projects)
+
+In general, you can create a new project by going to File > New Project > New Directory > Empty Project, which will create a new folder on your computer that is empty except for a single `.Rproj` file. Double click on that file to open an RStudio instance that is pointed at the correct folder.
+
+
+## Part 4: Getting familiar with R Markdown
+
+To ensure that the analysis and graphics you make are reproducible, you'll do the majority of your work in this class using **R Markdown** files. Watch this brief video, maybe more than once:
+
+<div class="ratio ratio-16x9">
+<iframe src="https://player.vimeo.com/video/178485416?color=428bca" frameborder="0"  allow="autoplay; fullscreen" allowfullscreen></iframe>
+</div>
+
+

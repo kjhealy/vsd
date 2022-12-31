@@ -7,7 +7,9 @@
 
 /_site/
 /_freeze/
+/_targets/
 
+data/schedul*.xlsx
 slides/*.pdf
 slides/*.html
 slides/**/*_cache/*
