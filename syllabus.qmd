@@ -65,7 +65,7 @@ If you haven't used these tools before, don't worry. The course does not presupp
 
 ## Schedule
 
-The [schedule](schedule.html) is likely to change as we go. Links to readings, lecture notes, assignments, and other materials from class will be posted via this website. 
+The [weekly schedule](schedule.html) is likely to change as we go. Links to readings, lecture notes, assignments, and other materials from class will be posted via this website. 
  
 ### Course policies
 

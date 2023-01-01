@@ -1,5 +1,5 @@
 ---
-title: "About"
+title: "About this website"
 ---
 
 Course materials and website for [Visualizing Social Data](https://visualizingsociety.com), which [I](https://kieranhealy.org/about) am teaching at Duke University in the Spring of 2023. 
