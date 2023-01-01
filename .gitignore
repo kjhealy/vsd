@@ -10,6 +10,11 @@
 /_targets/
 
 data/schedul*.xlsx
+about/*.pdf
+about/*.html
+assignment/*.html
+example/*.html
+
 slides/*.pdf
 slides/*.html
 slides/**/*_cache/*
