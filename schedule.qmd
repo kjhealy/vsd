@@ -71,7 +71,7 @@ show_table <- function(group_id) {
 ```
 
 ```{r show-table, echo=FALSE, results="asis"}
-walk(seq(1, nrow(schedule_nested)), ~show_table(.x))
+walk(seq(1, nrow(schedule_nested)), ~show_table(.x)) 
 ```
 
 :::
