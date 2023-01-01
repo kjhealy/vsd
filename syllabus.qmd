@@ -34,7 +34,7 @@ library(pander)
 
 :::
 
-## About this Course
+## About this course
 
 This will teach you how to use modern, widely-used tools to create insightful, beautiful, reproducible visualizations of social science data. You will also learn about the theory and practice of efforts to visualize social-scientific data, and society more generally. We will think about different ways of looking at data, about where social science data comes from in the first place, and about the implications of choosing to represent it in different ways.
 
@@ -49,7 +49,7 @@ By the end of the course you will
 - Have an understanding of issues surrounding the collection and
   representation of data in the social sciences and beyond.
 
-## Core Texts
+## Core texts
 
 I recommend (but do not require you buy) three books. Draft versions of all of them are available for free online. 
 
@@ -73,7 +73,7 @@ The [weekly schedule](schedule.html) is likely to change as we go. Links to read
 - Do the assigned readings in advance of class. 
 - Submit problem sets, or other assignments, on time. 
 
-### Required Work and Grading
+### Required work and grading
 
 Three kinds of work are required: problem sets and class participation, a midterm project, and a final project. 
 
@@ -89,6 +89,6 @@ There is no final exam.
 
 The material covered in the course has a lot of _continuity_ and it is _cumulative_. You will be learning a set of practical skills. This means that techniques we learn early on will be necessary for understanding things that come later. It also means that regular practice will help you a lot. So, this is not a "Topic of the week" course where you can tune out for a few weeks while expecting to be able to easily drop back in later. The material we cover each week will not be overwhelming, though. If you participate during class and keep up with the weekly assignments you'll be in a very strong position to do well in the class. 
 
-## Duke Community Standard
+## Duke community standard
 
 Like all classes at the university, this course is conducted under the Duke Community Standard. Duke University is a community dedicated to scholarship, leadership, and service and to the principles of honesty, fairness, respect, and accountability. Citizens of this community commit to reflect upon and uphold these principles in all academic and nonacademic endeavors, and to protect and promote a culture of integrity. To uphold the Duke Community Standard you will not lie, cheat, or steal in academic endeavors; you will conduct yourself honorably in all your endeavors; and you will act if the Standard is compromised.
