@@ -23,11 +23,11 @@ ical_url_absolute <- paste0(base_url, "/", schedule_ical_file)
 
 Here's a tentative outline for the semester. It's subject to change. There are up to three kinds of link each week. 
 
-- [**Content**](/content/) ({{< fa book-open-reader >}}): This page contains the readings and other material for each week. Read these **before** class.
+- [**Content**](/content/) ({{< fa book-open-reader >}}): These pages contain links to the readings and other material for each week. Read these **before** class. Lecture slide decks will also appear on these pages. 
 
-- [**Example**](/example/) ({{< fa laptop-code >}}): This page contains annotated R code and other supplementary information that you can use as a reference for your assignments and projects. 
+- [**Example**](/example/) ({{< fa laptop-code >}}): These pages contain annotated R code and other supplementary information that you can use as a reference for your assignments and projects. It is also where any impromptu stuff we do in class will end up.  
 
-- [**Assignment**](/assignment/) ({{< fa pen-ruler >}}): This page contains the instructions for each assignment. Assignments are due _Tuesdays_ by *6:00pm*. The midterm and final projects are due by *11:59 PM* on the day they're listed.
+- [**Assignment**](/assignment/) ({{< fa pen-ruler >}}): These pages contain the instructions for each problem set. The problem set problem set assiged in any given week is due the following _Tuesday_ by *6:00pm*. The midterm and final projects are due by *11:59 PM* on the day they're listed.
 
 ::: {.callout-tip}
 
