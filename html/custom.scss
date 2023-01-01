@@ -199,11 +199,11 @@ div.sidebar-item-container .active, div.sidebar-item-container .show > .nav-link
 }
 
 .course-details-smaller li {
-  font-size: 1rem;
+  font-size: $font-size-base * 0.85;
 }
 
 .course-details-smaller h3 {
-  font-size: 1.4rem;
+  font-size: $font-size-base * 0.9;
 }
 
 

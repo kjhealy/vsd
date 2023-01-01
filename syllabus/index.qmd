@@ -10,9 +10,12 @@ library(tibble)
 library(pander)
 ```
 
-::: {.grid .course-details .course-details-smaller}
+::: {.container .course-details .course-details-smaller}
 
-::: {.g-col-6}
+::: {.row}
+
+::: {.col-sm-6}
+
 ### Instructor
 
 - {{< fa user >}} &nbsp; [{{< var instructor.name_no_title >}}]({{< var instructor.url >}})
@@ -22,8 +25,9 @@ library(pander)
 <!-- - {{< fa calendar-check >}} &nbsp; [Schedule an appointment]({{< var instructor.appointment_url >}}) -->
 :::
 
-::: {.g-col-6}
-### Course details
+::: {.col-sm-6}
+
+### Dates and Location
 
 - {{< fa calendar-alt >}} &nbsp; {{< var course.dates >}}
 - {{< fa calendar >}} &nbsp; {{< var course.days >}}
@@ -33,6 +37,11 @@ library(pander)
 :::
 
 :::
+
+:::
+
+
+
 
 ## About this course
 
