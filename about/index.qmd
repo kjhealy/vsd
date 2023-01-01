@@ -15,7 +15,7 @@ Previously I built this and similar sites using a combination of RMarkdown, [hug
 The idea is that you can build the whole thing—site, slides, and all—in a controlled way with a recent version of [R](https://r-project.org) and [RStudio](https://posit.co). 
 
 0. The repository for the whole project is [on GitHub](https://github.com/kjhealy/vsd).
-1. Open `vsd.Rproj` to launch the [project](https://r4ds.had.co.nz/workflow-projects.html). in RStudio.
+1. Open `vsd.Rproj` to launch the project in RStudio. ([Learn more about RStudio projects.](https://r4ds.had.co.nz/workflow-projects.html))
 2. RStudio should ask whether you want to install the [`renv` package](https://rstudio.github.io/renv/), or you can install it yourself by running `install.packages("renv")` in the R console.
 3. Run `renv::restore()` in the R console to install all the required packages for the project.
 4. Run `targets::tar_make()` in the R console to build everything.
