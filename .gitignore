@@ -14,6 +14,8 @@ about/*.pdf
 about/*.html
 assignment/*.html
 example/*.html
+schedule/*.html
+syllabus/*.html
 
 slides/*.pdf
 slides/*.html

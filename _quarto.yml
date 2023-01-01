@@ -28,8 +28,10 @@ website:
   navbar:
     pinned: true
     right:
-      - syllabus.qmd
-      - schedule.qmd
+      - text: "Syllabus"
+        file: syllabus/index.qmd
+      - text: "Schedule"
+        file: schedule/index.qmd
       - text: "Content"
         file: content/index.qmd
       - text: "Examples"
