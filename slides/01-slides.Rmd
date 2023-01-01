@@ -2,7 +2,7 @@
 title: "01. Orientation"
 author: "Kieran Healy"
 date: "`r Sys.Date()`"
-output: kjhslides::kjh_slides_reader
+output: kjhslides::kjh_local_slides_reader
 editor_options: 
   chunk_output_type: console
 ---

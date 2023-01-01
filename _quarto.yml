@@ -8,7 +8,12 @@ project:
     - "projects/"
     - "slides/*.html"
     - "slides/*.pdf"
+    - "slides/css/"
+    - "slides/fonts/"
     - "slides/img/"
+    - "slides/js"
+    - "slides/libs/"
+    - "slides/R/"
     - "slides/*_files/"
   preview:
     port: 27514
