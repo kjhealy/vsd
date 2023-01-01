@@ -23,7 +23,7 @@ This repo contains Course materials and website for [Visualizing Social Data](ht
 ### Acknowledgements
 
 Many thanks to the frighteningly energetic and exceedingly helpful [Andrew Heiss](https://www.andrewheiss.com) for, as usual, being ahead of the adoption curve with these tools and making several of his own courses [publicly available](https://www.andrewheiss.com/teaching/). Much of the back-end code and the `targets` pipeline used here has been lightly-adapted from Andrew's work. 
-
+  
 ### Dependency graph
 
 Everything is a [DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph) now. The overall structure of the site is a bit messy in part because it does a bunch of work to produce the slides, convert them to PDF with `decktape`, zips up assignments and projects, and other things.

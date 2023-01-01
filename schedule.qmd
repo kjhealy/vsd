@@ -38,7 +38,7 @@ You can subscribe to this calendar URL in Outlook, Google Calendar, or Apple Cal
 ::: {.grid}
 
 ::: {.g-col-12 .g-col-md-2}
-<p class="download-btn"><a class="btn btn-danger btn-sm" href="/`r schedule_ical_file`" role="button">{{< fa calendar-alt >}} Download</a></p>
+<p class="download-btn"><a class="btn btn-slide btn-sm" href="/`r schedule_ical_file`" role="button">{{< fa calendar-alt >}} Download</a></p>
 :::
 
 ::: {.g-col-12 .g-col-md-10}

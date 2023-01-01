@@ -6,6 +6,6 @@ Each session has a set of required readings that you should complete *before* cl
 
 The lecture slides are special HTML files. On each class session page you'll see a button for opening the slides in a new browser tab, and a button for downloading a PDF of the slides. They look like this:
 
-<p class="buttons" style="text-align:center;"><span class="btn btn-danger">{{< fa arrow-up-right-from-square >}} View all slides in new window</span> <span class="btn btn-danger">{{< fa file-pdf >}} Download PDF of all slides</span></p>
+<p class="buttons" style="text-align:center;"><span class="btn btn-slide">{{< fa arrow-up-right-from-square >}} View all slides in new window</span> <span class="btn btn-slide">{{< fa file-pdf >}} Download PDF of all slides</span></p>
 
 The slides are also embedded on each page. You can click in the slides and navigate through them with <kbd>←</kbd> and <kbd>→</kbd>. If you type <kbd>?</kbd> while viewing the slides you can see a list of slide-specific commands (like <kbd>f</kbd> for fullscreen).
