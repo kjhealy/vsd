@@ -28,14 +28,14 @@ Complete these primers.
 
 The RStudio primers were set up to run in a browser in a semi-interactive way. But you typically won't type code in a browser when you work with R. Instead, you'll use RStudio. RStudio is an *integrated development environment*, or IDE. It is an application that acts as a kind of staging zone for the various related things you have to do when doing data analysis. It lets you type and save code in scripts or documents, run that code in R itself, see the results of what you have written, and manage various other tasks.
 
-## Task 4: RStudio Projects
+## Task 4: RStudio projects
 
 [Read this very short chapter on RStudio projects to learn how to create and use them.](https://r4ds.had.co.nz/workflow-projects.html#rstudio-projects)
 
 In general, you can create a new project by going to File > New Project > New Directory > Empty Project, which will create a new folder on your computer that is empty except for a single `.Rproj` file. Double click on that file to open an RStudio instance that is pointed at the correct folder.
 
 
-## Part 4: Getting familiar with R Markdown
+## Task 5: Getting familiar with RMarkdown
 
 To ensure that the analysis and graphics you make are reproducible, you'll do the majority of your work in this class using **R Markdown** files. Watch this brief video, maybe more than once:
 
