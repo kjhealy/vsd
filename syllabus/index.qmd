@@ -87,8 +87,8 @@ The [weekly schedule](/schedule/) can be viewed on its [own page](/schedule/). I
 Three kinds of work are required: problem sets and class participation, a midterm project, and a final project. 
 
 - Weekly **Class Participation** and **Problem Sets** will let you reflect on any reading and practice your coding and visualization skills. Problem sets are due on _Tuesdays_ by 6:00pm.
-- A **Midterm Project**  
-- A **Final Project**  
+- A **Midterm Project**. 
+- A **Final Project**.  
 
 There is no final exam.
 
