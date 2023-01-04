@@ -2,6 +2,7 @@ library(targets)
 library(tarchetypes)
 suppressPackageStartupMessages(library(tidyverse))
 
+## Variables and options
 class_number <- "SOCIOL 232"
 base_url <- "https://visualizingsociety.com/"
 page_suffix <- ".html"
@@ -14,6 +15,10 @@ tar_option_set(
   format = "rds",
   workspace_on_error = TRUE
 )
+
+# Deployment flag—one of two tests to deploy_site target.
+# See deploy_site below for the user condition
+Sys.setenv(DEPLOY_VSD = TRUE)
 
 # There's no way to get a relative path directly out of here::here(), but
 # fs::path_rel() works fine with it (see
@@ -122,7 +127,7 @@ list(
   tar_target(deploy_site, {
     # Force dependencies
     site
-    # Run the deploy script
-    if (Sys.info()["user"] == "kjhealy") processx::run(paste0("./", deploy_script), echo = TRUE)
+    # Run the deploy script if both conditions are met
+    if (Sys.info()["user"] == "kjhealy" & Sys.getenv("DEPLOY_VSD") == "TRUE") processx::run(paste0("./", deploy_script), echo = TRUE)
   })
 )
