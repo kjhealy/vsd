@@ -1,5 +1,5 @@
 ---
-title: "01. Orientation"
+title: "01 --- Orientation"
 author: "Kieran Healy"
 date: "`r Sys.Date()`"
 output: kjhslides::kjh_local_slides_reader

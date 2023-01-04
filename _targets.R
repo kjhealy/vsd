@@ -128,6 +128,8 @@ list(
     # Force dependencies
     site
     # Run the deploy script if both conditions are met
+    if (Sys.info()["user"] != "kjhealy" | Sys.getenv("DEPLOY_VSD") != "TRUE") message("Deployment vars not set. Will not deploy site.")
+    if (Sys.info()["user"] == "kjhealy" & Sys.getenv("DEPLOY_VSD") == "TRUE") message("Running deployment script ...")
     if (Sys.info()["user"] == "kjhealy" & Sys.getenv("DEPLOY_VSD") == "TRUE") processx::run(paste0("./", deploy_script), echo = TRUE)
   })
 )

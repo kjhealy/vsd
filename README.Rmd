@@ -26,7 +26,7 @@ Many thanks to the frighteningly energetic and exceedingly helpful [Andrew Heiss
   
 ### Dependency graph
 
-Everything is a [DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph) now. The overall structure of the site is a bit messy in part because it does a bunch of work to produce the slides, convert them to PDF with `decktape`, zips up assignments and projects, and other things.
+Everything is a [DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph) now. The overall structure of the site is a bit messy in part because it does a bunch of work to produce the slides, convert them to PDFs with `decktape`, zips up assignments and projects, and other things.
 
 ```{r echo=FALSE, results="asis"}
 # Make sure there are newlines between the code block boundaries and the output
