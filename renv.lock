@@ -925,10 +925,10 @@
       "RemoteUsername": "kjhealy",
       "RemoteRepo": "kjhslides",
       "RemoteRef": "HEAD",
-      "RemoteSha": "8b37d557cea15796a5dd8e9a8adb280107ca0897",
+      "RemoteSha": "c73eeb1a1e2c8b578c4d08dbfde2c5882a61e112",
       "RemoteHost": "api.github.com",
       "Remotes": "kjhealy/myriad, jumpingrivers/namer, gadenbuie/xaringanExtra",
-      "Hash": "e7e68475704dab76b8093648d284fc56",
+      "Hash": "333473255ff2a126ef80558403ebcd94",
       "Requirements": [
         "dplyr",
         "fs",

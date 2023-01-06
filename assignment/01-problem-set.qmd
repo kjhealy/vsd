@@ -5,6 +5,7 @@ date: "2023-01-13"
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(fig.align = "center")
+source(here::here("R", "slide-things.R"))
 ```
 
 ## Task 1: Get up and running with R, RStudio, and the Tidyverse
@@ -32,8 +33,15 @@ The RStudio primers were set up to run in a browser in a semi-interactive way. B
 
 [Read this very short chapter on RStudio projects to learn how to create and use them.](https://r4ds.had.co.nz/workflow-projects.html#rstudio-projects)
 
-In general, you can create a new project by going to File > New Project > New Directory > Empty Project, which will create a new folder on your computer that is empty except for a single `.Rproj` file. Double click on that file to open an RStudio instance that is pointed at the correct folder.
+When working independently, you create a new project by going to File > New Project > New Directory > Empty Project. This will create a new folder on your computer that is empty except for a single `.Rproj` file. Double click on that file to open an RStudio instance that is pointed at the correct folder.
 
+For today, and for most of our problem sets, we will start with a zipped (i.e. compressed) file containing a project that has been partly prepared in advance. 
+
+```{r project-download, echo=FALSE, results="asis"}
+project_buttons("/projects/01-problem-set")
+```
+
+Click the button above to download the project. Unzip it, and double-click the file named `01-problem-set.Rproj` to launch a new instance of RStudio. In RStudio, open the file named `analysis.Rmd` and knit it. Read the `Rmd` file and compare it to its output.
 
 ## Task 5: Getting familiar with RMarkdown
 

@@ -47,9 +47,14 @@ save_data <- list(
 
 
   ### Copy files to project folders ----
+  # Problem set 01
+  tar_target(copy_gapminder,
+             copy_file(data_gapminder,
+                       new_folder = here_rel("projects", "01-problem-set", "data"))),
+
   tar_target(copy_penguins,
              copy_file(data_penguins,
-                       new_folder = here_rel("projects", "problem-set-02", "data")))
+                       new_folder = here_rel("projects", "01-problem-set", "data")))
   )
 
 
