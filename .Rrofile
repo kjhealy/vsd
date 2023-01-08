@@ -1,0 +1,11 @@
+### renv() backends
+## For RStudio Package Manager (RSPM).
+if (Sys.info()[['sysname']] %in% c('Linux', 'Windows')) {
+	options(repos = c(RSPM = "https://packagemanager.rstudio.com/all/latest"))
+	} else {
+		## For Mac users, we'll default to installing from CRAN instead, since
+		## RSPM does not yet support Mac binaries.
+		options(repos = c(CRAN = "https://cran.rstudio.com/"))
+		options(renv.config.mran.enabled = FALSE) ## TRUE by default, but MRAN is going away
+	}
+options(renv.config.repos.override = getOption("repos"))
