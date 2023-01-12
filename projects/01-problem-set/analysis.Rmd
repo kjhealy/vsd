@@ -19,9 +19,29 @@ When you click the **Knit** button a document will be generated that includes bo
 1 + 1
 ```
 
+## Installing Support Packages
+
+We will only need to run this chunk _once_, so this code chunk has a flag or option not to run when the document is knitted.
+
+```{r packages, eval=FALSE}
+course_packages <- c("tidyverse", "babynames", "broom",
+    "drat", "gapminder", "here", "janitor", "naniar", 
+    "palmerpenguins", "skimr", "slider", "socviz",
+    "usethis", "visdat","reprex")
+
+install.packages(course_packages, repos = "http://cran.rstudio.com")
+
+data_packages <- c("covdata", "congress", "nycdogs", 
+                   "ukelection2019", "uscenpops")
+
+drat::addRepo("kjhealy")
+install.packages(data_packages)
+```
+
+
 ## The Tidyverse Packages
 
-In this next chunk we will load the Tidyverse suite of packages.
+In this next chunk we will load the Tidyverse suite of packages. This won't work unless you have manually run the chunk above, once.
 
 ```{r libraries, warning=FALSE}
 library(tidyverse)
@@ -43,11 +63,9 @@ gapminder
 
 ## A very first plot
 
-We embed plots in our document. For example:
+We'll write our code to make a plot here. 
 
-```{r pressure, echo=FALSE}
-gapminder |> 
-  ggplot(mapping = aes(x = gdpPercap, y = lifeExp)) + 
-  geom_point()
+```{r}
+
 ```
 
