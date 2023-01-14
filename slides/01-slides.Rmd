@@ -106,10 +106,28 @@ class: title title-1
 
 ---
 
+# The R Project Website
+
+&nbsp;
+
+.center.huge.squish4.kjh-lblue[[https://www.r-project.org](https://www.r-project.org)]
+
+---
+
+
 
 # Get up and Running: Install RStudio
 
 .center[![:scale 80%](img/01_rstudio_logo.png)]
+
+
+---
+
+# The RStudio / Posit Website
+
+&nbsp;
+
+.center.huge.squish4.kjh-lblue[[https://www.posit.co](https://www.posit.co)]
 
 ---
 
@@ -183,5 +201,9 @@ class: center middle main-title section-title-1
 
 ---
 
-# .huge.squish4.kjh-lblue[You should<br />.kjh-yellow[look at]<br />your data]
+# .huge.squish4.kjh-lblue[We should<br />.kjh-yellow[look at]<br />data]
 
+
+---
+
+# .huge.squish4.kjh-lblue[We can<br />.kjh-yellow[look at]<br />society]
