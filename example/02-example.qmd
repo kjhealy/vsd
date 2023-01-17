@@ -1,0 +1,172 @@
+---
+title: "Example 02: Writing R Code"
+---
+
+This week we are going to jump into writing R code. I encourage you to experiment and try things. As we go, we will develop a good working understanding of how R works. But the best way to make this happen is to just start doing things and talk about them as we go.
+
+When starting an R work session, we typically load the packages we will need. This is like taking a book off your shelf to refer to. We only need to do this once per session. 
+
+```{r load-packages, warning=FALSE, message=FALSE}
+library(tidyverse)
+```
+
+
+For now, don't worry about any messages or warnings you get. But read them and think about what they are trying to tell you.
+
+# R basics
+
+How do we write in R? How do we make it do things?
+
+To start, we can say: in R, everything has a _name_ and everything is an _object_. You do things to named objects with _functions_ (which are themselves objects!). And you create an object by _assigning_ a thing to a name. 
+
+_Assignment_ is the act of attaching a thing to a name. It is represented by `<-` or `=` and you can read it as "gets" or "is". 
+
+## Objects
+
+We're going to use the `c()` function (c for _concatenate_) to stick some numbers together into a vector. And we will assign that the name `my_numbers`. 
+
+```{r}
+## Inside code chunks, lines beginning with a # character are comments
+## Comments are ignored by R
+
+my_numbers <- c(1, 1, 2, 4, 1, 3, 1, 5) # Anything after a # character is ignored as well
+
+## Now we have an object by this name
+my_numbers 
+```
+
+Again, in that previous chunk we created an _object_ by _assigning_ something (the result of a function) to a _name_. Now that thing exists in our project environment. 
+
+
+```{r}
+my_numbers 
+```
+
+
+R has a few built-in objects.
+
+```{r}
+letters
+```
+
+```{r}
+LETTERS
+```
+
+```{r}
+pi
+```
+
+But mostly we will be creating objects.
+
+## R is a calculator
+
+You don't have to make objects. You can just treat R like a calculator that spits out answers at the console. 
+
+```{r}
+(31 * 12) / 2^4
+```
+
+```{r}
+sqrt(25)
+```
+
+
+
+```{r}
+log(100)
+```
+
+```{r}
+log10(100)
+```
+
+
+The commands that look like `this()` are called _functions_.
+
+But everything you do along these lines  can, if you want, be assigned to a name. Like `my_five <- sqrt(25)`. 
+
+## You can do logic
+
+```{r}
+
+4 < 10
+4 > 2 & 1 > 0.5 # The "&" means "and"
+4 < 2 | 1 > 0.5 # The "|" means "or"
+4 < 2 | 1 < 0.5
+```
+
+A logical test:
+
+```{r}
+2 == 2 # Write `=` twice
+```
+
+Not this:
+
+```{r 02-about-r-11, eval = FALSE, echo = TRUE}
+## This will cause an error, because R will think you are trying to assign a value
+2 = 2
+
+## Error in 2 = 2 : invalid (do_set) left-hand side to assignment
+```
+
+Testing for "not equal to" or "is not":
+
+```{r}
+3 != 7 # Write `!` and then `=` to make `!=`
+```
+
+## More about objects
+
+```{r}
+my_numbers # We created this a few minutes ago
+
+letters  # This one is built-in
+
+pi  # Also built-in
+
+```
+
+Creating objects: assign a thing (usually the result of a function) to a name. 
+
+```{r}
+## this object... gets ... the output of this function
+my_numbers <- c(1, 2, 3, 1, 3, 5, 25, 10)
+
+your_numbers <- c(5, 31, 71, 1, 3, 21, 6, 52)
+
+```
+
+## Data 
+
+A few datasets come built-in, for convenience. Here is one:
+
+```{r}
+mpg
+```
+
+
+## Graphs
+
+To draw a graph in ggplot requires two kinds of statements: one saying what the data is and what relationship we want to plot, and the second saying what kind of plot we want. 
+
+The first one is done by the `ggplot()` function. 
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy))
+```
+
+You can see that by itself it doesn't do anything. 
+
+But if we add a function saying what kind of plot, we get a result:
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point()
+```
+
+At this stage, a lot of this may seem obscure. What is a `mapping`? What is this `aes()` thing? Why do we "add" the two things together? Don't worry about it for now. We will go through this soon enough. 
+
+
+

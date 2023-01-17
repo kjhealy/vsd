@@ -58,6 +58,8 @@ website:
           contents:
             - text: "1: Orientation"
               file: content/01-content.qmd
+            - text: "2: Writing R"
+              file: content/02-content.qmd
 
     - title: "Assignments"
       contents:
@@ -67,6 +69,7 @@ website:
         - section: "Problem sets"
           contents:
             - assignment/01-problem-set.qmd
+            - assignment/02-problem-set.qmd
 
     - title: "Examples"
       contents:
@@ -75,9 +78,10 @@ website:
             - example/index.qmd
         - section: "Basics"
           contents:
-            - text: "01: R & RStudio"
+            - text: "01: Get set up"
               file: example/01-example.qmd
-
+            - text: "02: First steps in R"
+              file: example/02-example.qmd
 
   page-footer:
     left: |

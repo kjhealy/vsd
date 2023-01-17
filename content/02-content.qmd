@@ -1,0 +1,34 @@
+---
+title: "2. How R and RStudio Work"
+date: "2023-01-18"
+---
+
+```{r slides, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+
+slide_details <- tibble::tribble(
+  ~youtube_id,   ~title, ~slide, ~active,
+  "", "", "1", TRUE)
+
+```
+
+## Summary
+
+This week we will dive into using R. We'll get oriented to the RStudio IDE and start writing code right away. At this point, there will be a lot of stuff that may seem confusing, or details that are easy to miss. Don't worry. The most important thing is to _start doing things_ in R and to _not get discouraged_ if things don't work as expected. Remember, on the one hand computing errors (and error messages) are weird and perplexing and frustrating. But on the other hand, this is mostly because computers are fast but dumb, and can only do what they are told, not what you want. This also means that when something fails, there's _always a reason_, even if it's weird or hard to track down. 
+
+## Readings
+
+- Read the [examples](/example/index.qmd), and [assignments](/assignment/index.qmd) for this week
+
+## Slides
+
+The slide deck for this week is available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_buttons("/slides/02-slides")
+slide_tabs(slide_details, "/slides/02-slides.html")
+```
+
+:::{.callout-tip}
+**Tip**: If you type <kbd>?</kbd> (or <kbd>shift</kbd> + <kbd>/</kbd>) while going through the slides, you can see a list of special slide-specific commands.
+:::

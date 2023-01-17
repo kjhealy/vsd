@@ -27,19 +27,19 @@ save_data <- list(
   ## Generate or save data ----
   #
   ### Save any data files from packages ----
-  # mpg for problem set 1
+  # mpg
   tar_target(data_mpg,
              save_csv(ggplot2::mpg,
                       here_rel("files", "data", "package_data", "cars.csv")),
              format = "file"),
 
-  # palmerpenguins for problem set 2
+  # palmerpenguins for problem set 1, 2
   tar_target(data_penguins,
              save_csv(tidyr::drop_na(palmerpenguins::penguins, body_mass_g),
                       here_rel("files", "data", "package_data", "penguins.csv")),
              format = "file"),
 
-  # gapminder for class 2
+  # gapminder for class 1, 2
   tar_target(data_gapminder,
              save_csv(gapminder::gapminder,
                       here_rel("files", "data", "package_data", "gapminder.csv")),
@@ -48,13 +48,23 @@ save_data <- list(
 
   ### Copy files to project folders ----
   # Problem set 01
-  tar_target(copy_gapminder,
+  tar_target(copy_gapminder_1,
              copy_file(data_gapminder,
                        new_folder = here_rel("projects", "01-problem-set", "data"))),
 
-  tar_target(copy_penguins,
+  tar_target(copy_penguins_1,
              copy_file(data_penguins,
-                       new_folder = here_rel("projects", "01-problem-set", "data")))
-  )
+                       new_folder = here_rel("projects", "01-problem-set", "data"))),
+
+
+  # Problem set 01
+  tar_target(copy_gapminder_2,
+             copy_file(data_gapminder,
+                       new_folder = here_rel("projects", "02-problem-set", "data"))),
+
+  tar_target(copy_penguins_2,
+             copy_file(data_penguins,
+                       new_folder = here_rel("projects", "02-problem-set", "data")))
+)
 
 
