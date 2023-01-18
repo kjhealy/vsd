@@ -56,9 +56,9 @@ website:
             - content/index.qmd
         - section: "Course content"
           contents:
-            - text: "1: Orientation"
+            - text: "01: Orientation"
               file: content/01-content.qmd
-            - text: "2: Writing R"
+            - text: "02: Writing R"
               file: content/02-content.qmd
 
     - title: "Assignments"

@@ -57,14 +57,16 @@ show_table <- function(group_id) {
   
   # Make the table
   tbl <- schedule_nested$data[[group_id]] %>% 
-    select(-subgroup) %>% 
-    kbl(escape = FALSE, align = "rlccc", table.attr = 'class="schedule-table"') %>% 
-    kable_styling() %>% 
-    column_spec(1, width = "20%", extra_css = "padding-right: 20px;") %>% 
-    column_spec(2, width = "50%") %>% 
-    column_spec(3:5, width = "10%") %>% 
-    pack_rows(index = schedule_nested$subgroup_index[[group_id]],
-              label_row_css = "border-bottom: 2px solid #000000;")
+    rename(`   ` = subgroup) %>% 
+#    select(-subgroup) %>% 
+    kbl(escape = FALSE, align = "rrlccc", table.attr = 'class="schedule-table"') %>% 
+    kable_styling(bootstrap_options = c("striped", "hover")) %>% 
+    column_spec(1, width = "10%", extra_css = "padding-right: 20px;") %>% 
+    column_spec(2, width = "30%", extra_css = "padding-right: 20px;") %>% 
+    column_spec(3, width = "50%") %>% 
+    column_spec(4:6, width = "10%") 
+    # pack_rows(index = schedule_nested$subgroup_index[[group_id]],
+    #           label_row_css = "border-bottom: 2px solid #000000;")
   
   cat(tbl)
 }

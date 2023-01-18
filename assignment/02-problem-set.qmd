@@ -1,5 +1,5 @@
 ---
-title: "Problem set 2"
+title: "Problem set 02"
 date: "2023-01-24"
 ---
 
