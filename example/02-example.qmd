@@ -138,6 +138,35 @@ your_numbers <- c(5, 31, 71, 1, 3, 21, 6, 52)
 
 ```
 
+## You do things with functions
+
+Functions usually _take input_, _perform actions_, and then _return output_.  
+
+```{r}
+# Calculate the mean of my_numbers with the mean() function
+mean(x = my_numbers)
+```
+
+The instructions you can give a function are its _arguments_. Here, `x` is saying "this is the thing I want you to take the mean of". 
+
+If you provide arguments in the "right" order (the order the function expects), you don't have to name them.
+
+```{r}
+mean(my_numbers)
+```
+
+Look at the help for `mean()` with `?mean` to learn what `trim` is doing. 
+
+```{r}
+## The sample() function 
+x <- sample(x = 1:100, size = 100, replace = TRUE) # What does each piece do here?
+mean(x)
+
+mean(x, trim = 0.1) 
+```
+
+For functions with more than one or two arguments, explicitly naming arguments is good practice, especially when learning the language.
+
 ## Data 
 
 A few datasets come built-in, for convenience. Here is one:
