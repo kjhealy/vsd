@@ -154,7 +154,8 @@ To draw a graph in ggplot requires two kinds of statements: one saying what the 
 The first one is done by the `ggplot()` function. 
 
 ```{r}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy))
+ggplot(data = mpg, 
+       mapping = aes(x = displ, y = hwy))
 ```
 
 You can see that by itself it doesn't do anything. 
@@ -162,7 +163,8 @@ You can see that by itself it doesn't do anything.
 But if we add a function saying what kind of plot, we get a result:
 
 ```{r}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+ggplot(data = mpg, 
+       mapping = aes(x = displ, y = hwy)) +
   geom_point()
 ```
 
