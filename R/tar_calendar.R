@@ -17,7 +17,7 @@ format_days <- function(date, day2, date_end) {
       glue('{format(date, "%b %e")}</strong>'),
     !is.na(date_end) & !is.na(date) & is.na(day2) ~
       glue('Due <strong>{format(date_end, "%b %e")}</strong>'),
-    TRUE ~ ""
+    TRUE ~ glue('{format(date, "%b %e")} / {format(day2, "%b %e")}')
   )
 }
 
