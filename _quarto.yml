@@ -23,6 +23,7 @@ project:
 #   freeze: auto  # Re-render only when source changes
 
 bibliography: files/bib/references.bib
+link-citations: false
 csl: files/bib/chicago-syllabus-no-bib.csl
 description-meta: "Understand different ways of visualizing social science data, and how to make them with modern tools."
 
@@ -60,6 +61,8 @@ website:
               file: content/01-content.qmd
             - text: "02: Writing R"
               file: content/02-content.qmd
+            - text: "03: Ways of Seeing"
+              file: content/03-content.qmd
 
     - title: "Assignments"
       contents:
