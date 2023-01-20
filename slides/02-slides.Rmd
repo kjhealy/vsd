@@ -66,6 +66,7 @@ class: title title-1
 
 ---
 
+
 # Abstraction in software
 
 .pull-left[
@@ -290,6 +291,31 @@ class: center
 layout: true
 class: title title-1
 
+---
+
+# Basic markdown summary
+.smaller[
+| Desired style  | Use the following Markdown annotation | 
+| -------------- | ------------------------------------- | 
+| .large[**Heading 1**]    | `# Heading 1`                                    |
+| .medium[**Heading 2**]   | `## Heading 2`                                   |
+| .small[Heading 3]      | `### Heading 3` (Actual heading styles will vary.) |
+| Paragraph      | Just start typing                            |
+| **Bold**       | `**Bold**`                                   |
+| *Italic*       | `*Italic*`                                   |
+| Images         | `[Alternate text for image](path/image.jpg)` |
+| [Hyperlinks](https://www.visualizingsociety.com) | `[Link text](https://www.visualizingsociety.com/)` |
+| Unordered Lists      |   |
+| - First    | `- First` |
+| - Second.  |  `- Second` |
+| - Third    |`- Third`   |
+| Ordered Lists      |   |
+| 1. First    | `1. First` |
+| 2. Second.  |  `2. Second` |
+| 3. Third    |`3. Third`   |
+| Footnote.¹ |  `Footnote[^notelabel]`  |
+|  ¹The note's content. | `[^notelabel] The note's content.`  |
+]
 ---
 
 # The right frame of mind
