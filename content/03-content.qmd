@@ -1,0 +1,46 @@
+---
+title: "3. Ways of Seeing"
+date: "2023-01-25"
+---
+
+```{r slides, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+
+slide_details <- tibble::tribble(
+  ~youtube_id,   ~title, ~slide, ~active,
+  "", "", "1", TRUE)
+
+```
+
+## Summary
+
+This week we will take a step back from coding and begin to learn more about the principles behind the design of good visualizations. Many of these principles will lead to rules of thumb, guidelines, and techniques that we will end up applying in the code we write. But it is also important to situate these ideas a little more generally. So we start not just with information design or data in particular, but with some questions about the nature of visual representation in general. 
+
+
+## Readings
+
+These readings are available in the Resources section of the course's Sakai website. (Duke Login Required.)
+
+- @berger72:_ways_seein Chapter 1 and Chapter 7. 
+- @tufte83:_visual_displ_quant_infor Chapter 1.
+
+
+## Video
+
+In addition to reading Berger, I recommend watching the first of the episodes of the TV program that went with the book:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/0pDE4VX_9Kk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+## Slides
+
+The slide deck for this week is available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_buttons("/slides/03-slides")
+slide_tabs(slide_details, "/slides/03-slides.html")
+```
+
+:::{.callout-tip}
+**Tip**: If you type <kbd>?</kbd> (or <kbd>shift</kbd> + <kbd>/</kbd>) while going through the slides, you can see a list of special slide-specific commands.
+:::
