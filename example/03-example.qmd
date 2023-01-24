@@ -1,0 +1,57 @@
+---
+title: "Example 03: Some basic plots"
+---
+
+
+We make plots with the `ggplot()` function and some `geom_` function. The former sets up the plot by specifying the data we are using and the relationships we want to see. The latter draws a specific kind of plot based on that information. 
+
+As always we load the packages we need. Here in addition to the tidyverse we load the gapminder data as a package.
+
+```{r load-packages, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(gapminder)
+```
+
+
+```{r}
+gapminder
+```
+
+
+We saw that we can put plots in to objects, like this:
+
+```{r}
+p <- ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp)) +
+  geom_point()
+
+p
+```
+
+We can set them up in a pipeline, too:
+
+```{r}
+gapminder |> 
+  ggplot(mapping = aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point()
+```
+
+
+Experiment with some aesthetics, geoms, and transformations:
+
+```{r}
+gapminder |> 
+  ggplot(mapping = aes(x = log(gdpPercap), y = lifeExp)) + 
+  geom_point() + 
+  geom_smooth()
+```
+
+```{r}
+gapminder |> 
+  ggplot(mapping = aes(x = lifeExp)) + 
+  geom_histogram(binwith = 2)
+```
+
+
+
+

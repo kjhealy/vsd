@@ -1,5 +1,5 @@
 ---
-title: "03 --- Looking at Data"
+title: "03 --- Ways of Seeing (1)"
 author: "Kieran Healy"
 date: "`r Sys.Date()`"
 output: kjhslides::kjh_local_slides_reader
@@ -32,98 +32,15 @@ kjh_set_xaringan_opts()
 
 class: center middle main-title section-title-1
 
-# .kjh-yellow[Visualizing]<br /> .kjh-lblue[Social Data]
+# .kjh-yellow[Ways of]<br /> .kjh-lblue[Seeing (1)]
 
 .class-info[
 
-**Week 02**
+**Week 03**
 
 .light[Kieran Healy<br>
 Duke University, Spring 2023]
 
-]
-
----
-
-layout: true
-class: title title-1
-
----
-
-# R is our engine ...
-
-.center[![:scale 50%](img/01_rlogo.png)]
-
----
-
-
-
-# RStudio is our IDE
-
-.center[![:scale 80%](img/01_rstudio_logo.png)]
-
-
----
-
-layout: false
-class: main-title main-title-inv
-
-.center[![:scale 70%](img/01_up_and_running_01.png)]
-
----
-
-layout: false
-class: main-title main-title-inv
-
-
-.center[![:scale 70%](img/01_up_and_running_02.png)]
-
----
-
-layout: true
-class: title title-1
-
----
-
-# Try .kjh-yellow[knitting] your notes
-
-.center[![:scale 70%](img/01_up_and_running_03.png)]
-
-.w80.large[
-- **Don't worry if it's not clear what's happening at this point.**]
-
-
----
-
-# Now write the following code
-
-.pull-left.w40[
-
-Write this out inside the "code chunk" in your notes.
-
-```{r codefig-first-plot, message=FALSE, fig.show="hide", fig.width=4, fig.height=3.5}
-library(tidyverse)
-library(gapminder)
-
-p <- ggplot(data = gapminder, 
-            mapping = aes(x = gdpPercap, 
-                          y = lifeExp))  
-
-
-p + geom_point()
-```
-]
-
---
-
-... And knit your document again.
-
-.pull-right.w50[
-```{r 01-looking-at-data-1, echo=FALSE}
-knitr::include_graphics(
-  knitr::fig_chunk("codefig-first-plot", "png")
-)
-```
 ]
 
 ---
@@ -564,4 +481,5 @@ layout: false
 .center[![:scale 60%](img/01_dorian_hclrainbow_gray.png)]
 
 .right.w90.small[Achim Zeileis]
+
 

@@ -73,6 +73,7 @@ website:
           contents:
             - assignment/01-problem-set.qmd
             - assignment/02-problem-set.qmd
+            - assignment/03-problem-set.qmd
 
     - title: "Examples"
       contents:
@@ -85,6 +86,8 @@ website:
               file: example/01-example.qmd
             - text: "02: First steps in R"
               file: example/02-example.qmd
+            - text: "03: Basic Plots"
+              file: example/03-example.qmd
 
   page-footer:
     left: |
