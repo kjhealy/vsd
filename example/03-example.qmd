@@ -49,7 +49,16 @@ gapminder |>
 ```{r}
 gapminder |> 
   ggplot(mapping = aes(x = lifeExp)) + 
-  geom_histogram(binwith = 2)
+  geom_histogram()
+```
+
+
+Selecting a bin width: 
+
+```{r}
+gapminder |> 
+  ggplot(mapping = aes(x = lifeExp)) + 
+  geom_histogram(binwidth = 5)
 ```
 
 

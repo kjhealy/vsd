@@ -302,6 +302,36 @@ layout: false
 
 .right.w90.small[]
 
+
+---
+layout: false
+class: main-title main-title-inv
+
+## .middle.squish4.huge[CLARITY]
+
+--
+
+## .middle.squish4.huge.kjh-lblue[HONESTY]
+
+--
+
+## .middle.squish4.huge.kjh-pink[TRUTH]
+
+---
+
+layout: false
+class: main-title main-title-inv
+
+## .middle.squish4.huge[CONTEXT]
+
+--
+
+## .middle.squish4.huge.kjh-lblue[CONVENTION]
+
+--
+
+## .middle.squish4.huge.kjh-pink[MEANING]
+
 ---
 
 class: center middle main-title section-title-1
