@@ -1,0 +1,278 @@
+---
+title: "Example 04: How ggplot Thinks"
+---
+
+
+We make plots with the `ggplot()` function and some `geom_` function. The former sets up the plot by specifying the data we are using and the relationships we want to see. The latter draws a specific kind of plot based on that information. 
+
+As always we load the packages we need. Here in addition to the tidyverse we load the gapminder data as a package.
+
+```{r load-packages, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(gapminder)
+library(socviz)
+```
+
+
+# Faceting
+
+Are your data grouped?
+
+```{r}
+gapminder |> 
+  ggplot(mapping = aes(x = year,
+                       y = gdpPercap)) + 
+  geom_line()        
+```
+
+
+```{r}
+
+gapminder |> 
+  ggplot(mapping = aes(x = year,
+                       y = gdpPercap)) + 
+  geom_line(mapping = aes(group = country))        
+```
+
+Facet to make small multiples:
+
+```{r}
+gapminder |> 
+  ggplot(mapping = 
+           aes(x = year,
+           y = gdpPercap)) + 
+  geom_line(mapping = aes(group = country)) + 
+  facet_wrap(~ continent)
+```
+
+```{r, fig.width=15, fig.height=5}
+p <- ggplot(data = gapminder,
+            mapping = aes(x = year,
+                          y = gdpPercap))
+
+p_out <- p + geom_line(color="gray70", 
+              mapping=aes(group = country)) +
+    geom_smooth(linewidth = 1.1,
+                method = "loess",
+                se = FALSE) +
+    scale_y_log10(labels=scales::label_dollar()) +
+    facet_wrap(~ continent, ncol = 5) +#<<
+    labs(x = "Year",
+         y = "log GDP per capita",
+         title = "GDP per capita on Five Continents",
+         subtitle = "1950-2007",
+         caption = "Data: Gapminder")    
+
+p_out
+
+```
+
+
+# Distributions
+
+```{r}
+midwest
+
+
+p <- ggplot(data = midwest, 
+            mapping = aes(x = area))
+
+p + geom_histogram()
+
+
+```
+
+
+```{r}
+p <- ggplot(data = midwest, 
+            mapping = aes(x = area))
+
+p + geom_histogram(bins = 10)
+
+```
+
+
+```{r}
+## Two state codes
+oh_wi <- c("OH", "WI")
+
+midwest |> 
+  filter(state %in% oh_wi) |> 
+  ggplot(mapping = aes(x = percollege, 
+                       fill = state)) + 
+  geom_histogram(alpha = 0.5, 
+                 position = "identity")
+
+
+```
+
+
+```{r}
+p <- ggplot(data = midwest, 
+            mapping = aes(x = area))
+
+p + geom_density()
+
+```
+
+
+```{r}
+p <- ggplot(data = midwest,
+            mapping = aes(x = area, 
+                          fill = state, 
+                          color = state))
+p + geom_density(alpha = 0.3)
+
+```
+
+
+```{r}
+midwest |>
+  filter(state %in% oh_wi) |> 
+  ggplot(mapping = aes(x = area,
+                       fill = state, 
+                       color = state)) + 
+  geom_density(mapping = aes(y = after_stat(ndensity)), #<<
+               alpha = 0.4)
+
+
+```
+
+
+
+# Slightly more advanced example
+
+```{r 04-show-the-right-numbers-11, message = FALSE}
+## Generate some fake data
+
+## Keep track of labels for as_labeller() functions in plots later.
+grp_names <- c(`a` = "Group A",
+               `b` = "Group B",
+               `c` = "Group C",
+               `pop_a` = "Group A",
+               `pop_b` = "Group B",  
+               `pop_c` = "Group C",  
+               `pop_total` = "Total",                 
+               `A` = "Group A", 
+               `B` = "Group B", 
+               `C` = "Group C")
+
+
+# make it reproducible
+set.seed(1243098)
+
+# 3,000 "counties"
+N <- 3e3
+
+## "County" populations
+grp_ns <- c("size_a", "size_b", "size_c")
+a_range <- c(1e5:5e5)
+b_range <- c(3e5:7e5)
+c_range <- c(4e5:5e5)
+
+df_ns <- tibble(
+  a_n = sample(a_range, N),
+  b_n = sample(a_range, N),
+  c_n = sample(a_range, N),
+)
+
+
+# Means and standard deviations of groups
+mus <- c(0.2, 1, -0.1)
+sds <- c(1.1, 0.9, 1)
+grp <- c("pop_a", "pop_b", "pop_c")
+
+# Make the parameters into a list
+params <- list(mean = mus, 
+                sd = sds)
+
+# Feed the parameters to rnorm() to make three columns, 
+# switch to rowwise() to take the weighted average of 
+## the columns for each row.
+df_tmp <- pmap_dfc(params, rnorm, n = N) |>  
+  rename_with(~ grp) |> 
+  rowid_to_column("unit") |> 
+  bind_cols(df_ns) |> 
+  rowwise() |>  
+  mutate(pop_total = weighted.mean(c(pop_a, pop_b, pop_c), 
+                                   w = c(a_n, b_n, c_n))) |>  
+  ungroup() |> 
+  select(unit:pop_c, pop_total)
+
+df_tmp
+```
+
+
+
+```{r reveal-pivlongex}
+df_tmp |>   
+  pivot_longer(cols = pop_a:pop_total)
+
+```
+
+---
+
+# First effort: Hard to read
+
+```{r codefig-refdist1, message=FALSE, fig.width=4.8, fig.height=4.5}
+df_tmp |> 
+  pivot_longer(cols = pop_a:pop_total)  |> 
+  ggplot() + 
+  geom_histogram(mapping = aes(x = value, 
+                               y = after_stat(ncount), #<<
+                          color = name, fill = name), 
+            stat = "bin", bins = 20, 
+            linewidth = 0.5, alpha = 0.7,
+            position = "identity") + 
+  labs(x = "Measure", y = "Scaled Count", color = "Group", 
+       fill = "Group",
+       title = "Comparing Subgroups: Histograms")
+```
+
+- Again, `ncount` is computed. The periods on either side are just a naming convention to show that the measure is computed by the `stat_` function (and to make sure it doesn't clash with any actual names in your data.)
+
+
+## A little pivot trick
+
+
+```{r reveal-pivottrick2}
+# Just treat pop_a to pop_c as the single variable.
+# Notice that pop_total just gets repeated.
+ df_tmp |>
+  pivot_longer(cols = pop_a:pop_c)
+```
+
+
+## Now facet with that data
+
+```{r 04-show-the-right-numbers-14, fig.width=15, fig.height=5}
+df_tmp |>
+  pivot_longer(cols = pop_a:pop_c) |>
+  ggplot() + 
+  geom_histogram(mapping = aes(x = pop_total, #<<
+                               y = after_stat(ncount)), 
+                bins = 20, alpha = 0.7,
+                fill = "gray40", linewidth = 0.5) + 
+  geom_histogram(mapping = aes(x = value, #<<
+                               y = after_stat(ncount), 
+                          color = name, fill = name), 
+            stat = "bin", bins = 20, linewidth = 0.5,
+            alpha = 0.5) + 
+  guides(color = "none", fill = "none") + #<<
+  labs(x = "Measure", y = "Scaled Count", 
+       title = "Comparing Subgroups: Histograms", 
+       subtitle = "Reference distribution shown in gray") + 
+  facet_wrap(~ name, nrow = 1) 
+```
+
+- Remember, we can layer geoms one on top of the other. Here we call `geom_histogram()` twice. What happens if you comment one or other of them out?
+
+- The call to `guides()` turns off the legend for the color and fill, because we don't need them. 
+
+
+
+
+
+
+
+

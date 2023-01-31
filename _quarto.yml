@@ -63,6 +63,8 @@ website:
               file: content/02-content.qmd
             - text: "03: Ways of Seeing"
               file: content/03-content.qmd
+            - text: "04: How ggplot Thinks"
+              file: content/04-content.qmd
 
     - title: "Assignments"
       contents:
@@ -88,6 +90,8 @@ website:
               file: example/02-example.qmd
             - text: "03: Basic Plots"
               file: example/03-example.qmd
+            - text: "04: Core ggplot"
+              file: example/04-example.qmd
 
   page-footer:
     left: |

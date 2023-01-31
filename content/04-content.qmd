@@ -1,0 +1,36 @@
+---
+title: "4. How ggplot Thinks"
+date: "2023-01-25"
+---
+
+```{r slides, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+
+slide_details <- tibble::tribble(
+  ~youtube_id,   ~title, ~slide, ~active,
+  "", "", "1", TRUE)
+
+```
+
+## Summary
+
+We start getting into the business of writing R code to make the graphs we want, focusing on ideas about how graphs represent data. In particular we examine the idea of a _mapping_ between some column of data in our table and a visual element---position on the x-axis, position on the y-axis, the property of color, and so on---that faithfully represents that data. We'll also work on understanding ggplots "flow of action" and the idea of plotting layers on top of layers. Along the way we will learn more geoms and other functions.
+
+## Reading
+
+- @wickhamgrolemund:2017. [Chapter 2](https://r4ds.had.co.nz/explore-intro.html), [Chapter 3](https://r4ds.had.co.nz/data-visualisation.html), and [Chapter 4](https://r4ds.had.co.nz/workflow-basics.html).
+
+
+## Slides
+
+The slide deck for this week is available here. 
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_buttons("/slides/04-slides")
+slide_tabs(slide_details, "/slides/04-slides.html")
+```
+
+
+:::{.callout-tip}
+**Tip**: If you type <kbd>?</kbd> (or <kbd>shift</kbd> + <kbd>/</kbd>) while going through the slides, you can see a list of special slide-specific commands.
+:::
