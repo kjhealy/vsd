@@ -229,7 +229,7 @@ df_tmp |>
        title = "Comparing Subgroups: Histograms")
 ```
 
-- Again, `ncount` is computed. The periods on either side are just a naming convention to show that the measure is computed by the `stat_` function (and to make sure it doesn't clash with any actual names in your data.)
+- Again, `ncount` is computed.
 
 
 ## A little pivot trick

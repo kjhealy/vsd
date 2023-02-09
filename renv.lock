@@ -614,6 +614,19 @@
         "withr"
       ]
     },
+    "ggrepel": {
+      "Package": "ggrepel",
+      "Version": "0.9.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "610af35a68a1e8a40f05aad45871e719",
+      "Requirements": [
+        "Rcpp",
+        "ggplot2",
+        "rlang",
+        "scales"
+      ]
+    },
     "ggtext": {
       "Package": "ggtext",
       "Version": "0.1.2",
@@ -933,6 +946,26 @@
       "Repository": "CRAN",
       "Hash": "0080607b4a1a7b28979aecef976d8bc2",
       "Requirements": []
+    },
+    "janitor": {
+      "Package": "janitor",
+      "Version": "2.1.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "6de84a8c67fb247e721166049c84695f",
+      "Requirements": [
+        "dplyr",
+        "lifecycle",
+        "lubridate",
+        "magrittr",
+        "purrr",
+        "rlang",
+        "snakecase",
+        "stringi",
+        "stringr",
+        "tidyr",
+        "tidyselect"
+      ]
     },
     "jpeg": {
       "Package": "jpeg",
@@ -1578,6 +1611,17 @@
         "sysfonts"
       ]
     },
+    "snakecase": {
+      "Package": "snakecase",
+      "Version": "0.11.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "4079070fc210c7901c0832a3aeab894f",
+      "Requirements": [
+        "stringi",
+        "stringr"
+      ]
+    },
     "socviz": {
       "Package": "socviz",
       "Version": "1.2",
@@ -1817,6 +1861,19 @@
       "Requirements": [
         "cpp11"
       ]
+    },
+    "ukelection2019": {
+      "Package": "ukelection2019",
+      "Version": "0.0.1.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "ukelection2019",
+      "RemoteUsername": "kjhealy",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "177cdf403a7be8647d7f5e52ce2fe50ba15d32b9",
+      "Hash": "e0cbfc67f4d6efebf78d419a17f32fdf",
+      "Requirements": []
     },
     "usethis": {
       "Package": "usethis",

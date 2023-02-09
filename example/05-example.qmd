@@ -1,0 +1,261 @@
+---
+title: "Example 05: Working with `dplyr`"
+---
+
+
+## Setup
+
+```{r}
+
+library(here)      # manage file paths
+library(socviz)    # data and some useful functions
+library(tidyverse) # your friend and mine
+```
+
+## Core `dplyr` verbs
+
+```{r}
+
+gss_sm  
+
+```
+
+### Select columns
+
+```{r}
+gss_sm |> 
+  select(age, degree, bigregion, religion)
+
+```
+
+### Filter rows
+
+```{r}
+gss_sm |> 
+  filter(age > 45)
+```
+
+```{r}
+gss_sm |> 
+  filter(childs > 4 & race == "White")
+```
+
+## Logically Group with `group_by()`
+
+```{r}
+gss_sm |> 
+  group_by(bigregion)
+```
+
+### Summarize groups with `summarize()`
+
+```{r}
+gss_sm |> 
+  group_by(bigregion) |>  #<<
+  summarize(total = n()) 
+```
+
+
+### Multi-way groupings
+
+```{r}
+
+gss_sm |>  
+  group_by(bigregion, religion) |> 
+  summarize(total = n()) 
+```
+
+
+### Add columns with `mutate()`
+
+```{r}
+gss_sm |>  
+  group_by(bigregion, religion) |> 
+  summarize(total = n()) |> 
+  mutate(freq = total / sum(total),
+           pct = round((freq*100), 1))
+```
+
+
+## Tally and Count
+
+- Do it yourself:
+
+```{r}
+gss_sm |> 
+  group_by(bigregion, religion) |> #<<
+  summarize(n = n()) #<<
+```
+
+
+- Use `tally()`:
+
+```{r}
+
+gss_sm |> 
+  group_by(bigregion, religion) |> 
+  tally() #<<
+```
+
+- Use `count()`:
+
+```{r}
+gss_sm |> 
+  count(bigregion, religion) #<<
+```
+
+Pay attention to how grouping works in these summaries.
+
+## Check your work
+
+
+```{r}
+rel_by_region <- gss_sm |> 
+  count(bigregion, religion) |> 
+  mutate(pct = round((n/sum(n))*100, 1)) 
+
+rel_by_region
+```
+
+- Each region should sum to ~100
+
+```{r}
+rel_by_region |> 
+  group_by(bigregion) |> 
+  summarize(total = sum(pct)) 
+```
+
+- Grouping has caught us out. Try again.
+
+```{r}
+
+rel_by_region <- gss_sm |> 
+  count(bigregion, religion) |> #<< 
+  mutate(pct = round((n/sum(n))*100, 1)) 
+
+rel_by_region
+
+```
+
+
+
+## Graph your summarized table
+
+
+
+```{r}
+gss_sm |> 
+  group_by(bigregion, religion) |> 
+  tally() |> 
+  mutate(pct = round((n/sum(n))*100, 1)) |> 
+  drop_na() |> 
+  ggplot(mapping = aes(x = pct, 
+                       y = reorder(religion, -pct), fill = religion)) + #<<
+  geom_col() + #<<
+    labs(x = "Percent", y = NULL) +
+    guides(fill = "none") + 
+    facet_wrap(~ bigregion, nrow = 1)
+
+```
+
+
+```{r}
+
+rel_by_region <- gss_sm |> 
+  group_by(bigregion, religion) |> 
+  tally() |> 
+  mutate(pct = round((n/sum(n))*100, 1)) |> 
+  drop_na()
+
+
+head(rel_by_region)
+```
+
+
+```{r}
+
+p <- ggplot(data = rel_by_region, 
+                mapping = aes(x = bigregion, 
+                              y = pct, 
+                              fill = religion))
+p_out <- p + geom_col(position = "dodge") +
+    labs(x = "Region",
+         y = "Percent", 
+         fill = "Religion") 
+
+p_out
+```
+
+
+Experiment with facets:
+
+```{r}
+p <- ggplot(data = rel_by_region, 
+                mapping = aes(x = pct, #<<
+                              y = reorder(religion, -pct), #<<
+                              fill = religion))
+p_out_facet <- p + geom_col() +
+  guides(fill = "none") + 
+  facet_wrap(~ bigregion, nrow = 1) +
+  labs(x = "Percent",
+       y = NULL) 
+
+p_out_facet
+```
+
+
+
+## Multi-way facets
+
+```{r}
+p <-  ggplot(data = gss_sm,
+             mapping = aes(x = age, y = childs))
+
+p + geom_point(alpha = 0.2) + 
+  geom_smooth() +
+  facet_wrap(~ race)
+```
+
+
+
+```{r}
+p <-  ggplot(data = gss_sm,
+             mapping = aes(x = age, y = childs))
+
+p + geom_point(alpha = 0.2) + 
+  geom_smooth() +
+  facet_wrap(~ sex + race) #<< 
+
+```
+
+```{r}
+
+## ----05-work-with-dplyr-and-geoms-32, fig.width=15, fig.height=5.5------------
+p <-  ggplot(data = gss_sm,
+             mapping = aes(x = age, y = childs))
+
+p + geom_point(alpha = 0.2) + 
+  geom_smooth() +
+  facet_wrap(~ sex + race, nrow = 1) #<< 
+```
+
+
+### `facet_wrap()` vs `facet_grid()`
+
+```{r}
+p + geom_point(alpha = 0.2) + 
+  geom_smooth() +
+  facet_grid(sex ~ race) #<< 
+
+```
+
+
+```{r, fig.width=12, fig.height=8}
+p_out <- p + geom_point(alpha = 0.2) + 
+  geom_smooth() +
+  facet_grid(bigregion ~ race + sex) #<< 
+
+p_out
+```
+
+

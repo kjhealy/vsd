@@ -65,6 +65,8 @@ website:
               file: content/03-content.qmd
             - text: "04: How ggplot Thinks"
               file: content/04-content.qmd
+            - text: "05: Show the Right Numbers"
+              file: content/05-content.qmd
 
     - title: "Assignments"
       contents:
@@ -76,6 +78,7 @@ website:
             - assignment/01-problem-set.qmd
             - assignment/02-problem-set.qmd
             - assignment/03-problem-set.qmd
+            - assignment/midterm.qmd
 
     - title: "Examples"
       contents:
@@ -92,6 +95,8 @@ website:
               file: example/03-example.qmd
             - text: "04: Core ggplot"
               file: example/04-example.qmd
+            - text: "04: Core dplyr"
+              file: example/05-example.qmd
 
   page-footer:
     left: |

@@ -45,6 +45,11 @@ save_data <- list(
                       here_rel("files", "data", "package_data", "gapminder.csv")),
              format = "file"),
 
+  # UK Election data for Midterm
+  tar_target(data_ukelection,
+             save_csv(ukelection2019::ukvote2019,
+             here_rel("files", "data", "package_data", "ukvote2019.csv")),
+             format = "file"),
 
   ### Copy files to project folders ----
   # Problem set 01
@@ -57,14 +62,19 @@ save_data <- list(
                        new_folder = here_rel("projects", "01-problem-set", "data"))),
 
 
-  # Problem set 01
+  # Problem set 02
   tar_target(copy_gapminder_2,
              copy_file(data_gapminder,
                        new_folder = here_rel("projects", "02-problem-set", "data"))),
 
   tar_target(copy_penguins_2,
              copy_file(data_penguins,
-                       new_folder = here_rel("projects", "02-problem-set", "data")))
+                       new_folder = here_rel("projects", "02-problem-set", "data"))),
+
+  # Midterm
+  tar_target(copy_ukelection,
+             copy_file(data_ukelection,
+                      new_folder = here_rel("projects", "midterm", "data")))
 )
 
 
