@@ -283,7 +283,7 @@ tail(tmp)
 
 ## Graph your summarized tables
 
-```{r, fig.width=9, fig.height = 4}
+```{r, fig.width=12, fig.height = 4}
 gss_sm |> 
   group_by(bigregion, religion) |> 
   tally() |> 
@@ -329,7 +329,7 @@ p_out
 
 Experiment with facets:
 
-```{r, fig.width=9, fig.height=4}
+```{r, fig.width=12, fig.height=4}
 p <- ggplot(data = rel_by_region, 
                 mapping = aes(x = pct, #<<
                               y = reorder(religion, -pct), #<<
@@ -368,9 +368,7 @@ p + geom_point(alpha = 0.2) +
 
 ```
 
-```{r}
-
-## ----05-work-with-dplyr-and-geoms-32, fig.width=15, fig.height=5.5------------
+```{r, fig.width=12, fig.height=4}
 p <-  ggplot(data = gss_sm,
              mapping = aes(x = age, y = childs))
 
