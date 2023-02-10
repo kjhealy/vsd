@@ -1126,6 +1126,7 @@ by_country |>
 ```
 ]
 
+
 ---
 
 # Again, these methods are general
@@ -1163,7 +1164,7 @@ by_country |>
 kjhslides::kjh_set_slide_theme()
 ```
 
---
+---
 
 # .kjh-green[`across()`] and .kjh-green[`where()`] again
 

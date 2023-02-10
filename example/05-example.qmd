@@ -137,11 +137,111 @@ rel_by_region
 
 ```
 
+## Summarize (usually) returns one tibble row per group
+
+```{r}
+gss_sm |> 
+  group_by(bigregion) |> 
+  tally()
+```
+
+When you have 2 or n-way groups the calculation is done from the inside out, on the innermost group. 
+
+```{r}
+# 4 regions, 6 religion = 24 groups
+gss_sm |> 
+  group_by(bigregion, religion) |> 
+  tally()
+```
 
 
-## Graph your summarized table
+## Summarize many variables
+
+The inefficient way:
+
+```{r}
+organdata |>  
+  group_by(consent_law, country)  |> 
+    summarize(donors_mean= mean(donors, na.rm = TRUE),
+              donors_sd = sd(donors, na.rm = TRUE),
+              gdp_mean = mean(gdp, na.rm = TRUE),
+              gdp_sd = sd(gdp, na.rm = TRUE),
+              health_mean = mean(health, na.rm = TRUE),
+              roads_mean = mean(roads, na.rm = TRUE),
+              cerebvas_mean = mean(cerebvas, na.rm = TRUE))
+```
+
+## Use `across()` and `where()` instead
+
+Better:
+
+```{r}
+organdata |> 
+    group_by(consent_law, country) |>
+      summarize(across(where(is.numeric),
+                       list(mean = ~ mean(.x, na.rm = TRUE), 
+                            sd = ~ sd(.x, na.rm = TRUE))))
+```
+
+Think of `.x` as a _pronoun_. It means "the thing" or "the thing we're doing something to right now".  
+
+Optionally drop any remaning groups:
+
+```{r}
+organdata |> 
+    group_by(consent_law, country) |>
+      summarize(across(where(is.numeric),
+                       list(mean = ~ mean(.x, na.rm = TRUE), 
+                            sd = ~ sd(.x, na.rm = TRUE))),
+                .groups = "drop")
+```
+
+Tidyverse functions use this dot prefix in names like `.x` and `.groups` for internal function arguments that should not be confused with trying to directly name or talk about columns in the data. 
+
+## This all applies to `mutate()` as well
+
+Summary values you calculate with `summarize()` can be done with `mutate()`, too. Instead of summarizing by group, a column will be added with the value repeated for all group members. This can be useful when you want e.g. to make a denominator for some calculation later.
+
+```{r}
+## Country-year data, 238 rows, 17 countries
+organdata |>
+  select(country, donors)
+```
+
+```{r}
+## Summarize gets you one row per country
+organdata |>
+  select(country, donors) |> 
+  group_by(country) |> 
+  summarize(donors_mean = mean(donors, na.rm = TRUE))
+
+```
 
 
+```{r}
+## Mutate adds each country's donor mean 
+## to the 238 observations
+tmp <- organdata |>
+  select(country, donors) |> 
+  group_by(country) |> 
+  mutate(donors_mean = mean(donors, na.rm = TRUE))
+
+# First few rows
+head(tmp)
+
+# Last few rows
+tail(tmp)
+```
+
+
+```{r}
+gss_sm |> 
+  select(religion, polviews)
+```
+
+
+
+## Graph your summarized tables
 
 ```{r}
 gss_sm |> 
