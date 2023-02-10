@@ -1190,7 +1190,7 @@ gss_sm |>
 
 # .kjh-green[`across()`] and .kjh-green[`where()`] again
 
-```{r, fig.width=10, fig.height=4}
+```{r, fig.width=12, fig.height=4}
 gss_sm |> 
   select(padeg, madeg, contains(c("age", "childs", "sibs"))) |> 
   group_by(padeg, madeg) |>
