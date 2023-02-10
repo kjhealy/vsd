@@ -1190,7 +1190,7 @@ gss_sm |>
 
 # .kjh-green[`across()`] and .kjh-green[`where()`] again
 
-```{r, fig.width=12, fig.height=4}
+```{r, fig.width=12, fig.height=3}
 gss_sm |> 
   select(padeg, madeg, contains(c("age", "childs", "sibs"))) |> 
   group_by(padeg, madeg) |>
@@ -1206,5 +1206,126 @@ gss_sm |>
                        y = madeg)) + 
   geom_pointrange() + 
   facet_wrap(~ padeg, ncol = 5)
+```
+
+
+---
+
+# The .kjh-lblue[`nycdogs`] package
+
+.pull-left.w60[
+```{r 07-make-maps-51 }
+library(nycdogs)
+nyc_license
+```
+]
+
+.pull-right.w40[
+.center[![:scale 80%](img/07_nycdogs_hex.png)]
+]
+
+---
+
+# Dogs of New York
+
+```{r}
+nyc_license
+```
+
+---
+
+# .kjh-green[`arrange()`] and .kjh-green[`slice()`]
+
+```{r}
+nyc_license |> 
+  group_by(borough) |> 
+  tally()
+```
+
+---
+
+# .kjh-green[`arrange()`] and .kjh-green[`slice()`]
+
+```{r}
+nyc_license |> 
+  group_by(borough) |> 
+  tally() |> 
+  arrange(n)
+```
+
+---
+
+# .kjh-green[`arrange()`] and .kjh-green[`slice()`]
+
+
+```{r}
+nyc_license |> 
+  group_by(borough) |> 
+  tally() |> 
+  arrange(desc(n))
+```
+
+---
+
+# .kjh-green[`arrange()`] and .kjh-green[`slice()`]
+
+```{r}
+nyc_license |> 
+  group_by(breed_rc) |> 
+  tally()
+```
+
+---
+
+# .kjh-green[`arrange()`] and .kjh-green[`slice()`]
+
+```{r}
+nyc_license |> 
+  group_by(breed_rc) |> 
+  tally() |> 
+  arrange(desc(n))
+
+```
+
+
+---
+
+# .kjh-green[`arrange()`] and .kjh-green[`slice()`]
+
+```{r}
+nyc_license |> 
+  group_by(breed_rc) |> 
+  tally() |> 
+  slice_max(order_by = n, 
+            n = 5)
+
+```
+
+---
+
+# .kjh-green[`arrange()`] and .kjh-green[`slice()`]
+
+```{r}
+nyc_license |> 
+  group_by(borough, breed_rc) |> 
+  drop_na() |> 
+  tally() |> 
+  slice_max(order_by = n, 
+            n = 5)
+
+```
+
+---
+
+# .kjh-green[`arrange()`] and .kjh-green[`slice()`]
+
+```{r}
+nyc_license |> 
+  group_by(borough, breed_rc) |> 
+  drop_na() |> 
+  tally() |> 
+  slice_max(order_by = n, 
+            prop = 0.05)
+
 ```
 
