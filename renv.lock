@@ -1242,6 +1242,19 @@
         "lattice"
       ]
     },
+    "nycdogs": {
+      "Package": "nycdogs",
+      "Version": "0.1.2",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "nycdogs",
+      "RemoteUsername": "kjhealy",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "cf2f43641b354a51b1b0f34d27944ed3236ea068",
+      "Hash": "bff2fef633492ffbc30806c0053170d9",
+      "Requirements": []
+    },
     "openssl": {
       "Package": "openssl",
       "Version": "2.0.2",
