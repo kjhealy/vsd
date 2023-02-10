@@ -196,14 +196,61 @@ organdata |>
                 .groups = "drop")
 ```
 
-Tidyverse functions use this dot prefix in names like `.x` and `.groups` for internal function arguments that should not be confused with trying to directly name or talk about columns in the data. 
+- Tidyverse functions use this dot prefix in names like `.x` and `.groups` for internal function arguments that should not be confused with trying to directly name or talk about columns in the data. 
 
-## This all applies to `mutate()` as well
+- The `across()` function is used _inside_ `summarize()` and `mutate()` to do something across some subset of columns. 
 
-Summary values you calculate with `summarize()` can be done with `mutate()`, too. Instead of summarizing by group, a column will be added with the value repeated for all group members. This can be useful when you want e.g. to make a denominator for some calculation later.
+- Inside `across()`, use `where()` to choose columns, and then apply a function to each of them. 
 
 ```{r}
-## Country-year data, 238 rows, 17 countries
+organdata |>
+  mutate(across(where(is.numeric), 
+         round))
+```
+
+You can also use various "tidy selectors", like this:
+
+```{r}
+organdata |>
+  mutate(across(starts_with("pop"), 
+         round))
+```
+
+
+The function can be a named one, or you can write something yourself:
+
+```{r}
+organdata |>
+  mutate(across(starts_with("pop"), 
+         ~ .x / 100))
+```
+
+You can use `where()` with `select()` as well, when you are just subsetting by column but not yet doing anything across the columns:
+
+```{r}
+organdata |>
+  select(where(is.character))
+```
+
+```{r}
+organdata |>
+  select(starts_with("gdp"))
+```
+
+```{r}
+organdata |>
+  select(contains("health"))
+```
+
+
+
+## This applies to `mutate()` as well
+
+If you use a function like `mean()` or `sd()` or `n()` with `mutate()` instead of `summarize()` it will work too. The difference is that a column will be added with the value repeated for all group members. This can be useful when you want e.g. to make a denominator for some calculation later. Remember, `mutate()` adds or changes columns but never changes the number of rows in the table, whereas `summarize()` will usually output a table with fewer rows than the one you give it.
+
+```{r}
+## Country-year data, 238 rows altogether,
+## with yearly data for 17 countries.
 organdata |>
   select(country, donors)
 ```
@@ -226,24 +273,17 @@ tmp <- organdata |>
   group_by(country) |> 
   mutate(donors_mean = mean(donors, na.rm = TRUE))
 
-# First few rows
+# First few rows of 238
 head(tmp)
 
-# Last few rows
+# Last few rows of 238
 tail(tmp)
 ```
 
 
-```{r}
-gss_sm |> 
-  select(religion, polviews)
-```
-
-
-
 ## Graph your summarized tables
 
-```{r}
+```{r, fig.width=9, fig.height = 4}
 gss_sm |> 
   group_by(bigregion, religion) |> 
   tally() |> 
@@ -289,7 +329,7 @@ p_out
 
 Experiment with facets:
 
-```{r}
+```{r, fig.width=9, fig.height=4}
 p <- ggplot(data = rel_by_region, 
                 mapping = aes(x = pct, #<<
                               y = reorder(religion, -pct), #<<
