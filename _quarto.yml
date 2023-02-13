@@ -109,7 +109,7 @@ website:
 format:
   html:
     theme: html/custom.scss
-    highlight-style: monokai
+    highlight-style: html/dracula-kjh.theme
     toc: true
     css: html/tenso-berkeley.css
 
