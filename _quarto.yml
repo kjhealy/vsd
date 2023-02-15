@@ -67,6 +67,8 @@ website:
               file: content/04-content.qmd
             - text: "05: Show the Right Numbers"
               file: content/05-content.qmd
+            - text: "06: Expand your Vocabulary"
+              file: content/06-content.qmd
 
     - title: "Assignments"
       contents:
@@ -97,6 +99,8 @@ website:
               file: example/04-example.qmd
             - text: "05: Core dplyr"
               file: example/05-example.qmd
+            - text: "06: More Vocabulary"
+              file: example/06-example.qmd
 
   page-footer:
     left: |

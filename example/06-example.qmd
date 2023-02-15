@@ -1,0 +1,258 @@
+---
+title: "Example 06: Expanding your Vocabulary"
+---
+
+
+## Setup
+
+```{r}
+
+library(here)      # manage file paths
+library(socviz)    # data and some useful functions
+library(tidyverse) # your friend and mine
+
+## New packages we'll use
+library(ggrepel) #<<
+library(scales) #<<
+
+```
+
+
+## Text in Plots
+
+```{r}
+elections_historic
+
+## Set up long strings as objects, for neatness.
+p_title <- "Presidential Elections: Popular & Electoral College Margins"
+p_subtitle <- "1824-2016"
+p_caption <- "Data for 2016 are provisional."
+x_label <- "Winner's share of Popular Vote"
+y_label <- "Winner's share of Electoral College Votes"
+
+```
+
+```{r, fig.width=5, fig.height=4.5}
+
+p <- ggplot(data = elections_historic, 
+            mapping = aes(x = popular_pct, 
+                          y = ec_pct,
+                          label = winner_label))
+
+p + geom_hline(yintercept = 0.5, 
+               size = 1.4, 
+               color = "gray80") +
+    geom_vline(xintercept = 0.5, 
+               size = 1.4, 
+               color = "gray80") +
+    geom_point()
+
+```
+
+
+
+```{r fig.width=5, fig.height=4.5}
+
+p <- ggplot(data = elections_historic, 
+            mapping = aes(x = popular_pct, 
+                          y = ec_pct,
+                          label = winner_label))
+
+p + geom_hline(yintercept = 0.5, 
+               linewidth = 1.4, color = "gray80") +
+  geom_vline(xintercept = 0.5, 
+             linewidth = 1.4, color = "gray80") +
+  geom_point() + 
+  geom_text_repel()
+```
+
+Resize it with `fig.width` and `fig.height` in the chunk options:
+
+```{r fig.width=15, fig.height=10}
+p <- ggplot(data = elections_historic, 
+            mapping  = aes(x = popular_pct, 
+                           y = ec_pct,
+                           label = winner_label))
+p_out <- p + geom_hline(yintercept = 0.5, 
+                        size = 1.4, 
+                        color = "gray80") +
+  geom_vline(xintercept = 0.5, 
+             linewidth = 1.4, 
+             color = "gray80") +
+  geom_point() +
+  geom_text_repel() +#<<
+  scale_x_continuous(labels = label_percent()) +
+  scale_y_continuous(labels = label_percent()) +
+  labs(x = x_label, y = y_label,  #<<
+       title = p_title, 
+       subtitle = p_subtitle,
+       caption = p_caption)   
+
+p_out
+```  
+  
+
+## Subsetting for text
+
+```{r}
+by_country <- organdata |> 
+    group_by(consent_law, country) |>
+      summarize(across(where(is.numeric),
+                       list(mean = ~ mean(.x, na.rm = TRUE), 
+                            sd = ~ sd(.x, na.rm = TRUE))))
+
+by_country
+```
+
+### Using `subset()`
+
+```{r}
+by_country |> 
+  ggplot(mapping = aes(x = gdp_mean,
+                       y = health_mean)) +
+  geom_point() + 
+  geom_text_repel(data = subset(by_country, gdp_mean > 25000), 
+                  mapping = aes(label = country))
+
+```
+
+```{r}
+by_country |> 
+  ggplot(mapping = aes(x = gdp_mean,
+                       y = health_mean)) +
+  geom_point() + 
+  geom_text_repel(data = subset(by_country, 
+                                gdp_mean > 25000 |
+                                  health_mean < 1500 |
+                                  country %in% "Belgium"), 
+                  mapping = aes(label = country))
+
+```
+
+## Pre-filtering
+
+```{r}
+df_hl <- by_country |> 
+  filter(gdp_mean > 25000 | 
+           health_mean < 1500 | 
+           country %in% "Belgium")
+
+df_hl
+
+```
+
+```{r, fig.width=4.8, fig.height=4.5}
+
+by_country |> 
+  ggplot(mapping = aes(x = gdp_mean,
+                       y = health_mean)) +
+  geom_point() + 
+  geom_text_repel(data = df_hl, 
+                  mapping = aes(label = country))
+
+```
+
+## Using `annotate()`
+
+```{r, fig.width=4.8, fig.height=4.5}
+organdata |> 
+  ggplot(mapping = aes(x = roads, 
+                       y = donors)) + 
+  geom_point() + 
+  annotate(geom = "text", 
+           x = 157, 
+           y = 33,
+           label = "A surprisingly high \n recovery rate.",
+           hjust = 0)
+```
+
+You can layer annotations too:
+
+```{r, fig.width=4.8, fig.height=4.5}
+
+organdata |> 
+  ggplot(mapping = aes(x = roads, 
+                       y = donors)) + 
+  geom_point() +
+  annotate(geom = "rect", 
+           xmin = 125, xmax = 155,
+           ymin = 30, ymax = 35,
+           fill = "red", 
+           alpha = 0.2) + 
+  annotate(geom = "text", 
+           x = 157, y = 33,
+           label = "A surprisingly high \n recovery rate.", 
+           hjust = 0)
+
+```
+
+## Scale customization
+
+```{r, fig.width=4.8, fig.height=4.5}
+organdata |> 
+  ggplot(mapping = aes(x = roads,
+                       y = donors,
+                       color = world)) + 
+  geom_point() +
+  scale_y_continuous(breaks = c(5, 15, 25),
+                     labels = c("Five", 
+                                "Fifteen", 
+                                "Twenty Five"))
+
+```
+
+
+```{r, fig.width=4.8, fig.height=4.5}
+organdata |> 
+  ggplot(mapping = aes(x = roads,
+                       y = donors,
+                       color = world)) + 
+  geom_point() +
+  scale_color_discrete(labels =
+                         c("Corporatist", 
+                           "Liberal",
+                           "Social Democratic", 
+                           "Unclassified")) +
+  labs(x = "Road Deaths",
+       y = "Donor Procurement",
+       color = "Welfare State")
+```
+
+
+```{r, fig.width=4.8, fig.height=5.5}
+
+organdata |> 
+  ggplot(mapping = aes(x = roads,
+                       y = donors,
+                       color = consent_law)) + 
+  geom_point() +
+  facet_wrap(~ consent_law, ncol = 1) +
+  guides(color = "none") + 
+  labs(x = "Road Deaths",
+       y = "Donor Procurement")
+```
+
+
+```{r, echo = FALSE}
+kjhslides::kjh_set_classic_theme(4)
+```
+
+
+```{r, fig.width=5, fig.height=4.5}
+## Using the "classic" ggplot theme here
+organdata |> 
+  ggplot(mapping = aes(x = roads,
+                       y = donors,
+                       color = consent_law)) + 
+  geom_point() +
+  labs(title = "By Consent Law",
+    x = "Road Deaths",
+    y = "Donor Procurement", 
+    color = "Legal Regime:") + 
+  theme(legend.position = "bottom", 
+        plot.title = element_text(color = "darkred",
+                                  face = "bold"))
+
+
+```
+
