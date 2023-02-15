@@ -1295,7 +1295,7 @@ organdata |>
 ```
 
 .pull-left.w95[
-.kjh-green[`theme()`] styles parts of your plot that are _not_ directly representing your data. Often the first thing people want to adjust; but logically it's the _last_ thing. Again, more detail soon!
+.kjh-green[`theme()`] styles parts of your plot that are _not_ directly representing your data. Often the first thing people want to adjust; but logically it's the _last_ thing. 
 ]
 
 ]
@@ -1313,4 +1313,34 @@ organdata |>
 kjhslides::kjh_set_slide_theme()
 ```
 
+
+---
+
+# Sidenote: Smoothers
+
+.center[![:scale 90%](img/06_econ_scatter_only.png)]
+
+---
+
+# Sidenote: Smoothers
+
+.center[![:scale 90%](img/06_econ_scatter_lm.png)]
+
+---
+
+# Sidenote: Smoothers
+
+.center[![:scale 90%](img/06_econ_scatter_loess.png)]
+
+---
+
+# Sidenote: Smoothers
+
+.center[![:scale 75%](img/06_diff_spans_single.mp4)]
+
+---
+
+# Sidenote: Smoothers
+
+.center[![:scale 60%](img/06_diff_spans_df.mp4)]
 
