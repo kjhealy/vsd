@@ -55,7 +55,7 @@ website:
         - section: "Overview"
           contents:
             - content/index.qmd
-        - section: "Course content"
+        - section: "Basics"
           contents:
             - text: "01: Orientation"
               file: content/01-content.qmd
@@ -69,6 +69,8 @@ website:
               file: content/05-content.qmd
             - text: "06: Expand your Vocabulary"
               file: content/06-content.qmd
+        - section: "Applications"
+          contents:
             - text: "07: Social Data and the State"
               file: content/07-content.qmd
 
@@ -104,6 +106,8 @@ website:
               file: example/05-example.qmd
             - text: "06: More Vocabulary"
               file: example/06-example.qmd
+        - section: "Applications"
+          contents:
             - text: "07: Social Data and the State"
               file: example/07-example.qmd
 

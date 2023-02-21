@@ -1,0 +1,11 @@
+---
+title: "Problem set 07"
+date: "2023-02-28"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.align = "center")
+source(here::here("R", "slide-things.R"))
+```
+
+(Coming soon)
