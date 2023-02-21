@@ -1,0 +1,37 @@
+---
+title: "7. Counting People"
+date: "2023-02-15"
+---
+
+```{r slides, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+
+slide_details <- tibble::tribble(
+  ~youtube_id,   ~title, ~slide, ~active,
+  "", "", "1", TRUE)
+
+```
+
+## Summary
+
+This week we think about the nature and origins of data, using the US Census as an example.
+
+## Reading
+
+- @cegłowski10:_scott_scurv
+- @starr92:_social_categ_claim_liber_state
+- @mora14:_cross_field_effec_ethnic_class
+
+## Slides
+
+The slide deck for this week is available here. 
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_buttons("/slides/07-slides")
+slide_tabs(slide_details, "/slides/07-slides.html")
+```
+
+
+:::{.callout-tip}
+**Tip**: If you type <kbd>?</kbd> (or <kbd>shift</kbd> + <kbd>/</kbd>) while going through the slides, you can see a list of special slide-specific commands.
+:::

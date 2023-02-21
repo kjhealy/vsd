@@ -1,0 +1,113 @@
+---
+title: "Example 07: Social Data and the State"
+---
+
+
+## Setup
+
+```{r}
+
+library(here)      # manage file paths
+library(socviz)    # data and some useful functions
+library(tidyverse) # your friend and mine
+
+library(tidycensus) # Tidily talk to the Census
+library(sf).        # Draw maps with ggplot
+
+```
+
+
+
+## Make sure you have a Census API key
+
+As we discussed in class, you'll need an API key to talk to the Census. Get one here:
+
+<https://api.census.gov/data/key_signup.html>
+
+Follow the instructions and confirm the key via email when you get it. Keep the email. 
+
+Load your key with the `census_api_key()` function. Paste your key (in quotes) instead of "YOUR API KEY GOES HERE" in the chunk below.
+
+```{r}
+# census_api_key("YOUR API KEY GOES HERE")
+```
+
+## Median Age by State
+
+```{r}
+age10 <- get_decennial(geography = "state",
+                       variables = "P013001",
+                       year = 2010)
+
+age10
+```
+
+## Decennial Census Variables
+
+There are a lot of them. 
+
+```{r}
+census_vars <- load_variables(year = 2010,
+                              dataset = "sf1",
+                              cache = TRUE)
+
+census_vars
+```
+
+## Some Core Population Measures by County for North Carolina
+
+```{r}
+# Census variable names
+popvars <- c("P005003", "P005004", "P005006", "P004003")
+
+
+# Get a county-level dataset for NC with these variables
+nc <- get_decennial(geography = "county",
+                    variables = popvars,
+                    year = 2010,
+                    summary_var = "P001001",
+                    state = "NC") |>
+  mutate(pct = 100 * (value / summary_value))
+```
+
+## ACS Data
+
+```{r}
+# Get median HH income by county for NC
+nc_inc <- get_acs(geography = "county",
+        variables = c(medincome = "B19013_001"),
+        state = "NC",
+        year = 2020)
+
+nc_inc
+```
+
+With geographical information:
+
+```{r}
+nc_inc <- get_acs(geography = "county",
+                  variables = c(medincome = "B19013_001"),
+                  state = "NC",
+                  year = 2020,
+                  geometry = TRUE)
+
+nc_inc
+```
+
+## Draw a Map
+
+```{r, fig.height=5, fig.width=9}
+nc_inc |>
+  mutate(slab = stringr::str_remove(NAME, " County.*"),
+         estimate = estimate/1000) |>
+  ggplot(mapping = aes(fill = estimate)) +
+  geom_sf(color = "white") +
+  geom_sf_text(aes(label = slab), color = "white", size = rel(0.9)) +
+  scale_fill_continuous(labels = scales::label_dollar()) +
+  guides(fill = guide_legend(keywidth = rel(2.2),
+                             title.position = "top",
+                             label.position = "bottom")) +
+  labs(fill = "Median HH Income ('000s)")
+
+```
+

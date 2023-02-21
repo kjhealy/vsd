@@ -69,6 +69,8 @@ website:
               file: content/05-content.qmd
             - text: "06: Expand your Vocabulary"
               file: content/06-content.qmd
+            - text: "07: Social Data and the State"
+              file: content/07-content.qmd
 
     - title: "Assignments"
       contents:
@@ -81,6 +83,7 @@ website:
             - assignment/02-problem-set.qmd
             - assignment/03-problem-set.qmd
             - assignment/midterm.qmd
+            - assignment/07-problem-set.qmd
 
     - title: "Examples"
       contents:
@@ -101,6 +104,8 @@ website:
               file: example/05-example.qmd
             - text: "06: More Vocabulary"
               file: example/06-example.qmd
+            - text: "07: Social Data and the State"
+              file: example/07-example.qmd
 
   page-footer:
     left: |
