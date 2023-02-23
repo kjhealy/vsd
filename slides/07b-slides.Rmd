@@ -1,0 +1,323 @@
+---
+title: "07b --- Working with the Census"
+author: "Kieran Healy"
+date: "`r Sys.Date()`"
+output: kjhslides::kjh_local_slides_reader
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r packages, include=FALSE}
+library(flipbookr)
+library(here)
+library(tidyverse)
+library(kjhslides)
+```
+
+
+```{r setup, include=FALSE}
+
+kjh_register_tenso()
+kjh_set_knitr_opts()
+kjh_set_slide_theme()
+kjh_set_xaringan_opts()
+
+
+
+
+
+
+# Safe
+```
+
+class: center middle main-title section-title-1
+
+# .kjh-yellow[Working with<br /> .kjh-lblue[`tidycensus`] 
+
+.class-info[
+
+**Week 07**
+
+.light[Kieran Healy<br>
+Duke University, Spring 2023]
+
+]
+
+---
+
+layout: true
+class: title title-1
+
+---
+
+# Load our libraries
+
+.SMALL[
+```{r 05-work-with-dplyr-and-geoms-1, message = TRUE}
+library(here)       # manage file paths
+library(socviz)     # data and some useful functions
+library(tidyverse)  # your friend and mine
+
+library(tidycensus) # Tidily talk to the Census
+library(sf)        # Draw maps with ggplot
+
+# Don't needlessly download geo files multiple times
+options(tigris_use_cache = TRUE)
+
+
+```
+]
+
+---
+
+# Census Data
+
+- Make sure you have a Census API key. Load it after you load `tidycensus` 
+
+```r
+library(tidycensus)
+
+census_api_key("1234567890987654321")
+```
+
+- Get one from <https://api.census.gov/data/key_signup.html>
+
+
+---
+
+## Decennial Census Variables
+
+There are a lot of them:
+
+```{r}
+census_vars <- load_variables(year = 2010,
+                              dataset = "sf1",
+                              cache = TRUE)
+
+census_vars
+```
+
+---
+
+# Decennial Census Variables
+
+- Median Age by State
+
+```{r}
+age10 <- get_decennial(geography = "state",
+                       variables = "P013001",
+                       year = 2010)
+
+age10
+```
+
+
+---
+
+# Some Data by County for North Carolina
+
+```{r}
+# Census variable names
+popvars <- c("P005003", "P005004", "P005006", "P004003")
+
+
+# Get a county-level dataset for NC with these variables
+# The summary value is the total population.
+nc <- get_decennial(geography = "county",
+                    variables = popvars,
+                    year = 2010,
+                    summary_var = "P001001",
+                    state = "NC") |>
+  mutate(pct = 100 * (value / summary_value))
+
+nc
+```
+
+
+---
+
+# We can do this a little more elegantly
+
+```{r}
+# Census variable names
+popvars <- tribble(
+  ~variable, ~name, 
+  "P005003", "nh_white",  
+  "P005004", "nh_black",
+  "P005006", "nh_asian",
+  "P004003", "hispanic")
+
+popvars
+```
+
+---
+
+# We can do this a little more elegantly
+
+```{r}
+# Get a county-level dataset for NC with these variables
+# The summary value is the total population.
+nc <- get_decennial(geography = "county",
+                    variables = popvars$variable, #<<
+                    year = 2010,
+                    summary_var = "P001001",
+                    state = "NC") |>
+  mutate(pct = 100 * (value / summary_value))
+
+nc
+```
+
+---
+
+`r chunk_reveal("reveal-nccensus", widths = c(40,60), title = "# Get and widen the data")`
+
+```{r reveal-nccensus, include = FALSE}
+nc %>% 
+  left_join(popvars, by = "variable") %>% 
+  relocate(name, .after = variable) %>% 
+  select(-variable) %>% 
+  pivot_wider(names_from = name, 
+              names_glue = "{name}_{.value}",
+              values_from = c(value, pct)) %>% 
+  mutate(NAME = str_remove(NAME, " County.*"))
+```
+
+```{r reveal-nccensus-obj, include = FALSE}
+nc_wide <- nc %>% 
+  left_join(popvars, by = "variable") %>% 
+  relocate(name, .after = variable) %>% 
+  select(-variable) %>% 
+  pivot_wider(names_from = name, 
+              names_glue = "{name}_{.value}",
+              values_from = c(value, pct)) %>% 
+  mutate(NAME = str_remove(NAME, " County.*"))
+```
+
+---
+
+# Widened table
+
+Assign this to `nc_wide` and we have this:
+
+```{r}
+nc_wide
+```
+
+---
+
+# Top 20 Counties by Percent Hispanic
+
+.pull-left.w45[
+```{r codefig-hispanicplot, message=FALSE, fig.show="hide", fig.width=4.8, fig.height=4.5}
+nc_wide %>%
+  slice_max(order_by = hispanic_pct, n = 20) %>% 
+  ggplot(mapping = aes(x = hispanic_pct,
+                       y = reorder(NAME, hispanic_pct))) + 
+  geom_point() + 
+  labs(x = "Percent Hispanic", 
+       y = NULL, 
+       title = "North Carolina Counties")
+
+```
+]
+
+--
+
+.pull-right.w55[
+```{r, echo=FALSE}
+  knitr::include_graphics(
+  knitr::fig_chunk("codefig-hispanicplot", "png"))
+```
+]
+
+---
+
+# Log population vs Percent Hispanic
+
+.pull-left.w45[
+```{r codefig-hispvpop, message=FALSE, fig.show="hide", fig.width=4.8, fig.height=4.5}
+nc_wide %>%
+  ggplot(mapping = aes(x = summary_value,
+                       y = hispanic_pct)) + 
+  geom_point() + 
+  scale_x_log10(labels = scales::label_number_si()) + 
+  labs(x = "Log Population", 
+       y = "Percent Hispanic", 
+       title = "North Carolina Counties")
+
+```
+]
+
+--
+
+.pull-right.w55[
+```{r, echo=FALSE}
+  knitr::include_graphics(
+  knitr::fig_chunk("codefig-hispvpop", "png"))
+```
+]
+
+
+---
+
+# Log population vs Percent Black
+
+.pull-left.w45[
+```{r codefig-blackvpop, message=FALSE, fig.show="hide", fig.width=4.8, fig.height=4.5}
+nc_wide %>%
+  ggplot(mapping = aes(x = summary_value,
+                       y = nh_black_pct)) + 
+  geom_point() + 
+  scale_x_log10(labels = scales::label_number_si()) + 
+  labs(x = "Log Population", 
+       y = "Percent Black", 
+       title = "North Carolina Counties")
+
+```
+]
+
+--
+
+.pull-right.w55[
+```{r, echo=FALSE}
+  knitr::include_graphics(
+  knitr::fig_chunk("codefig-blackvpop", "png"))
+```
+]
+
+---
+
+# Percent White vs Percent Black
+
+.pull-left.w45[
+```{r codefig-blackvwhite, message=FALSE, fig.show="hide", fig.width=4.8, fig.height=4.5}
+nc_wide %>%
+  ggplot(mapping = aes(x = nh_white_pct,
+                       y = nh_black_pct)) + 
+  geom_point() + 
+  labs(x = "Percent White", 
+       y = "Percent Black", 
+       title = "North Carolina Counties")
+
+```
+]
+
+--
+
+.pull-right.w55[
+```{r, echo=FALSE}
+  knitr::include_graphics(
+  knitr::fig_chunk("codefig-blackvwhite", "png"))
+```
+]
+
+---
+layout: false
+class: main-title main-title-inv
+
+# .middle.squish4.huge.kjh-orange[Midterm Postmortem]
+
+
+
+
+
