@@ -32,7 +32,7 @@ kjh_set_xaringan_opts()
 
 class: center middle main-title section-title-1
 
-# .kjh-yellow[Data and]<br /> .kjh-lblue[the state] 
+# .kjh-yellow[Data and]<br /> .kjh-lblue[the State] 
 
 .class-info[
 
@@ -386,6 +386,7 @@ Ofram the son of Sigurd carved these runes"
 ![:scale 80%](img/07_2010_census_race.png)
 
 ]
+
 ---
 
 
@@ -405,3 +406,108 @@ Ofram the son of Sigurd carved these runes"
 ![:scale 70%](img/07_2020_census_race.png)
 
 ]
+
+
+---
+
+
+# Categories and Classes
+
+
+![:scale 90%](img/07_american_beef_cuts.png)
+
+
+---
+
+
+# Categories and Classes
+
+
+![:scale 90%](img/07_french_beef_cuts.png)
+
+---
+
+
+# Categories and Classes
+
+![:scale 40%](img/07_table_deaths.png)
+
+
+---
+
+
+# Categories and Classes
+
+![:scale 100%](img/07_table_deaths_top.png)
+
+---
+
+
+# Categories and Classes
+
+![:scale 100%](img/07_table_deaths_mid.png)
+
+
+---
+
+
+# Categories and Classes
+
+![:scale 100%](img/07_table_deaths_bottom.png)
+
+
+---
+
+# ICD Codes
+
+![:scale 60%](img/07_old_age_table.png)
+
+---
+
+# ICD Codes
+
+.pull-left.w45[
+
+![:scale 60%](img/07_errors_in_terminology.png)
+
+]
+
+.pull-right.w45[
+
+![:scale 60%](img/07_errors_in_terminology_2.png)
+
+]
+
+
+---
+
+# ICD Codes
+
+![:scale 40%](img/07_icd_10_heart_disease.png)
+
+
+---
+
+# ICD Codes
+
+![:scale 70%](img/07_norway_usa_assault.png)
+
+---
+
+# ICD Codes
+
+![:scale 60%](img/07_cdc_terrorism.png)
+
+
+---
+
+# ICD Codes
+
+![:scale 50%](img/07_cdc_icd_code.png)
+
+---
+
+# CDC WONDER
+
+![:scale 70%](img/07_cdc_wonder_page.png)
+
