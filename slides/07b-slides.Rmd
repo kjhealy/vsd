@@ -355,7 +355,7 @@ usa_pyr
 
 .pull-left.w45[
 ```{r codefig-usapyrbasic, message=FALSE, fig.show="hide", fig.width=6, fig.height=5.5}
-usa_pyr %>%
+usa_pyr |> 
   ggplot(mapping = aes(x = value, 
                        y = AGEGROUP, 
                        fill = SEX)) + 
@@ -381,7 +381,7 @@ usa_pyr %>%
 
 .pull-left.w45[
 ```{r codefig-usapyr, message=FALSE, fig.show="hide", fig.width=6, fig.height=5.5}
-usa_pyr %>%
+usa_pyr |> 
   ggplot(mapping = aes(x = value, 
                        y = AGEGROUP, 
                        fill = SEX)) + 
