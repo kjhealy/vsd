@@ -24,11 +24,18 @@ This week we think about the nature and origins of data, using the US Census as 
 
 ## Slides
 
-The slide deck for this week is available here. 
+The slide decks for this week (there are two again) are available here. 
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
 slide_buttons("/slides/07-slides")
 slide_tabs(slide_details, "/slides/07-slides.html")
+```
+
+
+
+```{r show-slide-tabs-2, echo=FALSE, results="asis"}
+slide_buttons("/slides/07b-slides")
+slide_tabs(slide_details, "/slides/07b-slides.html")
 ```
 
 

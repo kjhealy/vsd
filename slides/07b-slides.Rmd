@@ -32,7 +32,7 @@ kjh_set_xaringan_opts()
 
 class: center middle main-title section-title-1
 
-# .kjh-yellow[Working with<br /> .kjh-lblue[`tidycensus`] 
+# .kjh-yellow[Working with<br />] .kjh-lblue[`tidycensus`] 
 
 .class-info[
 
@@ -55,11 +55,12 @@ class: title title-1
 .SMALL[
 ```{r 05-work-with-dplyr-and-geoms-1, message = TRUE}
 library(here)       # manage file paths
-library(socviz)     # data and some useful functions
+library(socviz)     # data and some useful things, especially %nin%
 library(tidyverse)  # your friend and mine
 
+library(scales)     # Convenient scale labels
 library(tidycensus) # Tidily talk to the Census
-library(sf)        # Draw maps with ggplot
+library(sf)         # Draw maps with ggplot
 
 # Don't needlessly download geo files multiple times
 options(tigris_use_cache = TRUE)
@@ -169,20 +170,21 @@ nc
 
 ---
 
-`r chunk_reveal("reveal-nccensus", widths = c(40,60), title = "# Get and widen the data")`
+# We can do this a little more elegantly
 
-```{r reveal-nccensus, include = FALSE}
-nc %>% 
-  left_join(popvars, by = "variable") %>% 
-  relocate(name, .after = variable) %>% 
-  select(-variable) %>% 
+```{r}
+nc |>  
+  left_join(popvars, by = "variable") |> 
+  relocate(name, .after = variable) |>  
+  select(-variable) |>  
   pivot_wider(names_from = name, 
               names_glue = "{name}_{.value}",
-              values_from = c(value, pct)) %>% 
+              values_from = c(value, pct)) |>  
   mutate(NAME = str_remove(NAME, " County.*"))
 ```
 
-```{r reveal-nccensus-obj, include = FALSE}
+
+```{r reveal-nccensus-obj, eval = TRUE, include = FALSE}
 nc_wide <- nc %>% 
   left_join(popvars, by = "variable") %>% 
   relocate(name, .after = variable) %>% 
@@ -192,6 +194,7 @@ nc_wide <- nc %>%
               values_from = c(value, pct)) %>% 
   mutate(NAME = str_remove(NAME, " County.*"))
 ```
+
 
 ---
 
@@ -208,7 +211,7 @@ nc_wide
 # Top 20 Counties by Percent Hispanic
 
 .pull-left.w45[
-```{r codefig-hispanicplot, message=FALSE, fig.show="hide", fig.width=4.8, fig.height=4.5}
+```{r codefig-hispanicplot, message=FALSE, fig.show="hide", fig.width=4.8, fig.height=5}
 nc_wide %>%
   slice_max(order_by = hispanic_pct, n = 20) %>% 
   ggplot(mapping = aes(x = hispanic_pct,
@@ -240,7 +243,7 @@ nc_wide %>%
   ggplot(mapping = aes(x = summary_value,
                        y = hispanic_pct)) + 
   geom_point() + 
-  scale_x_log10(labels = scales::label_number_si()) + 
+  scale_x_log10(labels = label_number(scale_cut = cut_short_scale())) + 
   labs(x = "Log Population", 
        y = "Percent Hispanic", 
        title = "North Carolina Counties")
@@ -268,7 +271,7 @@ nc_wide %>%
   ggplot(mapping = aes(x = summary_value,
                        y = nh_black_pct)) + 
   geom_point() + 
-  scale_x_log10(labels = scales::label_number_si()) + 
+  scale_x_log10(labels = label_number(scale_cut = cut_short_scale())) + 
   labs(x = "Log Population", 
        y = "Percent Black", 
        title = "North Carolina Counties")
@@ -312,12 +315,102 @@ nc_wide %>%
 ]
 
 ---
+
+# Population Pyramids
+
+- We can ask the Census for its estimates of the age breakdown of the population, using the `get_estimates()` function. 
+
+```{r}
+usa <- get_estimates(
+    geography = "us",
+    product = "characteristics",
+    breakdown = c("SEX", "AGEGROUP"), 
+    breakdown_labels = TRUE,
+    year = 2019
+  )
+
+usa
+```
+
+---
+
+# Population Pyramids
+
+```{r}
+# For the %nin% operator make sure you have 
+# library(socviz) above
+usa_pyr <- usa |> 
+  filter(AGEGROUP %nin% "All ages", 
+         str_detect(AGEGROUP, "Age"),
+         SEX %nin% "Both sexes") |> 
+  mutate(value = ifelse(SEX == "Male", -value, value))
+
+usa_pyr
+```
+
+
+---
+
+# Population Pyramids
+
+.pull-left.w45[
+```{r codefig-usapyrbasic, message=FALSE, fig.show="hide", fig.width=6, fig.height=5.5}
+usa_pyr %>%
+  ggplot(mapping = aes(x = value, 
+                       y = AGEGROUP, 
+                       fill = SEX)) + 
+  geom_col(width = 0.95, alpha = 0.75) +
+  labs(x = "Count", 
+       y = NULL, 
+       title= "US Population Pyramid") 
+```
+]
+
+--
+
+.pull-right.w55[
+```{r, echo=FALSE}
+  knitr::include_graphics(
+  knitr::fig_chunk("codefig-usapyrbasic", "png"))
+```
+]
+
+---
+
+# Population Pyramids
+
+.pull-left.w45[
+```{r codefig-usapyr, message=FALSE, fig.show="hide", fig.width=6, fig.height=5.5}
+usa_pyr %>%
+  ggplot(mapping = aes(x = value, 
+                       y = AGEGROUP, 
+                       fill = SEX)) + 
+  geom_col(width = 0.95, alpha = 0.75) +
+  # In the two scale functions we use ~ label_number() 
+  # and ~ str_remove_all() as anonymous functions. Slightly 
+  # more advanced usage than normal ...
+  scale_x_continuous(
+    labels = ~ label_number(scale = 0.001, suffix = "k")(abs(.x))) + 
+  scale_y_discrete(
+    labels = ~ str_remove_all(.x, "Age | years")) + 
+  labs(x = "Count", 
+       y = NULL, 
+       title= "US Population Pyramid") + 
+  theme(legend.position = "bottom")
+```
+]
+
+--
+
+.pull-right.w55[
+```{r, echo=FALSE}
+  knitr::include_graphics(
+  knitr::fig_chunk("codefig-usapyr", "png"))
+```
+]
+
+---
 layout: false
 class: main-title main-title-inv
 
 # .middle.squish4.huge.kjh-orange[Midterm Postmortem]
-
-
-
-
-
