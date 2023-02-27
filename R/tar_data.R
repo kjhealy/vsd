@@ -51,6 +51,13 @@ save_data <- list(
              here_rel("files", "data", "package_data", "ukvote2019.csv")),
              format = "file"),
 
+  # US Birth ages for problem set 07
+  tar_target(data_uscenpops,
+             save_csv(uscenpops::uscenpops,
+             here_rel("files", "data", "package_data", "uscenpops.csv")),
+             format = "file"),
+
+
   ### Copy files to project folders ----
   # Problem set 01
   tar_target(copy_gapminder_1,
@@ -74,7 +81,12 @@ save_data <- list(
   # Midterm
   tar_target(copy_ukelection,
              copy_file(data_ukelection,
-                      new_folder = here_rel("projects", "midterm", "data")))
+                      new_folder = here_rel("projects", "midterm", "data"))),
+
+  # Problem set 07
+  tar_target(copy_uscenpops,
+             copy_file(data_uscenpops,
+                       new_folder = here_rel("projects", "07-problem-set", "data")))
 )
 
 

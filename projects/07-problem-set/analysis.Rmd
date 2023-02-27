@@ -1,0 +1,59 @@
+---
+title: "Problem Set 07"
+author: "<PUT YOUR NAME HERE>"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r load-libraries-data, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(here)
+library(socviz)
+```
+
+# Population Pyramids
+
+First we will load some data and get it into the right shape:
+
+```{r}
+us <- read_csv(here("data", "uscenpops.csv")) |> 
+  select(-pop) |> 
+  pivot_longer(male:female, 
+               names_to = "sex", 
+               values_to = "pop")
+```
+
+Take a look at this dataset:
+
+```{r}
+us
+```
+
+The columns are as follows:
+
+- `year`. : Calendar year
+- `age`   : Years of age
+- `sex`   : Recorded sex
+- `pop`.  : Number of people of a given age and sex in a specific year.
+
+# Questions
+
+## How many males aged 50 were in the United States in 1920?
+
+```{r}
+
+```
+
+
+## Draw a population pyramid for 1900
+
+To get started, take a look at the notes for this week, where we draw a population pyramid using current population estimates. The one you draw here will be a little more straightforward because we don't have to fetch the data from the Census, and also because `age` will sort properly right away, as they are just numbers.
+
+```{r}
+
+```
+
+
+## Compare the population pyramids for 1900, 1950, and 2000
+
+Say a few words about how the US population seems to have changed over the course of the 20th century.
