@@ -1,0 +1,474 @@
+---
+title: "08 --- Change over Time"
+author: "Kieran Healy"
+date: "`r Sys.Date()`"
+output: kjhslides::kjh_local_slides_reader
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r packages, include=FALSE}
+library(flipbookr)
+library(here)
+library(tidyverse)
+library(kjhslides)
+```
+
+
+```{r setup, include=FALSE}
+
+kjh_register_tenso()
+kjh_set_knitr_opts()
+kjh_set_slide_theme()
+kjh_set_xaringan_opts()
+xaringanExtra::use_panelset()
+
+
+
+
+
+# Safe
+```
+
+class: center middle main-title section-title-1
+
+# .kjh-yellow[Change over<br />] .kjh-lblue[Time] 
+
+.class-info[
+
+**Week 08**
+
+.light[Kieran Healy<br>
+Duke University, Spring 2023]
+
+]
+
+---
+
+layout: true
+class: title title-1
+
+---
+
+# Load our libraries
+
+.SMALL[
+```{r 05-work-with-dplyr-and-geoms-1, message = FALSE}
+library(here)       # manage file paths
+library(socviz)     # data and some useful things, especially %nin%
+library(tidyverse)  # your friend and mine
+
+library(scales)     # Convenient scale labels
+
+## New packages
+# install.packages("tsibble") # Time series objects
+# install.packages("feasts")  # Time series feature analysis 
+# install.packages("slider")  # Moving averages and related methods
+# remotes::install_github("kjhealy/demog") # Some US demographic data
+
+library(tsibble)
+library(feasts)
+library(slider)
+library(demog)
+
+```
+]
+
+---
+
+# Time Series
+
+```{r}
+boom <- okboomer |> 
+  filter(country == "United States") |> 
+  select(date, total_pop, births_pct_day) |> 
+  rename(births = births_pct_day) 
+
+boom
+```
+
+#### Here the `births` column means "Average daily births per million population"
+
+---
+
+# Looking at the Series
+
+```{r panel-chunk-boom, fig.show='hide', fig.width=16, fig.height=4}
+boom |> 
+  ggplot(mapping = aes(x = date, 
+                       y = births)) + 
+  geom_line()
+```
+
+--
+
+```{r, echo = FALSE}
+knitr::include_graphics(
+  knitr::fig_chunk("panel-chunk-boom", "png")
+)
+```
+
+---
+
+# Looking at the Series
+
+```{r panel-chunk-boom-2, fig.show='hide', fig.width=16, fig.height=4}
+boom |> 
+  ggplot(mapping = aes(x = date, 
+                       y = births)) + 
+  geom_line() + 
+  geom_smooth()
+```
+
+--
+
+```{r, echo = FALSE}
+knitr::include_graphics(
+  knitr::fig_chunk("panel-chunk-boom-2", "png")
+)
+```
+
+
+---
+
+# Moving Averages
+
+
+```{r ma-boom}
+boom |> 
+  mutate(
+    ma3 = slide_dbl(births, mean,
+                    .before = 1, .after = 1, 
+                    .complete = TRUE)) 
+```
+
+---
+
+# Moving Averages
+
+
+```{r ma-boom-ma3, fig.show='hide', fig.width=16, fig.height=4}
+boom |> 
+  mutate(
+    ma3 = slide_dbl(births, mean,
+                    .before = 1, .after = 1, 
+                    .complete = TRUE)) |> 
+  ggplot(aes(x = date, y = births)) + 
+  geom_line() + 
+  geom_line(aes(x = date, y = ma3), linewidth = rel(1.2), color = "firebrick") + 
+  labs(title = "MA Order 3 (1 month either side)")
+```
+
+--
+
+```{r, echo = FALSE}
+knitr::include_graphics(
+  knitr::fig_chunk("ma-boom-ma3", "png")
+)
+```
+
+---
+
+# A Moving Average, order 5
+
+```{r ma-boom-1, fig.show='hide', fig.width=16, fig.height=4}
+boom |> 
+  mutate(
+    mav = slide_dbl(births, mean,
+                    .before = 2, .after = 2, 
+                    .complete = TRUE)) |> 
+  ggplot() + 
+  geom_line(aes(x = date, y = births)) + 
+  geom_line(aes(x = date, y = mav), linewidth = rel(1.2), color = "firebrick") + 
+  labs(title = "MA Order 5 (two months either side)")
+```
+
+--
+
+```{r, echo = FALSE}
+knitr::include_graphics(
+  knitr::fig_chunk("ma-boom-1", "png")
+)
+```
+
+
+---
+
+# A Moving Average, order 12
+
+- Even orders have to be calculated differently
+
+```{r ma-boom-codeonly, fig.show='hide', fig.width=16, fig.height=4}
+boom |> 
+  mutate(
+    mav12 = slide_dbl(births, mean,
+                    .before = 5, .after = 6, 
+                    .complete = TRUE), 
+    mav2x12 = slide_dbl(mav12, mean, 
+                         .before = 1, .after = 0, 
+                         .complete = TRUE)) 
+```
+
+
+---
+
+# A Moving Average, order 12
+
+.panelset[
+
+.panel[.panel-name[Code]
+```{r ma-boom-12, fig.show='hide', fig.width=16, fig.height=4}
+boom |> 
+  mutate(
+    mav12 = slide_dbl(births, mean,
+                    .before = 5, .after = 6, 
+                    .complete = TRUE), 
+    mav2x12 = slide_dbl(mav12, mean, 
+                         .before = 1, .after = 0, 
+                         .complete = TRUE)) |> 
+  ggplot() + 
+  geom_line(aes(x = date, y = births)) + 
+  geom_line(aes(x = date, y = mav2x12), linewidth = rel(1.2), color = "firebrick") + 
+  labs(title = "12 month moving average")
+```
+
+]
+--
+
+.panel[.panel-name[Plot]
+```{r, echo = FALSE}
+knitr::include_graphics(
+  knitr::fig_chunk("ma-boom-12", "png")
+)
+```
+
+- When the window for the moving average is the same as the seasonal period, then all the seasonality will be averaged away. 
+
+ ]
+]
+
+---
+
+# Seasonality in Births
+
+
+```{r ma-boom-season-1, fig.show='hide', fig.width=16, fig.height=4}
+boom |> 
+  filter(date > as.Date("1949-12-01"), 
+         date < as.Date("1956-01-01")) |> 
+  ggplot() + 
+  geom_line(aes(x = date, y = births)) + 
+  scale_x_date(date_breaks = "3 months", 
+               date_labels = "%b")
+```
+
+
+--
+
+```{r, echo = FALSE}
+knitr::include_graphics(
+  knitr::fig_chunk("ma-boom-season-1", "png")
+)
+```
+
+---
+
+# Additive "Classical" Decomposition
+
+## A Trend Part, $\hat{T}$
+
+- This is a moving average. 
+
+## A Seasonal Part, $\hat{S}$
+
+- This is the regular "pulse" in the data. In a classical decomposition it is assumed not to change over time.  
+
+## A Remainder Part, $\hat{R}$
+
+- This is the leftover or "residual" variation once the Trend and Seasonal parts are calculated.
+
+---
+
+# The Trend part
+
+- This is the moving average we just calculated.
+
+```{r ma-boom-trend, fig.show='hide', fig.width=16, fig.height=4}
+boom_t <- boom |> 
+  select(date, births) |> 
+  mutate(
+    month = lubridate::month(date),
+    mav12 = slide_dbl(births, mean,
+                    .before = 5, .after = 6, 
+                    .complete = TRUE), 
+    t = slide_dbl(mav12, mean, 
+                         .before = 1, .after = 0, 
+                         .complete = TRUE)) |> 
+  select(-mav12) # Don't need this anymore
+boom_t
+  
+```
+
+
+---
+
+# The Seasonal part
+
+- First "detrend" the series by subtracting `t` from `births`.
+
+```{r, fig.show='hide', fig.width=16, fig.height=4}
+boom_t |> 
+  mutate(detrended = births - t) 
+  
+```
+
+---
+
+# The Seasonal part
+
+- Then take the average by month.
+
+```{r, fig.show='hide', fig.width=16, fig.height=4}
+boom_t |> 
+  mutate(detrended = births - t, 
+         month = lubridate::month(date)) |> 
+  group_by(month) |> 
+  summarize(seasonal = mean(detrended, na.rm = TRUE))
+  
+```
+
+---
+
+# The Seasonal part
+
+```{r, fig.show='hide', fig.width=16, fig.height=4}
+boom_t |> 
+  mutate(detrended = births - t) |> 
+  group_by(month) |> 
+  summarize(sm = mean(detrended, na.rm = TRUE)) |> 
+  mutate(s = sm - mean(sm)) 
+   
+```
+
+---
+
+# The Seasonal part
+
+- Put this in an object
+```{r, fig.show='hide', fig.width=16, fig.height=4}
+boom_s <- boom_t |> 
+  mutate(detrended = births - t) |> 
+  group_by(month) |> 
+  summarize(sm = mean(detrended, na.rm = TRUE)) |> 
+  mutate(s = sm - mean(sm)) 
+```
+
+---
+
+# The Seasonal part
+
+- Join it to the main table
+
+```{r}
+boom_ts <- boom_t |>  
+  left_join(boom_s, by = "month") |> 
+  select(-sm) # don't need this anymore
+
+boom_ts
+```
+
+
+---
+
+# The Seasonal part
+
+- In a "Classical" decomposition the Seasonal part just repeats. 
+
+```{r seasonal-rep, fig.show='hide', fig.width=16, fig.height=2}
+boom_ts |> 
+  ggplot(aes(x = date, y = s)) + 
+  geom_line()
+```
+
+
+--
+
+```{r, echo = FALSE}
+knitr::include_graphics(
+  knitr::fig_chunk("seasonal-rep", "png")
+)
+```
+
+---
+
+# The Remainder part
+
+- This is just what's left over after we have calculated `t` and `s`. 
+
+```{r}
+boom_tsr <- boom_ts |> 
+  mutate(r = births - t - s)
+
+boom_tsr
+```
+
+
+---
+
+# t + s + r = births
+ 
+- This is an _additive_ decomposition. You can also do _multiplicative_ decompositions.
+ 
+```{r}
+boom_tsr |> 
+  mutate(tsr = t + s + r)
+```
+
+
+---
+
+# There's no need to it manually
+
+```{r}
+boom |> 
+  mutate(date = yearmonth(date)) |> 
+  as_tsibble(index = "date") |> 
+  model(
+    classical_decomposition(births, 
+                            type = "additive")
+  ) |>
+  components() |> 
+  select(-.model) 
+```
+
+
+---
+
+# Plot the components at once
+
+.panelset[
+.panel[.panel-name[Code]
+
+```{r autoplot-panel, fig.show='hide', fig.width=16, fig.height=6}
+boom |> 
+  mutate(date = yearmonth(date)) |> 
+  as_tsibble(index = "date") |> 
+  model(
+    classical_decomposition(births, type = "additive")
+  ) |>
+  components() |> 
+  autoplot()
+```
+
+]
+
+.panel[.panel-name[Plot]
+
+```{r, echo = FALSE}
+knitr::include_graphics(
+  knitr::fig_chunk("autoplot-panel", "png")
+)
+```
+ ]
+]
+---
