@@ -618,16 +618,14 @@ bc
 
 # Manually plotting the components
 
-.panelset[
-.panel[.panel-name[Code]
-
-```{r autoplot-stl-panel-2, fig.show='hide', fig.width=16, fig.height=6}
+```{r autoplot-stl-panel-2, fig.show='hide', fig.width=15, fig.height=9}
 bc |> 
   pivot_longer(cols = c(births, trend, season_year, remainder)) |> 
   mutate(
     date = as.Date(date),
     name = factor(name, levels = c("births", "trend", 
                                         "season_year", "remainder"), 
+                  labels = c("Births", "Trend", "Seasonal", "Remainder"),
                        ordered = TRUE)) |> 
   ggplot() +
   geom_line(aes(date, value)) +
@@ -637,17 +635,100 @@ bc |>
                date_labels = "%Y") + 
   ggforce::facet_col(~ name, scales = 'free', space = 'free') + 
   labs(title = "Decomposition of US Monthly Births, 1933-2017", 
-       subtitle = "Average number of daily births per million population each month")
+       subtitle = "Average number of daily births per million population each month", 
+       x = "Time", y = "Birth rate")
   
+```
+
+---
+layout: false
+
+.center[
+```{r, echo = FALSE, fig.width=15, fig.height=9}
+bc |> 
+  pivot_longer(cols = c(births, trend, season_year, remainder)) |> 
+  mutate(
+    date = as.Date(date),
+    name = factor(name, levels = c("births", "trend", 
+                                        "season_year", "remainder"), 
+                  labels = c("Births", "Trend", "Seasonal", "Remainder"),
+                       ordered = TRUE)) |> 
+  ggplot() +
+  geom_line(aes(date, value)) +
+  scale_x_date(breaks = seq(as.Date("1935-01-01"), 
+                                 as.Date("2015-01-01"), 
+                                 by="10 years"),
+               date_labels = "%Y") + 
+  ggforce::facet_col(~ name, scales = 'free', space = 'free') + 
+  labs(title = "Decomposition of US Monthly Births, 1933-2017", 
+       subtitle = "Average number of daily births per million population each month", 
+       x = "Time", y = "Birth rate") + 
+  theme(axis.text.y = element_text(size = rel(0.5)))
+
 ```
 
 ]
 
-.panel[.panel-name[Plot]
+---
 
-```{r, echo = FALSE}
-knitr::include_graphics(
-  knitr::fig_chunk("autoplot-stl-panel-2", "png")
-)
+# Comparing seasonality
+
+```{r}
+library(lubridate)
+s30s <- interval(ymd(19330101), ymd(19380101))
+s50s <- interval(ymd(19530101), ymd(19580101))
+s00s <- interval(ymd(20030101), ymd(20080101))
+
+my_intervs <- list(s30s, s50s, s00s)
+
+bc_int <- bc |> 
+  mutate(date = as.Date(date)) |> 
+  filter(date %within% my_intervs) |> 
+  mutate(period = case_when(
+    date %within% s30s ~ "1930s",
+    date %within% s50s ~ "1950s",
+    date %within% s00s ~ "2000s"), 
+    year = year(date),
+    month = month(date, label = TRUE, 
+                  abbr = TRUE)) |> 
+  mutate(yr_id = consecutive_id(year), .by = period) |> 
+  mutate(mth_id = row_number(), .by = c(period, year)) |> 
+  mutate(seq_id = row_number(), .by = period)
+
+bc_int |> 
+  print(n = Inf)
+```
+
+---
+
+# Comparing seasonality
+
+```{r}
+my_labs <- bc_int$seq_id
+names(my_labs) <- bc_int$month
+
+ind <- names(my_labs) %in% c("Jan", "May", "Sep")
+
+my_labs <- my_labs[ind]
+
+
+p_out <- bc_int |> 
+  ggplot(aes(x = seq_id, 
+             y = season_year, 
+             color = period)) +
+  geom_line(linewidth = rel(1.2)) +
+  scale_x_continuous(breaks = my_labs, 
+                     labels = names(my_labs)) + 
+  facet_wrap(~ period, ncol = 1) + 
+  guides(color = "none") + 
+  labs(x = "Month",  y = "Seasonal Component of the Birth Rate", title = "Changing Seasonality: Three Five-Year periods in Three Decades")
+```
+
+---
+
+layout: false
+
+```{r, fig.width=15, fig.height=9, echo = FALSE}
+p_out
 ```
 
