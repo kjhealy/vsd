@@ -86,7 +86,12 @@ save_data <- list(
   # Problem set 07
   tar_target(copy_uscenpops,
              copy_file(data_uscenpops,
-                       new_folder = here_rel("projects", "07-problem-set", "data")))
+                       new_folder = here_rel("projects", "07-problem-set", "data"))),
+
+  # Problem set 08
+  tar_target(copy_apple,
+             copy_file(original_file = here_rel("files", "data", "apple.csv"),
+                       new_folder = here_rel("projects", "08-problem-set", "data")))
 )
 
 

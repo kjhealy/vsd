@@ -675,9 +675,9 @@ bc |>
 
 ```{r}
 library(lubridate)
-s30s <- interval(ymd(19330101), ymd(19380101))
-s50s <- interval(ymd(19530101), ymd(19580101))
-s00s <- interval(ymd(20030101), ymd(20080101))
+s30s <- interval(ymd(19330101), ymd(19390101))
+s50s <- interval(ymd(19530101), ymd(19590101))
+s00s <- interval(ymd(20030101), ymd(20090101))
 
 my_intervs <- list(s30s, s50s, s00s)
 
@@ -729,7 +729,8 @@ p_out <- bc_int |>
   facet_wrap(~ period, ncol = 1) + 
   guides(color = "none") + 
   labs(x = "Month",  y = "Seasonal Component of the Birth Rate", 
-       title = "Changing Seasonality: Three Five-Year periods in Three Decades")
+       title = "Changing Seasonality in Births: Three Six-Year periods in Three Decades", 
+       subtitle = "Seasonal Component from an STL decomposition of 1933-2015 monthly births")
 ```
 
 ---

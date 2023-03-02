@@ -18,6 +18,8 @@ This week we look at change over time, and ways of thinking about it.
 
 ## Reading
 
+- @hyndman21:_forec Chapters 2 and 3. 
+
 ## Slides
 
 The slide decks for this week (there are two again) are available here. 

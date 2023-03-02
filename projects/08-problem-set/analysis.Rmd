@@ -1,0 +1,52 @@
+---
+title: "Problem Set 08"
+author: "<PUT YOUR NAME HERE>"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r load-libraries-data, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(here)
+library(socviz)
+
+## Make sure these are installed
+# install.packages("tsibble")
+# install.packages("feasts")
+library(tsibble)
+library(feasts)
+```
+
+# Time Series Decomposition
+
+First we will load some data:
+
+```{r}
+apple <- read_csv(here("data", "apple.csv")) 
+```
+
+Take a look at this dataset:
+
+```{r}
+apple
+```
+
+The columns are as follows:
+
+- `date`.  : Quarterly date (the last day of the quarter).
+- `qlabel` : Quarter label. 
+- `period` : Numeric counter from 1 to 78.
+- `iphone` : iPhone sales this quarter, in millions.
+- `ipad`   : iPad sales this quarter, in millions.
+- `ipod`   : iPod sales this quarter, in millions.
+- `mac`    : Macintosh computer sales this quarter, in millions.
+
+
+# Questions
+
+## 
+
+```{r}
+
+```
+
