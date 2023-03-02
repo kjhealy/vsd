@@ -25,7 +25,7 @@ First we will load some data:
 apple <- read_csv(here("data", "apple.csv")) 
 ```
 
-Take a look at this dataset:
+Take a look at this dataset of quarterly sales figures for various Apple products between the last quarter of 1998 and the frist quarter of 2018:
 
 ```{r}
 apple
@@ -44,9 +44,32 @@ The columns are as follows:
 
 # Questions
 
-## 
+## Basic trends
+
+Plot each series, either in three separate plots or in one figure. If you choose to draw one figure, it will be most convenient to use `pivot_longer()` to turn the `iphone`,  `ipad`,  `ipod`, and  `mac` columns into a long-format key-value pair of columns.
 
 ```{r}
 
 ```
+
+
+## Decompose the iPhone series
+
+Use the STL decomposition to break iPhone sales into seasonal, trend, and remainder parts. (See this week's slides and examples for sample code.) Experiment with the seasonal and trend windows. What do the trend and seasonality of iPhone sales look like? What do they tell you about the product's success?
+
+
+```{r}
+
+```
+
+## Decompose the Mac series
+
+Use the STL decomposition to break Mac sales into seasonal, trend, and remainder parts. Again, experiment with the seasonal and trend windows. What do the trend and seasonality of iPhone sales look like? Does the seasonal component seem similar to the iPhone or different from it? Why might this be?
+
+```{r}
+
+```
+
+
+
 
