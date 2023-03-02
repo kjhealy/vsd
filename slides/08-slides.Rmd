@@ -447,7 +447,7 @@ boom_ts
 
 - In a "Classical" decomposition the Seasonal part just repeats. 
 
-```{r seasonal-rep, fig.show='hide', fig.width=16, fig.height=2}
+```{r seasonal-rep, fig.show='hide', fig.width=16, fig.height=1.2}
 boom_ts |> 
   ggplot(aes(x = date, y = s)) + 
   geom_line()
@@ -694,9 +694,16 @@ bc_int <- bc |>
   mutate(yr_id = consecutive_id(year), .by = period) |> 
   mutate(mth_id = row_number(), .by = c(period, year)) |> 
   mutate(seq_id = row_number(), .by = period)
+```
 
+---
+
+# Comparing seasonality
+
+
+```{r}
 bc_int |> 
-  print(n = Inf)
+  print(n = 20)
 ```
 
 ---
@@ -721,14 +728,15 @@ p_out <- bc_int |>
                      labels = names(my_labs)) + 
   facet_wrap(~ period, ncol = 1) + 
   guides(color = "none") + 
-  labs(x = "Month",  y = "Seasonal Component of the Birth Rate", title = "Changing Seasonality: Three Five-Year periods in Three Decades")
+  labs(x = "Month",  y = "Seasonal Component of the Birth Rate", 
+       title = "Changing Seasonality: Three Five-Year periods in Three Decades")
 ```
 
 ---
 
 layout: false
 
-```{r, fig.width=15, fig.height=9, echo = FALSE}
+```{r, fig.width=15, fig.height=8.25, echo = FALSE}
 p_out
 ```
 
