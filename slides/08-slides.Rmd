@@ -133,7 +133,20 @@ knitr::include_graphics(
 
 ---
 
-# Moving Averages with .kjh-yellow[`slider`]
+
+# Time Series Decomposition and Forecasting
+
+- The analysis of Time Series is a big area; people often want to see into the future
+
+- We will focus on a couple of elementary methods that are more purely descriptive, particularly the idea of _decomposing_ a time series into its _trend_, _seasonal_, and _remainder_ components.
+
+- Decomposition methods are descriptive rather than predictive. They also make assumptions about the character of the data (e.g. its seasonality) which might be something we want to investigate. 
+
+- More complex forecasting methods are either more detailed, or attempt to be proper models, or both.
+
+---
+
+# Centered Moving Averages with .kjh-yellow[`slider`]
 
 
 ```{r ma-boom}
@@ -146,7 +159,7 @@ boom |>
 
 ---
 
-# Moving Averages with .kjh-yellow[`slider`]
+# Centered Moving Averages with .kjh-yellow[`slider`]
 
 
 ```{r ma-boom-ma3, fig.show='hide', fig.width=16, fig.height=4}
@@ -171,7 +184,7 @@ knitr::include_graphics(
 
 ---
 
-# A Moving Average, "order 5"
+# A Centered Moving Average, "order 5"
 
 ```{r ma-boom-1, fig.show='hide', fig.width=16, fig.height=4}
 boom |> 
@@ -195,7 +208,7 @@ knitr::include_graphics(
 
 ---
 
-# A Moving Average, order 7
+# A Centered Moving Average, order 7
 
 ```{r ma-boom-7, fig.show='hide', fig.width=16, fig.height=4}
 boom |> 
@@ -221,9 +234,32 @@ knitr::include_graphics(
 
 ---
 
-# A Moving Average, order 12
+# Odd vs Even Centered Moving Averages
 
 - Even orders have to be calculated differently!
+
+--
+
+- When the period $m$ is odd, the average $d$ for an observation $y$ at a particular time $t$ is: 
+
+\begin{equation}
+d_t = \frac{1}{m}\sum_{i=-(m-1)/2}^{(m-1)/2} y_{t+i}
+\end{equation}
+
+--
+
+- When Even:
+
+\begin{equation}
+d_t = \frac{1}{m}\left(\frac{1}{2}\left(y_{t+(m-1)/2}+y_{t-(m-1)/2}\right) + \sum_{i=-(m-2)/2}^{(m-2)/2} y_{t+i}\right)
+\end{equation}
+
+This just means e.g. we use half of December of the previous year and half of December of the current year to calculate the centred moving average in June of the current year.
+
+
+---
+
+# A Centered Moving Average of order 12
 
 ```{r ma-boom-codeonly, fig.show='hide', fig.width=16, fig.height=4}
 boom |> 
@@ -236,10 +272,11 @@ boom |>
                          .complete = TRUE)) 
 ```
 
+- .small[See how we lose observations as our window widens.]
 
 ---
 
-# A Moving Average, order 12
+# A Centered Moving Average, order 12
 
 .panelset[
 
@@ -269,14 +306,14 @@ knitr::include_graphics(
 )
 ```
 
-- .small[When the window is the same as the seasonal period, then all the seasonality gets averaged away.] 
+- .small[Doing it this way---e.g. taking a yearly average of 12 monthly values---means all the seasonality is averaged away.] 
 
  ]
 ]
 
 ---
 
-# A Moving Average, order 60 (i.e. 5 years)
+# A Centered Moving Average, order 60 (i.e. 5 years)
 
 .panelset[
 
@@ -306,7 +343,7 @@ knitr::include_graphics(
 )
 ```
 
-- .small[The wider the window, the flatter the line. We also lose observations at each end.]
+- .small[The wider the window, the flatter the line. And we continue to lose observations.]
 
  ]
 ]
@@ -341,7 +378,7 @@ knitr::include_graphics(
 
 #### The Thing to be Decomposed: the births series, $y$ 
 
-#### A Trend Part: a moving average, $\hat{T}$ 
+#### A Trend Part: a centered moving average, $\hat{T}$ 
 
 #### A Seasonal Part: the "pulse" in the data,  $\hat{S}$
 

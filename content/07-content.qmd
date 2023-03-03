@@ -1,6 +1,6 @@
 ---
 title: "7. Counting People"
-date: "2023-02-15"
+date: "2023-02-22"
 ---
 
 ```{r slides, echo=FALSE, include=FALSE}
