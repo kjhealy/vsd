@@ -75,6 +75,17 @@
       "Hash": "e749cae40fa9ef469b6050959517453c",
       "Requirements": []
     },
+    "RcppEigen": {
+      "Package": "RcppEigen",
+      "Version": "0.3.3.9.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "1e035db628cefb315c571202d70202fe",
+      "Requirements": [
+        "Matrix",
+        "Rcpp"
+      ]
+    },
     "anytime": {
       "Package": "anytime",
       "Version": "0.3.9",
@@ -530,6 +541,23 @@
       "Hash": "4b68aa51edd89a0e044a66e75ae3cc6c",
       "Requirements": []
     },
+    "fable": {
+      "Package": "fable",
+      "Version": "0.3.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "b130f6761c5852266313582c08b8a4ee",
+      "Requirements": [
+        "Rcpp",
+        "distributional",
+        "dplyr",
+        "fabletools",
+        "rlang",
+        "tibble",
+        "tidyr",
+        "tsibble"
+      ]
+    },
     "fabletools": {
       "Package": "fabletools",
       "Version": "0.3.2",
@@ -726,6 +754,30 @@
         "rstudioapi",
         "sys",
         "zip"
+      ]
+    },
+    "ggforce": {
+      "Package": "ggforce",
+      "Version": "0.4.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "a06503f54e227f79b45a72df2946a2d2",
+      "Requirements": [
+        "MASS",
+        "Rcpp",
+        "RcppEigen",
+        "cli",
+        "ggplot2",
+        "gtable",
+        "lifecycle",
+        "polyclip",
+        "rlang",
+        "scales",
+        "systemfonts",
+        "tidyselect",
+        "tweenr",
+        "vctrs",
+        "withr"
       ]
     },
     "ggplot2": {
@@ -1467,6 +1519,14 @@
       "Hash": "bd54ba8a0a5faded999a7aab6e46b374",
       "Requirements": []
     },
+    "polyclip": {
+      "Package": "polyclip",
+      "Version": "1.10-4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "66bbfa06f78108ee967220643596c91e",
+      "Requirements": []
+    },
     "prettyunits": {
       "Package": "prettyunits",
       "Version": "1.1.1",
@@ -1749,6 +1809,16 @@
         "munsell",
         "rlang",
         "viridisLite"
+      ]
+    },
+    "seasonal": {
+      "Package": "seasonal",
+      "Version": "1.9.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "afe35a1008ccd72e8e5faa0745bf03dd",
+      "Requirements": [
+        "x13binary"
       ]
     },
     "selectr": {
@@ -2125,6 +2195,20 @@
         "vctrs"
       ]
     },
+    "tweenr": {
+      "Package": "tweenr",
+      "Version": "2.0.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "c16efcef4c72d3bff5e65031f3f1f841",
+      "Requirements": [
+        "cpp11",
+        "farver",
+        "magrittr",
+        "rlang",
+        "vctrs"
+      ]
+    },
     "tzdb": {
       "Package": "tzdb",
       "Version": "0.3.0",
@@ -2301,6 +2385,14 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "141385279f2cd7faa6a3eccd8d1279dd",
+      "Requirements": []
+    },
+    "x13binary": {
+      "Package": "x13binary",
+      "Version": "1.1.57-3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "4286e2cea09edae57b293cf787ad431d",
       "Requirements": []
     },
     "xaringan": {

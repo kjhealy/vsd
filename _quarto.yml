@@ -73,7 +73,6 @@ website:
           contents:
             - text: "07: Social Data and the State"
               file: content/07-content.qmd
-          contents:
             - text: "08: Trends and Time Series"
               file: content/08-content.qmd
 
@@ -90,6 +89,7 @@ website:
             - assignment/03-problem-set.qmd
             - assignment/midterm.qmd
             - assignment/07-problem-set.qmd
+            - assignment/08-problem-set.qmd
 
     - title: "Examples"
       contents:
@@ -114,6 +114,8 @@ website:
           contents:
             - text: "07: Social Data and the State"
               file: example/07-example.qmd
+            - text: "08: Trends and Time"
+              file: example/08-example.qmd
 
   page-footer:
     left: |

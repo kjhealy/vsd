@@ -12,6 +12,7 @@ library(flipbookr)
 library(here)
 library(tidyverse)
 library(kjhslides)
+library(lubridate)
 ```
 
 
@@ -556,7 +557,7 @@ knitr::include_graphics(
 
 - This works for monthly data
 
-### Default monthly trand window is 21
+### Default monthly trend window is 21
 
 - Can experiment with these
 - They should be odd numbers
@@ -674,10 +675,9 @@ bc |>
 # Comparing seasonality
 
 ```{r}
-library(lubridate)
-s30s <- interval(ymd(19330101), ymd(19390101))
-s50s <- interval(ymd(19530101), ymd(19590101))
-s00s <- interval(ymd(20030101), ymd(20090101))
+s30s <- lubridate::interval(ymd(19330101), ymd(19390101))
+s50s <- lubridate::interval(ymd(19530101), ymd(19590101))
+s00s <- lubridate::interval(ymd(20030101), ymd(20090101))
 
 my_intervs <- list(s30s, s50s, s00s)
 
