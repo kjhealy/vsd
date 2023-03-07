@@ -261,6 +261,8 @@ This just means e.g. we use half of December of the previous year and half of De
 
 # A Centered Moving Average of order 12
 
+We can calculate the CMA for even orders in two steps.
+
 ```{r ma-boom-codeonly, fig.show='hide', fig.width=16, fig.height=4}
 boom |> 
   mutate(
@@ -313,7 +315,7 @@ knitr::include_graphics(
 
 ---
 
-# A Centered Moving Average, order 60 (i.e. 5 years)
+# A 5 year CMA
 
 .panelset[
 
@@ -436,7 +438,7 @@ boom_t |>
 
 ---
 
-# Calcualte the .kjh-yellow[Seasonal] part
+# Calculate the .kjh-yellow[Seasonal] part
 
 - Then "mean-center" each point by taking the average again and subtracting it from each observation. (This way the observations all sum to zero.)
 
@@ -481,7 +483,7 @@ boom_ts
 
 ---
 
-# Claculate the .kjh-yellow[Seasonal] part
+# Calculate the .kjh-yellow[Seasonal] part
 
 - In a "Classical" decomposition the Seasonal part just repeats. 
 
