@@ -164,14 +164,18 @@ nyc_license  |>
 
 ```
 
-```{r, echo = FALSE}
-nyc_fb <- nyc_license  |> 
+```{r make_nyc_fb, echo = FALSE}
+nyc_license  |> 
   filter(extract_year == 2018) |> 
   group_by(breed_rc, zip_code) |> 
   tally() |> 
   mutate(freq = n / sum(n)) |> 
   filter(breed_rc == "French Bulldog") ->
   nyc_fb
+```
+
+```{r save_nyc_fb, echo=FALSE}
+save(nyc_fb, file = "nyc_fb.Rdata")
 ```
 
 
@@ -212,6 +216,11 @@ fb_map <- left_join(nyc_zips, nyc_fb, by = "zip_code")
 fb_map |> select(zip_code, po_name, borough, breed_rc:freq, geometry)
 ```
 
+```{r save_fb_map, echo = FALSE, message = FALSE}
+save(fb_map, file = "fb_map.Rdata")
+```
+
+
 ---
 
 # A NYC map theme
@@ -243,6 +252,9 @@ theme_nymap <- function(base_size=9, base_family="") {
 `r chunk_reveal("reveal-bulldogmap", widths = c(40,60), title = "# First cut at a map")`
 
 ```{r reveal-bulldogmap, include = FALSE}
+# This is just for slide purposes 
+load("fb_map.Rdata")
+#
 fb_map |> 
     ggplot(mapping = aes(fill = freq)) +
     geom_sf(color = "gray30", size = 0.1) + #<<
@@ -271,6 +283,9 @@ fb_map |>
 `r chunk_reveal("reveal-bulldogmap2", widths = c(40,60), title = "# Use a different palette")`
 
 ```{r reveal-bulldogmap2, include = FALSE}
+# This is just for slide purposes 
+load("nyc_fb.Rdata")
+
 library(colorspace)
 fb_map <- left_join(nyc_zips, nyc_fb, by = "zip_code")
 
@@ -304,6 +319,9 @@ fb_map |>
 layout: false
 
 ```{r 07-make-maps-59, echo = FALSE, fig.width=12, fig.height=8}
+# This is just for slide purposes 
+load("fb_map.Rdata")
+
 fb_map |> 
   ggplot(mapping = aes(fill = freq)) +
   geom_sf(color = "gray30", size = 0.1) +
@@ -362,6 +380,10 @@ fb_map2 <- left_join(nyc_zips,
 
 ```
 
+```{r, echo = FALSE}
+save(fb_map2, nyc_fb2, file = "fbnyc2.Rdata")
+```
+
 
 ---
 
@@ -374,13 +396,12 @@ fb_map2 |> select(zip_code, po_name, borough, breed_rc:freq, geometry)
 - This time, a number of previous .kjh-red[NA] rows are now zeroes instead.
 
 ---
-
-
----
 `r chunk_reveal("reveal-bulldogfb2", widths = c(40,60), title = "# Now redraw the map")`
 
 ```{r reveal-bulldogfb2, include = FALSE}
-fb_map2 <- left_join(nyc_zips, nyc_fb2, by = "zip_code")
+# Slide workaround again
+load("fbnyc2.Rdata")
+#fb_map2 <- left_join(nyc_zips, nyc_fb2, by = "zip_code")
 
 fb_map2 |> 
   ggplot(mapping = aes(fill = freq)) +
@@ -441,7 +462,254 @@ fb_map2 |>
 
 .right.w90.small[Zero areas properly zero, missing areas properly missing.]
 
+---
+
+layout: true
+class: title title-1
+
+---
+
+# Dorling Cartograms
+
+```{r}
+# install.packages("cartogram")
+library(cartogram)
+options(tigris_use_cache = TRUE)
+```
+
+---
+
+# Dorling Cartograms
+
+```{r}
+pop_names <- tribble(
+    ~varname, ~clean,
+    "B01003_001", "pop",
+    "B01001B_001", "black",
+    "B01001A_001", "white",
+    "B01001H_001", "nh_white",
+    "B01001I_001", "hispanic",
+    "B01001D_001", "asian"
+  )
+  
+pop_names
+
+```
+
+---
+
+# Dorling Cartograms
+
+```{r}
+
+clean_names <- function(variable, lookup) {
+  
+  vtbl <- lookup
+  
+  for(i in 1:nrow(vtbl)) {
+    variable <- stringr::str_replace(variable, 
+                                     vtbl$varname[i],
+                                     vtbl$clean[i])
+  }
+  
+  variable
+  
+}
+```
+
+---
+
+# Dorling Cartograms
+
+```{r}
+fips_pop <- get_acs(geography = "county", 
+                    variables = pop_names$varname, 
+                    cache_table = TRUE) |>  
+  mutate(variable = clean_names(variable, lookup = pop_names)) |>  
+  select(-moe) |>  
+  pivot_wider(names_from = variable, values_from = estimate) |> 
+  rename(fips = GEOID, name = NAME) |> 
+  mutate(prop_pop = pop/sum(pop), 
+         prop_black = black/pop, 
+         prop_hisp = hispanic/pop, 
+         prop_white = white/pop, 
+         prop_nhwhite = nh_white/pop, 
+         prop_asian = asian/pop)
+
+fips_map <- get_acs(geography = "county", 
+                    variables = "B01001_001", 
+                    geometry = TRUE,
+                    shift_geo = FALSE,
+                    cache_table = TRUE) |> 
+  select(GEOID, NAME, geometry) |> 
+  rename(fips = GEOID, name = NAME)
+```
+
+---
+
+# Dorling Cartograms
+
+```{r}
+pop_cat_labels <- c("<5", as.character(seq(10, 95, 5)), "100")
+
+counties_sf <- fips_map |>
+  left_join(fips_pop, by = c("fips", "name")) |> 
+  mutate(black_disc = cut(prop_black*100,
+                         breaks = seq(0, 100, 5),
+                         labels = pop_cat_labels,
+                         ordered_result = TRUE), 
+         hisp_disc = cut(prop_hisp*100,
+                         breaks = seq(0, 100, 5),
+                         labels = pop_cat_labels,
+                         ordered_result = TRUE), 
+         nhwhite_disc = cut(prop_nhwhite*100,
+                         breaks = seq(0, 100, 5),
+                         labels = pop_cat_labels,
+                         ordered_result = TRUE),
+        asian_disc = cut(prop_asian*100,
+                         breaks = seq(0, 100, 5),
+                         labels = pop_cat_labels,
+                         ordered_result = TRUE)) |>
+  sf::st_transform(crs = 2163)
+
+```
+
+---
+
+# Dorling Cartograms
+
+```{r}
+counties_sf
+```
+
+---
+
+# Dorling Cartograms
+
+```{r}
+## Be patient
+county_dorling <- cartogram_dorling(x = counties_sf,
+    weight = "prop_pop", 
+    k = 0.2, itermax = 100)
+
+out_black <- county_dorling |>
+  filter(!str_detect(name, "Alaska|Hawaii|Puerto|Guam")) |>
+  ggplot(aes(fill = black_disc)) +
+  geom_sf(color = "grey30", size = 0.1) +
+  coord_sf(crs = 2163, datum = NA) +
+  scale_fill_discrete_sequential(palette = "YlOrBr", 
+                                 na.translate=FALSE) +
+  guides(fill = guide_legend(title.position = "top",
+                             label.position = "bottom",
+                             nrow = 1)) + 
+  labs(
+     subtitle = "Bubble size corresponds to County Population",
+     caption = "Graph: @kjhealy. Source: Census Bureau / American Community Survey",
+       fill = "Percent Black by County") + 
+  theme(legend.position = "top", 
+        legend.spacing.x = unit(0, "cm"),
+        legend.title = element_text(size = rel(1.5), face = "bold"), 
+        legend.text = element_text(size = rel(0.7)),
+        plot.title = element_text(size = rel(1.4), hjust = 0.15))
+
+# ggsave("figures/dorling-bl.pdf", out_black, height = 10, width = 12)
+
+```
+
+---
+
+# Dorling Cartograms
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+out_hispanic <- county_dorling |>
+  filter(!str_detect(name, "Alaska|Hawaii|Puerto|Guam")) |>
+  ggplot(aes(fill = hisp_disc)) +
+  geom_sf(color = "grey30", size = 0.1) +
+  coord_sf(crs = 2163, datum = NA) +
+  scale_fill_discrete_sequential(palette = "SunsetDark", na.translate=FALSE) +
+  guides(fill = guide_legend(title.position = "top",
+                             label.position = "bottom",
+                             nrow = 1, 
+                             )) + 
+  labs(fill = "Percent Hispanic by County") + 
+  theme(legend.position = "top", 
+        legend.spacing.x = unit(0, "cm"),
+        legend.title = element_text(size = rel(1.5), face = "bold"), 
+        legend.text = element_text(size = rel(0.7)),
+        plot.title = element_text(size = rel(1.4), hjust = 0.15))
+
+# ggsave("figures/dorling-hs.pdf", out_hispanic, height = 10, width = 12)
 
 
+out_white <- county_dorling |>
+  filter(!str_detect(name, "Alaska|Hawaii|Puerto|Guam")) |>
+  ggplot(aes(fill = nhwhite_disc)) +
+  geom_sf(color = "grey30", size = 0.1) +
+  coord_sf(crs = 2163, datum = NA) +
+  scale_fill_discrete_sequential(palette = "BluYl", na.translate=FALSE) +
+  guides(fill = guide_legend(title.position = "top",
+                             label.position = "bottom",
+                             nrow = 1, 
+                             )) + 
+  labs(fill = "Percent Non-Hispanic White by County") + 
+  theme(legend.position = "top", 
+        legend.spacing.x = unit(0, "cm"),
+        legend.title = element_text(size = rel(1.5), face = "bold"), 
+        legend.text = element_text(size = rel(0.7)),
+        plot.title = element_text(size = rel(1.4), hjust = 0.15))
 
+# ggsave("figures/dorling-wh.pdf", out_white, height = 10, width = 12)
+
+out_asian <- county_dorling |>
+  filter(!str_detect(name, "Alaska|Hawaii|Puerto|Guam")) |>
+  ggplot(aes(fill = asian_disc)) +
+  geom_sf(color = "grey30", size = 0.1) +
+  coord_sf(crs = 2163, datum = NA) +
+  scale_fill_discrete_sequential(palette = "Purple-Ora", na.translate=FALSE) +
+  guides(fill = guide_legend(title.position = "top",
+                             label.position = "bottom",
+                             nrow = 1, 
+                             )) + 
+  labs(fill = "Percent Asian by County") + 
+  theme(legend.position = "top", 
+        legend.spacing.x = unit(0, "cm"),
+        legend.title = element_text(size = rel(1.5), face = "bold"), 
+        legend.text = element_text(size = rel(0.7)),
+        plot.title = element_text(size = rel(1.4), hjust = 0.15))
+
+# ggsave("figures/dorling-asian.pdf", out_asian, height = 10, width = 12)
+
+```
+
+---
+
+layout: false
+
+```{r, fig.width=10, fig.height=8}
+print(out_black)
+```
+
+---
+
+```{r, fig.width=10, fig.height=8}
+print(out_white)
+```
+
+---
+
+```{r, fig.width=10, fig.height=8}
+print(out_hispanic)
+```
+
+---
+
+```{r, fig.width=10, fig.height=8}
+print(out_asian)
+```
+
+```{r, echo = FALSE, message = FALSE}
+fs::file_delete(here::here("slides", "fbnyc2.Rdata"))
+fs::file_delete(here::here("slides", "fb_map.Rdata"))
+fs::file_delete(here::here("slides", "nyc_fb.Rdata"))
+```
 

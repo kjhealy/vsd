@@ -330,6 +330,18 @@
       ],
       "Hash": "9b2191ede20fa29828139b9900922e51"
     },
+    "cartogram": {
+      "Package": "cartogram",
+      "Version": "0.2.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "methods",
+        "packcircles",
+        "sf"
+      ],
+      "Hash": "a6c43d01b6f8e748f365da2c1f16c4cb"
+    },
     "cellranger": {
       "Package": "cellranger",
       "Version": "1.1.0",
@@ -1456,7 +1468,7 @@
     },
     "kjhslides": {
       "Package": "kjhslides",
-      "Version": "0.0.10.9000",
+      "Version": "0.0.12.9000",
       "Source": "GitHub",
       "Remotes": "kjhealy/myriad, jumpingrivers/namer, gadenbuie/xaringanExtra",
       "RemoteType": "github",
@@ -1464,7 +1476,7 @@
       "RemoteRepo": "kjhslides",
       "RemoteUsername": "kjhealy",
       "RemoteRef": "HEAD",
-      "RemoteSha": "818232cbc447cdb8352befccb70ca0d576a880a7",
+      "RemoteSha": "1a7e4185e26a12878ff816cd8e08a32fe19e5212",
       "Requirements": [
         "dplyr",
         "fs",
@@ -1485,7 +1497,7 @@
         "tools",
         "xaringan"
       ],
-      "Hash": "559d30cba6e2efbf97fcf45a32584281"
+      "Hash": "56b573c1a4c1c995a3c9b7c30845c0dc"
     },
     "knitr": {
       "Package": "knitr",
@@ -1765,6 +1777,17 @@
         "askpass"
       ],
       "Hash": "b04c27110bf367b4daa93f34f3d58e75"
+    },
+    "packcircles": {
+      "Package": "packcircles",
+      "Version": "0.3.5",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "Rcpp"
+      ],
+      "Hash": "69271b67a24e9978e45c55d22e964335"
     },
     "palmerpenguins": {
       "Package": "palmerpenguins",
