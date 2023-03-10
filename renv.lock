@@ -836,7 +836,7 @@
     },
     "future": {
       "Package": "future",
-      "Version": "1.31.0",
+      "Version": "1.32.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -847,7 +847,7 @@
         "parallelly",
         "utils"
       ],
-      "Hash": "f3f0fbe5ce9b77c002f8c5170790538a"
+      "Hash": "c68517cf2f78be4ea86e140b8598a4ca"
     },
     "future.callr": {
       "Package": "future.callr",
@@ -863,14 +863,14 @@
     },
     "gapminder": {
       "Package": "gapminder",
-      "Version": "0.3.0",
+      "Version": "1.0.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R",
         "tibble"
       ],
-      "Hash": "d970917c7a0ef3ef3d19e6fe49ab586c"
+      "Hash": "3a6fab978494586e851b8763996821d6"
     },
     "gargle": {
       "Package": "gargle",
@@ -1770,13 +1770,13 @@
     },
     "openssl": {
       "Package": "openssl",
-      "Version": "2.0.5",
+      "Version": "2.0.6",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "askpass"
       ],
-      "Hash": "b04c27110bf367b4daa93f34f3d58e75"
+      "Hash": "0f7cd2962e3044bb940cca4f4b5cecbe"
     },
     "packcircles": {
       "Package": "packcircles",
@@ -2392,7 +2392,7 @@
     },
     "tarchetypes": {
       "Package": "tarchetypes",
-      "Version": "0.7.4",
+      "Version": "0.7.5",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2411,11 +2411,11 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "7c17fd8229eb7ab46c008c06b6629bd0"
+      "Hash": "b059a3d39cececb65eceffc0b33c1061"
     },
     "targets": {
       "Package": "targets",
-      "Version": "0.14.2",
+      "Version": "0.14.3",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2439,7 +2439,7 @@
         "withr",
         "yaml"
       ],
-      "Hash": "2d9503c7d701acccb205e5da6e9abacb"
+      "Hash": "bf748746ce81f412fb06d30d6a2ddec7"
     },
     "textshaping": {
       "Package": "textshaping",
@@ -2455,7 +2455,7 @@
     },
     "tibble": {
       "Package": "tibble",
-      "Version": "3.1.8",
+      "Version": "3.2.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2470,7 +2470,7 @@
         "utils",
         "vctrs"
       ],
-      "Hash": "56b6934ef0f8c68225949a8672fe1a8f"
+      "Hash": "37695ff125982007d42a59ad10982ff2"
     },
     "tidycensus": {
       "Package": "tidycensus",
