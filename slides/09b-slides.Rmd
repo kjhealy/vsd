@@ -471,21 +471,21 @@ class: title title-1
 
 # Care with Spatial Distribution
 
-.center[![:scale 95%](img/09_point_process_random.png)]
+.center[![:scale 55%](img/09_point_process_random.png)]
 
 
 ---
 
 # Care with Spatial Distribution
 
-.center[![:scale 95%](img/09_kde_heatmap.png)]
+.center[![:scale 40%](img/09_kde_heatmap.png)]
 
 
 ---
 
 # Care with Spatial Distribution
 
-.center[![:scale 95%](img/09_local_moran.png)]
+.center[![:scale 40%](img/09_local_moran.png)]
 
 
 ---

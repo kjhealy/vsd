@@ -1,6 +1,6 @@
 ---
 title: "8. Trends and Time Series"
-date: "2023-03-03"
+date: "2023-03-01"
 ---
 
 ```{r slides, echo=FALSE, include=FALSE}
@@ -22,7 +22,7 @@ This week we look at change over time, and ways of thinking about it.
 
 ## Slides
 
-The slide decks for this week (there are two again) are available here. 
+The slide deck for this week is available here. 
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
 slide_buttons("/slides/08-slides")
