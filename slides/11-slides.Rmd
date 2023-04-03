@@ -1,0 +1,472 @@
+---
+title: "11 --- Text as Data"
+author: "Kieran Healy"
+date: "`r Sys.Date()`"
+output: kjhslides::kjh_local_slides_reader
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r packages, include=FALSE}
+library(flipbookr)
+library(here)
+library(tidyverse)
+library(kjhslides)
+```
+
+
+```{r setup, include=FALSE}
+
+kjh_register_tenso()
+kjh_set_knitr_opts()
+kjh_set_slide_theme()
+kjh_set_xaringan_opts()
+
+
+
+
+
+
+# Safe
+```
+
+
+
+class: center middle main-title section-title-1
+
+# .kjh-green[Text] as .kjh-lblue[Data]
+
+.class-info[
+
+**Week 10**
+
+.light[Kieran Healy<br>
+Duke University, Spring 2023]
+
+]
+
+---
+
+layout: true
+class: title title-1
+
+---
+
+# Load the packages, as always
+
+.SMALL[
+```{r 07-iterating-on-data-2, message = TRUE}
+library(here)      # manage file paths
+library(socviz)    # data and some useful functions
+library(tidyverse) # your friend and mine
+```
+]
+
+---
+
+# Specialty packages
+
+.SMALL[
+```{r 07-iterating-on-data-3, message = TRUE}
+library(tidytext)    # Tools for analyzing text
+library(gutenbergr)  # Get books from Project Gutenberg
+library(janeaustenr) # Pre-organized dataset of Jane Austen's novels
+```
+]
+
+---
+
+# Toolkit
+
+- This week's examples are mostly taken directly from Silge and Robinson (2017), _Text Mining with R_.
+
+---
+
+# Tidy text
+
+```{r}
+original_books <- austen_books() |>
+  group_by(book) |>
+  mutate(linenumber = row_number(),
+         chapter = cumsum(str_detect(text, 
+                                     regex("^chapter [\\divxlc]",
+                                           ignore_case = TRUE)))) |>
+  ungroup()
+
+tidy_books <- original_books |>
+  unnest_tokens(word, text)
+
+tidy_books
+```
+
+---
+
+# "Stopwords"
+
+- For many purposes (not always!) very common words like prepositions and articles are not interesting.
+
+```{r}
+data(stop_words)
+
+stop_words
+
+tidy_books <- tidy_books |>
+  anti_join(stop_words)
+```
+
+---
+
+# Stopwords removed
+
+```{r}
+tidy_books |>
+  count(word, sort = TRUE) 
+```
+
+
+---
+
+# Word frequency
+
+```{r, fig.width=5, fig.height=4}
+tidy_books |>
+  count(word, sort = TRUE) |>
+  filter(n > 600) |>
+  mutate(word = reorder(word, n)) |>
+  ggplot(aes(n, word)) + geom_col() +
+  labs(y = NULL)
+```
+
+---
+
+# tf-idf
+
+- The idea is to count the frequency of terms in a document, but decrease the weight of commonly used words and increase the weight for words that are not used very much in a corpus. 
+
+---
+
+# For example ...
+
+```{r}
+book_words <- austen_books() |>
+  unnest_tokens(word, text) |>
+  count(book, word, sort = TRUE)
+
+total_words <- book_words |> 
+  group_by(book) |> 
+  summarize(total = sum(n))
+
+book_words <- left_join(book_words, total_words)
+
+book_words
+```
+
+---
+
+# For example ...
+
+
+```{r, fig.width=24, fig.height=4}
+ggplot(book_words, aes(n/total, fill = book)) +
+  geom_histogram(show.legend = FALSE) +
+  xlim(NA, 0.0009) +
+  facet_wrap(~book, nrow = 1, scales = "free_y")
+```
+
+---
+
+# Zipf's Law
+
+-  The frequency that a word appears is inversely proportional to its rank.
+
+```{r}
+freq_by_rank <- book_words |> 
+  group_by(book) |> 
+  mutate(rank = row_number(), 
+         `term frequency` = n/total) |>
+  ungroup()
+
+freq_by_rank
+```
+
+---
+
+# Zipf's Law
+
+```{r, fig.height=6, fig.width=8}
+freq_by_rank |> 
+  ggplot(aes(rank, `term frequency`, color = book)) + 
+  geom_line(size = 1.1, alpha = 0.8, show.legend = FALSE) + 
+  scale_x_log10() +
+  scale_y_log10()
+```
+
+
+---
+
+# n-grams
+
+```{r}
+austen_bigrams <- austen_books() |>
+  unnest_tokens(bigram, text, token = "ngrams", n = 2) |>
+  filter(!is.na(bigram))
+
+austen_bigrams
+```
+
+
+---
+
+# n-grams
+
+```{r}
+austen_bigrams |>
+  count(bigram, sort = TRUE)
+```
+
+- Stopwords again
+
+---
+
+# n-grams
+
+- Split the columns
+
+```{r}
+bigrams_separated <- austen_bigrams |>
+  separate(bigram, c("word1", "word2"), sep = " ")
+
+bigrams_filtered <- bigrams_separated |>
+  filter(!word1 %in% stop_words$word) |>
+  filter(!word2 %in% stop_words$word)
+
+# new bigram counts:
+bigram_counts <- bigrams_filtered |> 
+  count(word1, word2, sort = TRUE)
+
+bigram_counts
+```
+
+---
+
+# n-grams
+
+```{r}
+bigrams_united <- bigrams_filtered |>
+  unite(bigram, word1, word2, sep = " ")
+
+bigrams_united
+```
+
+- Now we have common bigrams without stopwords
+
+---
+
+# n-gram tf-idf
+
+```{r}
+bigram_tf_idf <- bigrams_united |>
+  count(book, bigram) |>
+  bind_tf_idf(bigram, book, n) |>
+  arrange(desc(tf_idf))
+
+bigram_tf_idf
+```
+
+
+---
+
+# Plot them 
+
+```{r}
+out <- bigram_tf_idf |>
+  arrange(desc(tf_idf)) |>
+  group_by(book) |>
+  slice_max(tf_idf, n = 10) |>
+  ungroup() |>
+  mutate(bigram = reorder(bigram, tf_idf)) |>
+  ggplot(aes(tf_idf, bigram, fill = book)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ book, nrow = 2, scales = "free") +
+  labs(x = "tf-idf of bigram", y = NULL)
+```
+
+
+---
+
+layout: false
+class: center
+
+```{r, fig.width=15, fig.height=6}
+print(out)
+```
+
+---
+
+layout: true
+class: title title-1
+
+---
+
+# Sentiment Analysis
+
+```{r}
+raw_text <- gutenberg_download(4300) 
+
+full_text <- raw_text |> 
+  mutate(line=row_number()) |> 
+  unnest_tokens(word,text)
+```
+
+
+---
+
+# Sentiment Analysis
+
+```{r}
+full_text[30:51,] |> 
+  print(n = Inf)
+```
+
+
+---
+
+# Sentiment Analysis 
+
+```{r}
+tail(full_text, n = 20)
+```
+
+---
+
+# Sentiment Analysis
+
+```{r}
+full_text |>
+  anti_join(stop_words) |>
+  filter(! str_detect(word, "'")) |>
+  filter(! str_detect(word, "’")) |>
+  count(word, sort = TRUE) |>
+  top_n(20) |>
+  mutate(word=reorder(word, n))
+```
+
+
+---
+
+# Sentiment Analysis
+
+```{r}
+sent <- full_text |> 
+  inner_join(get_sentiments("bing"), relationship = "many-to-many") |>
+  count(sentiment, word, sort = TRUE) |>
+  group_by(sentiment) |>
+  top_n(10) |>
+  ungroup() |>
+  mutate(word=reorder(word,n)) 
+
+
+sent
+
+```
+
+
+---
+
+# Sentiment Analysis
+
+```{r}
+out <- sent  |> 
+  ggplot(mapping = aes(x = n, 
+                       y = word, 
+                       fill=sentiment)) +
+  geom_col() +
+  guides(fill = "none") + 
+  facet_wrap(~ sentiment, 
+             scales = "free")
+
+```
+
+
+---
+
+layout: false
+class: center
+
+```{r, fig.width=15, fig.height=5}
+print(out)
+```
+
+---
+
+layout: true
+class: title title-1
+
+---
+
+# Sentiment Analysis
+
+```{r}
+out <- full_text |> 
+  inner_join(get_sentiments("bing"), relationship = "many-to-many") |>
+  count(index = line %/% 2000, sentiment) |>
+  pivot_wider(names_from = sentiment, 
+              values_from = n, values_fill = 0) |> 
+  mutate(sentiment = positive - negative) 
+
+out
+
+```
+
+---
+
+# Sentiment Analysis
+
+```{r, fig.height = 5, fig.width=15}
+out |> 
+  ggplot(mapping = aes(index, sentiment)) +
+  geom_col(show.legend = FALSE)
+```
+
+---
+
+# Pronouns
+
+
+```{r}
+pronouns <- raw_text |>
+  unnest_tokens(bigram, text, token = "ngrams", n = 2) |>
+  separate(bigram, c("word1", "word2"), sep=" ") |>
+  filter(word1 %in% c("he", "she", "they")) |>
+  filter(!word2 %in% stop_words$word, !str_detect(word2, "'")) |>
+  count(word1, word2, sort=TRUE)
+
+pronouns
+```
+
+---
+
+# Pronouns
+
+```{r}
+out <- pronouns |> 
+  group_by(word1) |> 
+  top_n(15) |> 
+  ggplot(mapping = aes(x=n, 
+                       y=reorder(word2, n), 
+                     fill=word1)) +
+  geom_col() +
+  guides(fill = "none") + 
+  facet_wrap(~ word1, scales="free")
+```
+
+---
+
+layout: false
+class: center
+
+```{r, fig.width=8, fig.height=8}
+print(out)
+```
+

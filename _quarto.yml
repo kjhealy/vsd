@@ -77,7 +77,10 @@ website:
               file: content/08-content.qmd
             - text: "09: Maps and Spatial Data"
               file: content/09-content.qmd
-
+            - text: "10: Iteration and Missingness"
+              file: example/10-content.qmd
+            - text: "11: Text as Data"
+              file: example/11-content.qmd
 
     - title: "Assignments"
       contents:

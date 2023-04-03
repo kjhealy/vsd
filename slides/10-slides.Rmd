@@ -35,7 +35,7 @@ kjh_set_xaringan_opts()
 
 class: center middle main-title section-title-1
 
-# .kjh-green[Iterating] on data with .kjh-yellow[purrr] and .kjh-yellow[map]  
+# .kjh-green[Iteration], .kjh-yellow[Missingness], and .kjh-lblue[Selection Effects]
 
 .class-info[
 
@@ -848,15 +848,6 @@ vis_miss(organdata)
 
 # Using .kjh-yellow[naniar] and .kjh-yellow[visdat]
 
-```{r 07-iterating-on-data-51, fig.height=6, fig.width=8}
-library(congress)
-gg_miss_upset(congress)
-```
-
----
-
-# Using .kjh-yellow[naniar] and .kjh-yellow[visdat]
-
 ```{r 07-iterating-on-data-52, fig.height=6, fig.width=8}
 vis_miss(organdata, cluster = TRUE)
 ```
@@ -1103,18 +1094,15 @@ class: title title-1
 
 ```{r}
 # devtools::install_github("sportsdataverse/hoopR")
-library(hoopR)
 
-df <- nba_leaguedashplayerbiostats()
-df <- df$LeagueDashPlayerBioStats |>
-  janitor::clean_names()
+df <- read_csv(here("files", "data", "nba_players_2023_04_03.csv"), 
+               show_col_types = FALSE)
 
 num_vars <- c("age", "player_height_inches",
               "player_weight", colnames(df)[14:23])
 
 df <- df |>
   mutate(across(all_of(num_vars), ~ as.numeric(.x)))
-
 ```
 
 ---
