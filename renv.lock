@@ -113,6 +113,20 @@
       ],
       "Hash": "e749cae40fa9ef469b6050959517453c"
     },
+    "RcppArmadillo": {
+      "Package": "RcppArmadillo",
+      "Version": "0.12.0.1.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "Rcpp",
+        "methods",
+        "stats",
+        "utils"
+      ],
+      "Hash": "dee7cfd76b4c78bab84e09b74b6d471f"
+    },
     "RcppEigen": {
       "Package": "RcppEigen",
       "Version": "0.3.3.9.3",
@@ -126,16 +140,6 @@
         "utils"
       ],
       "Hash": "1e035db628cefb315c571202d70202fe"
-    },
-    "RcppParallel": {
-      "Package": "RcppParallel",
-      "Version": "5.1.7",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R"
-      ],
-      "Hash": "a45594a00f5dbb073d5ec9f48592a08a"
     },
     "SnowballC": {
       "Package": "SnowballC",
@@ -495,25 +499,6 @@
         "rlang"
       ],
       "Hash": "bb097fccb22d156624fd07cd2894ddb6"
-    },
-    "congress": {
-      "Package": "congress",
-      "Version": "0.0.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "cli",
-        "dplyr",
-        "glue",
-        "httr2",
-        "purrr",
-        "rlang",
-        "stringr",
-        "tibble",
-        "tidyr"
-      ],
-      "Hash": "7064f52c2c2890a16cbaaa344063a92c"
     },
     "cpp11": {
       "Package": "cpp11",
@@ -1042,6 +1027,37 @@
       ],
       "Hash": "d494daf77c4aa7f084dbbe6ca5dcaca7"
     },
+    "ggraph": {
+      "Package": "ggraph",
+      "Version": "2.1.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "MASS",
+        "R",
+        "Rcpp",
+        "cli",
+        "digest",
+        "dplyr",
+        "ggforce",
+        "ggplot2",
+        "ggrepel",
+        "graphlayouts",
+        "grid",
+        "gtable",
+        "igraph",
+        "lifecycle",
+        "rlang",
+        "scales",
+        "stats",
+        "tidygraph",
+        "utils",
+        "vctrs",
+        "viridis",
+        "withr"
+      ],
+      "Hash": "62672fd99df5df5814f442e9cd5ec29b"
+    },
     "ggrepel": {
       "Package": "ggrepel",
       "Version": "0.9.3",
@@ -1189,6 +1205,19 @@
         "vctrs"
       ],
       "Hash": "3b449d5292327880fc6cb61d0b2e9063"
+    },
+    "graphlayouts": {
+      "Package": "graphlayouts",
+      "Version": "0.8.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "Rcpp",
+        "RcppArmadillo",
+        "igraph"
+      ],
+      "Hash": "1f3bfd26e5a4b89a98f63d25508b1f95"
     },
     "gridExtra": {
       "Package": "gridExtra",
@@ -1361,41 +1390,6 @@
         "vctrs"
       ],
       "Hash": "b59377caa7ed00fa41808342002138f9"
-    },
-    "hoopR": {
-      "Package": "hoopR",
-      "Version": "1.9.1.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "hoopR",
-      "RemoteUsername": "sportsdataverse",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "9a028cbd043f944944f69450d1fc906c1cb8cb9f",
-      "Requirements": [
-        "R",
-        "Rcpp",
-        "RcppParallel",
-        "cli",
-        "data.table",
-        "dplyr",
-        "furrr",
-        "future",
-        "glue",
-        "httr",
-        "janitor",
-        "jsonlite",
-        "lubridate",
-        "magrittr",
-        "progressr",
-        "purrr",
-        "rlang",
-        "rvest",
-        "stringr",
-        "tidyr",
-        "usethis"
-      ],
-      "Hash": "40fd59dd3448c1ba41933cd8c84d5bc2"
     },
     "htmltools": {
       "Package": "htmltools",
@@ -1609,6 +1603,18 @@
         "xml2"
       ],
       "Hash": "49b625e6aabe4c5f091f5850aba8ff78"
+    },
+    "kjhnet": {
+      "Package": "kjhnet",
+      "Version": "0.0.0.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "kjhnet",
+      "RemoteUsername": "kjhealy",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "16fe15ed0bbe88176606e351d5dfe65aa0cfc145",
+      "Hash": "517e84700599647871049f292d39e0b1"
     },
     "kjhslides": {
       "Package": "kjhslides",
@@ -2715,6 +2721,28 @@
         "xml2"
       ],
       "Hash": "4f564bb53bd268e868270cad2d64eb5e"
+    },
+    "tidygraph": {
+      "Package": "tidygraph",
+      "Version": "1.2.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R6",
+        "cli",
+        "cpp11",
+        "dplyr",
+        "igraph",
+        "magrittr",
+        "pillar",
+        "rlang",
+        "stats",
+        "tibble",
+        "tidyr",
+        "tools",
+        "utils"
+      ],
+      "Hash": "0fc97a52b4b32a0b4a3de4c5241348e2"
     },
     "tidyr": {
       "Package": "tidyr",

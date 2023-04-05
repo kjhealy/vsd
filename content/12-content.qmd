@@ -1,0 +1,42 @@
+---
+title: "12. Relational Data"
+date: "2023-04-05"
+---
+
+```{r slides, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+
+slide_details <- tibble::tribble(
+  ~youtube_id,   ~title, ~slide, ~active,
+  "", "", "1", TRUE)
+
+```
+
+## Summary
+
+Relational data---including social network data, but also other sorts of tie-based data---is very important but slightly tricky to work with.
+
+## Reading
+
+- [@healy:2013]
+
+- [@han:2009]
+
+## Slides
+
+The slide decks for this week are available here: 
+
+```{r show-slide-tabs-1, echo=FALSE, results="asis"}
+slide_buttons("/slides/12-slides")
+slide_tabs(slide_details, "/slides/12-slides.html")
+```
+
+```{r show-slide-tabs-2, echo=FALSE, results="asis"}
+slide_buttons("/slides/12b-slides")
+slide_tabs(slide_details, "/slides/12b-slides.html")
+```
+
+
+:::{.callout-tip}
+**Tip**: If you type <kbd>?</kbd> (or <kbd>shift</kbd> + <kbd>/</kbd>) while going through the slides, you can see a list of special slide-specific commands.
+:::

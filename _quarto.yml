@@ -81,6 +81,8 @@ website:
               file: content/10-content.qmd
             - text: "11: Text as Data"
               file: content/11-content.qmd
+            - text: "12: Network Data"
+              file: content/12-content.qmd
 
     - title: "Assignments"
       contents:
