@@ -97,6 +97,7 @@ website:
             - assignment/midterm.qmd
             - assignment/07-problem-set.qmd
             - assignment/08-problem-set.qmd
+            - assignment/12-problem-set.qmd
 
     - title: "Examples"
       contents:
@@ -125,6 +126,8 @@ website:
               file: example/08-example.qmd
             - text: "09: Maps and Spatial Data"
               file: example/09-example.qmd
+            - text: "12: Network Data"
+              file: example/12-example.qmd
 
   page-footer:
     left: |

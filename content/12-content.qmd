@@ -22,6 +22,8 @@ Relational data---including social network data, but also other sorts of tie-bas
 
 - [@han:2009]
 
+- [@rossman17:_glory_gore]
+
 ## Slides
 
 The slide decks for this week are available here: 

@@ -1,0 +1,104 @@
+---
+title: "Example 12: Network Data"
+---
+
+
+## Setup
+
+```{r}
+
+library(here)       # manage file paths
+library(socviz)     # data and some useful functions
+library(tidyverse)  # your friend and mine
+
+library(tidygraph) # tidy management of relational data
+library(ggraph)   # geoms for drawing graphs
+
+#remotes::install_github("kjhealy/kjhnet")
+library(kjhnet)   # some network datasets
+```
+
+
+Sometimes, we have data that doesn't _look_ particularly relational at first glance, but we can make it so. 
+
+```{r}
+set_graph_style(family = "Myriad Pro SemiCondensed")
+
+library(ggraph)
+library(tidygraph)
+
+set_graph_style(family = "Myriad Pro SemiCondensed")
+```
+
+
+## Warren's socjobs data
+
+```{r}
+socjobs
+```
+
+Let's clean it up a little:
+
+```{r}
+clean_dept_names <- function(x){
+    x <- str_replace(x, "California-", "")
+    x <- str_replace(x, "SUNY-", "")
+    x <- str_replace(x, "SUNY-", "")
+    x <- str_replace(x, "Illinois-Chicago", "UIC")
+    x <- str_replace(x, "U of Illinois", "UIUC")
+    x <- str_replace(x, "U of Pennsylvania", "U Penn")
+    x <- str_replace(x, "San Francisco", "UCSF")
+    x <- str_replace(x, "North Carolina", "UNC")
+    x <- str_replace(x, "N.C. State", "NC State")
+    x
+}
+
+jobnet <- socjobs |> 
+  # Texas isn't in the data properly
+  filter(top25phd == "Yes", phd_dept != "Texas", job_dept != "Texas") |>
+  select(phd_dept, job_dept) |>
+  mutate(phd_dept = clean_dept_names(phd_dept),
+         job_dept = clean_dept_names(job_dept)) |>
+  group_by(phd_dept, job_dept) |>
+  tally() 
+```
+
+At this point we have tallied jobs by PhD department and First Job Department:
+
+```{r}
+jobnet
+```
+
+
+Next we rename `n` to `weight` and make a scaled weight (in case we need it), and convert it to a network format:
+
+```{r}
+
+jobnet <- jobnet |> 
+  select(from = phd_dept, to = job_dept, weight = n) |>
+  mutate(scale_weight = scale(weight, center = FALSE)) |> 
+  filter(weight > 0) |> 
+  as_tbl_graph() 
+
+jobnet
+
+```
+
+Now we can calculate centrality scores and draw a graph:
+
+```{r, fig.height=10, fig.width=15}
+jobnet |> 
+  mutate(centrality = centrality_eigen(weights = weight)) |>
+  ggraph(layout = "graphopt") + 
+  geom_edge_fan(aes(alpha = weight),
+                arrow = arrow(length = unit(3, 'mm'), type = "closed"), 
+                start_cap = circle(2, 'mm'),
+                end_cap = circle(8, 'mm')) + 
+  geom_node_label(aes(label = name)) + 
+  scale_edge_alpha_continuous(name = "N Hires") + 
+  labs(title = "New Assistant Professor Exchanges within the Top 25 Sociology Departments", 
+       subtitle = "New Ph.D. hires, 1990-2017. Data show absolute number of within-network hires only.\nHires to and from outside the Top 25 are not shown. No adjustments are made for departmental or cohort sizes.", 
+       caption = "Data: Warren (2019). Data exclude UT Austin.") + 
+  theme_graph(base_family = "Myriad Pro SemiCondensed") + 
+    theme(legend.position = "top") 
+```
