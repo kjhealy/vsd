@@ -40,7 +40,7 @@ socjobs
 Let's clean it up a little:
 
 ```{r}
-clean_dept_names <- function(x){
+clean_dept_names <- function(x) {
     x <- str_replace(x, "California-", "")
     x <- str_replace(x, "SUNY-", "")
     x <- str_replace(x, "SUNY-", "")
@@ -91,9 +91,9 @@ jobnet |>
   mutate(centrality = centrality_eigen(weights = weight)) |>
   ggraph(layout = "graphopt") + 
   geom_edge_fan(aes(alpha = weight),
-                arrow = arrow(length = unit(3, 'mm'), type = "closed"), 
-                start_cap = circle(2, 'mm'),
-                end_cap = circle(8, 'mm')) + 
+                arrow = arrow(length = unit(3, "mm"), type = "closed"), 
+                start_cap = circle(2, "mm"),
+                end_cap = circle(8, "mm")) + 
   geom_node_label(aes(label = name)) + 
   scale_edge_alpha_continuous(name = "N Hires") + 
   labs(title = "New Assistant Professor Exchanges within the Top 25 Sociology Departments", 
