@@ -28,3 +28,5 @@ projects/*.zip
 **/*_cache/*
 
 README.html
+
+/.luarc.json
