@@ -1964,6 +1964,24 @@
       ],
       "Hash": "bff2fef633492ffbc30806c0053170d9"
     },
+    "nycomplaints": {
+      "Package": "nycomplaints",
+      "Version": "0.1.0",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "nycomplaints",
+      "RemoteUsername": "kjhealy",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "10ee006301cbe2a782adec022d65462d15e37132",
+      "Requirements": [
+        "R",
+        "dplyr",
+        "magrittr",
+        "tidyr"
+      ],
+      "Hash": "8a5d9bbc0b192ddc119ef88ee165f43f"
+    },
     "openssl": {
       "Package": "openssl",
       "Version": "2.0.6",
