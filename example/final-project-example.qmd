@@ -1,0 +1,121 @@
+---
+title: "Final Project Examples"
+---
+
+
+## Setup
+
+```{r}
+
+library(tidyverse)
+library(here)
+library(socviz)
+
+## Mapping
+library(sf)
+
+## Census
+library(tidycensus)
+options(tigris_use_cache = TRUE)
+
+## Activate your API key by uncommenting the next line and 
+## putting your key in the quotes
+# census_api_key("YOUR_API_KEY_HERE")
+
+## Install this package
+## remotes::install_github("kjhealy/nycomplaints")
+library(nycomplaints)
+
+```
+
+
+## Some helpful patterns for the final project
+
+```{r}
+## Count and Arrange
+nycomplaints |> 
+  count(complaint_type) |> 
+  arrange(desc(n))
+```
+
+```{r}
+## Group and count, 
+## top 3 complaints within each borough
+nycomplaints |> 
+  group_by(borough, complaint_type) |> 
+  tally() |> 
+  slice_max(order_by = n, 
+            n = 3)
+```
+
+```{r}
+## Group and calculate proportions: top complaint in each boro
+nycomplaints |> 
+  group_by(borough, complaint_type) |> 
+  tally() |>
+  mutate(prop = n/sum(n)) |> 
+  slice_max(order_by = prop, 
+            n = 1)
+```
+
+```{r}
+## Census variables: official names and short names
+acs_vars <- tribble(
+      ~varname, ~clean_name,
+      "B01003_001", "pop",
+      "B01001B_001", "black",
+      "B01001A_001", "white",
+      "B01001H_001", "nh_white",
+      "B01001I_001", "hispanic",
+      "B01001D_001", "asian",
+      "B19013_001", "median_hh_inc")
+
+## NYC Counties in the Census/ACS = NYC Boroughs in the complaints data 
+ny_county_boros <- tribble(
+  ~county, ~borough,
+  "New York County, New York", "Manhattan",
+  "Queens County, New York", "Queens",
+  "Kings County, New York", "Brooklyn",
+  "Bronx County, New York", "Bronx",
+  "Richmond County, New York", "Staten Island"
+)
+
+## Data for the 5 NYC Boroughs, with Borough names patched in
+county_data <- get_acs(geography = "county", 
+        variables = acs_vars$varname, 
+        state = "NY", 
+        geometry = TRUE) %>% 
+  rename(fips = GEOID, 
+         county = NAME) %>% 
+  select(-moe) %>% 
+  tibble::as_tibble() %>% 
+  pivot_wider(names_from = variable, 
+              values_from = c(estimate)) %>% 
+  rename_with(~ acs_vars$clean_name, 
+              all_of(acs_vars$varname)) %>% 
+  filter(county %in% ny_county_boros$county) %>% 
+  left_join(ny_county_boros, by = "county") %>% 
+  select(fips, county, borough, everything()) %>% 
+  sf::st_as_sf()
+
+
+county_data
+```
+
+
+```{r}
+## Join tables: 
+## Merge the county_data into aggregated complaints data
+## With this you can calculate e.g. complaints per capita within boros.
+## This will work for zip codes too.
+county_complaints <- nycomplaints |>
+  group_by(borough, complaint_type) |> 
+  tally() |> 
+  mutate(prop = n/sum(n)) |> 
+  slice_max(order_by = prop, 
+            n = 1) |> 
+  drop_na() |> 
+  left_join(county_data, by = "borough")
+
+county_complaints
+```

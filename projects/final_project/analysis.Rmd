@@ -1,0 +1,161 @@
+---
+title: "Final Project"
+author: "<PUT YOUR NAME HERE>"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r load-libraries-data, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(here)
+library(socviz)
+
+## Mapping
+library(sf)
+
+## Census
+library(tidycensus)
+options(tigris_use_cache = TRUE)
+
+## Activate your API key by uncommenting the next line and 
+## putting your key in the quotes
+# census_api_key("YOUR_API_KEY_HERE")
+
+## Install this package
+## remotes::install_github("kjhealy/nycomplaints")
+library(nycomplaints)
+
+```
+
+# The dataset
+
+The dataset is documented here: <https://kjhealy.github.io/nycomplaints/reference/nycomplaints.html>
+
+Read the documentation before working with the data.
+
+# Set up the project
+
+Here I provide some tables that might be useful when analyzing the data.
+
+```{r}
+## Some census variables: official names and short names
+acs_vars <- tribble(
+      ~varname, ~clean_name,
+      "B01003_001", "pop",
+      "B01001B_001", "black",
+      "B01001A_001", "white",
+      "B01001H_001", "nh_white",
+      "B01001I_001", "hispanic",
+      "B01001D_001", "asian",
+      "B19013_001", "median_hh_inc")
+
+acs_vars
+
+## NYC Counties in the Census/ACS = NYC Boroughs in the complaints data 
+ny_county_boros <- tribble(
+  ~county, ~borough,
+  "New York County, New York", "Manhattan",
+  "Queens County, New York", "Queens",
+  "Kings County, New York", "Brooklyn",
+  "Bronx County, New York", "Bronx",
+  "Richmond County, New York", "Staten Island"
+)
+
+ny_county_boros
+```
+
+```{r}
+## Zip Basemap from nycdogs
+zip_base <- nycdogs::nyc_zips |> 
+  rename(zip = zip_code) |> 
+  mutate(zip = as.character(zip))
+
+## ZCTA - Zip Code Tabulation Area - data for New York State, 
+## including Geometry (i.e. map data)
+zip_data <- get_acs(geography = "zcta", 
+        variables = acs_vars$varname, 
+        state = "NY", 
+        year = 2019,
+        county = NULL, 
+        geometry = TRUE) |> 
+  rename(zip = GEOID) |> 
+  select(-moe) |> 
+  tibble::as_tibble() |> 
+  pivot_wider(names_from = variable, 
+              values_from = c(estimate)) |> 
+  rename_with(~ acs_vars$clean_name, 
+              all_of(acs_vars$varname)) |> 
+  sf::st_as_sf() |> 
+  relocate(geometry, .after = everything()) |> 
+  filter(zip %in% zip_base$zip) 
+
+zip_data
+```
+
+
+Quick map:
+
+```{r}
+zip_data |> 
+  ggplot() +
+  geom_sf()
+```
+
+Compare this to the base map—notice how some zips are missing. (Which ones?)
+
+
+```{r}
+## Data for the 5 NYC Boroughs, with Borough names patched in
+county_data <- get_acs(geography = "county", 
+        variables = acs_vars$varname, 
+        state = "NY", 
+        geometry = TRUE) |> 
+  rename(fips = GEOID, 
+         county = NAME) |> 
+  select(-moe) |> 
+  tibble::as_tibble() |> 
+  pivot_wider(names_from = variable, 
+              values_from = c(estimate)) |> 
+  rename_with(~ acs_vars$clean_name, 
+              all_of(acs_vars$varname)) |> 
+  filter(county %in% ny_county_boros$county) |> 
+  left_join(ny_county_boros, by = "county") |> 
+  select(fips, county, borough, everything()) |> 
+  sf::st_as_sf() |> 
+  relocate(geometry, .after = everything())
+
+
+county_data
+```
+
+```{r}
+## Table of all 2019 ACS variables:
+acs_vars <- load_variables(year = 2019, dataset = "acs5")
+```
+
+_Hint:_ You can use `st_drop_geometry()` to change a spatial table into a simple tibble:
+
+```{r}
+zip_data |> 
+  st_drop_geometry()
+```
+
+
+# Questions
+
+## 1. Briefly Describe the Dataset 
+
+- Write a paragraph summarizing what the data is, saying what the unit of observation is, what each column represents, and any other remarks you might have. 
+
+## 2 Look at each column/variable in a littke more detail 
+
+- Explore the basic structure of the data, by e.g. writing code to summarize the variables or investigate aspects of them that seem interesting. You can also create some initial rough exploratory plots if you like, in addition to tables or other summaries. As you go, explain here what it is you are doing and why.
+
+## 3. Explore in more depth: make at least three polished plots or maps 
+
+- Following on from the exploratory work, make at least three plots that you think show something interesting about the data. Polish them up so that they look presentable and effective to you. Show your work (i.e. the code you write). Provide a motivation for and brief discussion of each plot. You can merge in external data if you like (e.g. from the Census), but it's not required. 
+
+## 4, Short final discussion: Scope and limits of this data
+
+- Say what you think the limits of the dataset are, or the limits of the plots you've made, and e.g. what sort of data you'd need to make it better or more informative.
+

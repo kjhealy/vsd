@@ -98,6 +98,7 @@ website:
             - assignment/07-problem-set.qmd
             - assignment/08-problem-set.qmd
             - assignment/12-problem-set.qmd
+            - assignment/final-project.qmd
 
     - title: "Examples"
       contents:
@@ -128,6 +129,11 @@ website:
               file: example/09-example.qmd
             - text: "12: Network Data"
               file: example/12-example.qmd
+        - section: "Final Project"
+          contents:
+            - text: "Final Project"
+              file: example/final-project-example.qmd
+
 
   page-footer:
     left: |
