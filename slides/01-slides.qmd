@@ -1,0 +1,202 @@
+---
+title: "01 --- Orientation"
+format: kjhslides-revealjs
+engine: knitr
+filters:
+  - invert-h1
+  - line-highlight
+  - include-code-files
+author:
+  - name: Kieran Healy
+date: last-modified
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| label = "packages",
+#| include = FALSE
+library(flipbookr)
+library(here)
+library(tidyverse)
+library(kjhslides)
+```
+
+
+```{r}
+#| label = "setup",
+#| include = FALSE
+
+kjh_register_tenso()
+kjh_set_knitr_opts()
+kjh_set_slide_theme()
+
+
+
+
+
+
+
+# Safe
+```
+
+
+
+# [Visualizing]{.fg-yellow}<br /> [Social Data]{.fg-lblue}
+
+---
+
+:::{.huge}
+[What we'll be Doing]{.fg-lblue}  
+:::
+
+---
+
+![](img/01_workhorse_histogram.png)
+
+---
+
+![](img/01_excess_deaths_by_cause_annotated.png)
+
+---
+
+![](img/01_france_blackposter_100-01.png)
+
+---
+
+![](img/01_okboomer2_composite_poster-200-01.png)
+
+---
+
+![](img/01_drainage_composite.png)
+
+---
+
+![](img/01_manhattan_heights_po_compressed.png)
+
+---
+
+![](img/01_manhattan_heights_po_detail_1.png)
+
+---
+
+![](img/01_manhattan_heights_po_detail_2.png)
+
+---
+
+
+## Course Website
+
+:::{.center .large}
+[https://visualizingsociety.com](https://visualizingsociety.com)  
+:::
+
+
+## Get up and Running: Install R
+
+![](img/01_rlogo.png)
+
+
+## The R Project Website
+
+:::{.center .large}
+[https://www.r-project.org](https://www.r-project.org)
+:::
+
+## Install RStudio
+
+![](img/01_rstudio_logo.png)
+
+
+## The RStudio / Posit Website
+
+:::{.center .large}
+ [https://www.posit.co](https://www.posit.co)
+:::
+
+---
+
+![](img/01_up_and_running_01.png)
+
+---
+
+![](img/01_up_and_running_02.png)
+
+---
+
+## Try [knitting]{.fg-yellow} your notes
+
+![](img/01_up_and_running_03.png)
+
+---
+
+## Now write the following code
+
+:::: {.columns}
+::: {.column width="50%"}
+  Write this out inside the "code chunk" in your notes.
+
+```{r}
+#| label = "codefig-first-plot",
+#| message = FALSE,
+#| fig.show = "hide",
+#| fig.width = 4,
+#| fig.height = 3.5
+library(tidyverse)
+library(gapminder)
+
+p <- ggplot(data = gapminder, 
+            mapping = aes(x = gdpPercap, 
+                          y = lifeExp))  
+
+
+p + geom_point()
+```
+
+:::
+
+::: {.column width="50%" .right}
+  
+:::
+::::
+
+## And Render your document
+
+:::: {.columns}
+::: {.column width="50%"}
+  Write this out inside the "code chunk" in your notes.
+
+```{r}
+#| label = "codefig-first-plot-b",
+#| message = FALSE,
+#| fig.show = "hide",
+#| fig.width = 4,
+#| fig.height = 3.5
+library(tidyverse)
+library(gapminder)
+
+p <- ggplot(data = gapminder, 
+            mapping = aes(x = gdpPercap, 
+                          y = lifeExp))  
+
+
+p + geom_point()
+```
+
+:::
+
+::: {.column width="50%" .right}
+```{r}
+#| label = "01-looking-at-data-1",
+#| echo = FALSE
+knitr::include_graphics(
+  knitr::fig_chunk("codefig-first-plot", "png")
+)
+```
+
+:::
+::::
+
+# We should [look at]{.fg-lblue} data
+
+# We can [look at]{.fg-lblue} society
