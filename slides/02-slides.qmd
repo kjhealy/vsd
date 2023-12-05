@@ -364,11 +364,7 @@ Also by convention, outputting vectors, etc, gets a counter keeping track of the
 letters
 ```
 
----
-
-:::{.huge}
-SOME THINGS<br />TO KNOW<br />ABOUT [R]{.fg-green}  
-:::
+# Some things to know about [R]{.fg-green}
 
 ## 0. [It's a calculator]{.fg-yellow}
 
