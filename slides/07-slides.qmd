@@ -1,0 +1,533 @@
+---
+title: "07 --- Data and the State"
+format: kjhslides-revealjs
+engine: knitr
+filters:
+  - invert-h1
+  - line-highlight
+  - include-code-files
+author:
+  - name: Kieran Healy
+date: last-modified
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r}
+#| label = "packages",
+#| include = FALSE
+library(flipbookr)
+library(here)
+library(tidyverse)
+library(kjhslides)
+```
+
+
+```{r}
+#| label = "setup",
+#| include = FALSE
+
+kjh_register_tenso()
+kjh_set_knitr_opts()
+kjh_set_slide_theme()
+
+
+
+
+
+
+
+# Safe
+```
+
+
+
+# [Data and]{.fg-yellow}<br /> [the State]{.fg-lblue} 
+
+## Load our libraries
+
+
+```{r}
+#| label = "05-work-with-dplyr-and-geoms-1",
+#| message = TRUE
+library(here)       # manage file paths
+library(socviz)     # data and some useful functions
+library(tidyverse)  # your friend and mine
+library(tidycensus) # Tidily interact with the US Census
+```
+
+
+
+# What is data?
+
+## What is data?
+
+:::: {.columns}
+::: {.column width="50%"}
+::::: {.fragment fragment-index=1}
+![](img/07_sumerian_tablet_1.png)    
+:::::
+:::
+
+::: {.column width="50%" .right}
+
+::::: {.fragment fragment-index=2}
+### A Trace    
+:::::
+
+::::: {.fragment fragment-index=3}
+### A Record    
+:::::
+
+::::: {.fragment fragment-index=4}
+### An Account    
+:::::
+
+:::
+::::
+
+
+## What is data?
+
+:::: {.columns}
+::: {.column width="50%"}
+::::: {.fragment fragment-index=1}
+![](img/07_maeshowe-runes_01.png)    
+:::::
+:::
+
+::: {.column width="50%" .right}
+
+::::: {.fragment fragment-index=2}
+### A Story 
+:::::
+
+::::: {.fragment fragment-index=3}
+### A Memory    
+:::::
+
+::::: {.fragment fragment-index=4}
+### A Promise    
+:::::
+
+:::
+::::
+
+::: {.notes}
+When Maeshowe was first excavated, in 1861, the chamber's original entrance passage was inaccessible. So, to allow access, the excavators drove a shaft down through the top of the mound. Once inside, however, they found proof that that they were not the first to have broken into the tomb. The walls of the Stone Age chamber were covered in with runic graffiti. The 30 inscriptions found in Maeshowe, make it one of the largest, and most famous, collections of runes known in Europe. According to Orkneyinga saga, over 800 years previously, in the darkness of an Orkney winter, a group of viking warriors had sought shelter from a terrible snowstorm. Leading the men was Earl Harald, who, at Christmas, 1153, was making his way from Stromness to the parish of Firth. The Earl's party took refuge in an already ancient structure – the mound they knew as Orkahaugr. Inside, while waiting for the storm to abate, they carved graffiti into the stone walls. What drew these Norsemen to the tomb? Was it the legends of a great treasure that lay within?
+
+:::
+
+
+## What is data?
+
+:::: {.columns}
+::: {.column width="50%"}
+![](img/07_maeshowe-runes_01.png)
+:::
+
+::: {.column width="50%" .right}
+### A Story
+### A Memory
+### A Promise
+:::
+::::
+
+::: {.notes}
+"Ingebjork the fair widow - many a woman has walked stooping in here a very showy person" signed by "Erlingr"
+"Thorni f*cked. Helgi carved" (the official guidebooks usually tone this inscription down)
+"Ingigerth is the most beautiful of all women" (carved beside a rough drawing of a slavering dog)
+"This mound was raised before Ragnarr Lothbrocks her sons were brave smooth-hide men though they were"
+Ofram the son of Sigurd carved these runes"
+"Haermund Hardaxe carved these runes"
+"These runes were carved by the man most skilled in runes in the western ocean"
+"Tholfir Kolbeinsson carved these runes high up"
+"This howe Vermundr carved"
+"Ottarfila carved these runes"
+:::
+
+
+
+## What is data?
+
+:::: {.columns}
+::: {.column width="50%"}
+::::: {.fragment fragment-index=1}
+![](img/07_hollerith_card_01.png){width=60%}
+:::::
+:::
+
+::: {.column width="50%" .right}
+
+::::: {.fragment fragment-index=2}
+### An Action    
+:::::
+
+::::: {.fragment fragment-index=3}
+### A Device 
+:::::
+
+::::: {.fragment fragment-index=4}
+### A Resource    
+:::::
+
+:::
+::::
+
+
+
+## What is data 
+
+![](img/07_hollerith_card_1890_yellow.png)
+
+## What is data 
+
+![](img/07_hollerith_card_1890_decoder_fields.png)
+
+
+# Example: The U.S. Census
+
+## The U.S. Census
+
+![1790 Census record, North Carolina](img/07_1790_census_nc.png)
+
+## The U.S. Census
+
+:::: {.columns}
+::: {.column width="50%"}
+### [1790]{.fg-lblue}
+
+-  • Number of free white males aged under 16 years
+-  • Number of free white males aged 16 years and upward
+-  • Number of free white females
+-  • Number of other free persons
+-  • Number of slaves
+
+:::
+
+::: {.column width="50%" .right}
+
+:::
+::::
+
+
+## The U.S. Census
+
+:::: {.columns}
+::: {.column width="50%"}
+### [1790]{.fg-lblue}
+
+-  • Number of free white males aged under 16 years
+-  • Number of free white males aged 16 years and upward
+-  • Number of free white females
+-  • Number of other free persons
+-  • Number of slaves
+
+:::
+
+::: {.column width="50%" .right}
+### [1820]{.fg-lblue}
+
+-  • The number of free White males and females
+-  • The number of male and female slaves
+-  • The number of free colored males and females 
+-  • Number of foreigners not naturalized
+:::
+::::
+
+
+## The U.S. Census
+
+:::: {.columns}
+::: {.column width="50%"}
+### [1830]{.fg-lblue}
+
+-  • The number of slaves and free colored persons of each sex
+-  • Number of foreigners not naturalized
+
+:::
+
+::: {.column width="50%" .right}
+
+:::
+::::
+
+
+## The U.S. Census
+
+:::: {.columns}
+::: {.column width="50%"}
+### [1830]{.fg-lblue}
+
+-  • The number of slaves and free colored persons of each sex
+-  • Number of foreigners not naturalized
+
+:::
+
+::: {.column width="50%" .right}
+### [1850]{.fg-orange}
+
+-  • Free Inhabitants Questionnaire
+-  • Slave Inhabitants Questionnaire
+-  • Individual enslaved people listed by owner and assigned a number; names not recorded
+
+:::
+::::
+
+
+## The U.S. Census
+
+:::: {.columns}
+::: {.column width="50%"}
+### [1860]{.fg-green}
+
+-  • “Color” Question, recorded as White, Black, Mulatto, Chinese, Indian
+
+:::
+
+::: {.column width="50%" .right}
+:::
+::::
+
+## The U.S. Census
+
+:::: {.columns}
+::: {.column width="50%"}
+### [1860]{.fg-green}
+
+-  • “Color” Question, recorded as White, Black, Mulatto, Chinese, Indian
+
+:::
+
+::: {.column width="50%" .right}
+### [1890]{.fg-red}
+
+-  • “Race”, recorded as White, Black, Mulatto, Quadroon, Octoroon, Chinese, Japanese, or Indian.
+
+:::
+::::
+
+
+## The U.S. Census
+
+:::: {.columns}
+::: {.column width="50%"}
+### [1900]{.fg-lblue}
+
+-  • “Color or Race”, recorded as White, Black, Chinese, Japanese, Indian
+
+
+:::
+
+::: {.column width="50%" .right}
+
+:::
+::::
+
+## The U.S. Census
+
+:::: {.columns}
+::: {.column width="50%"}
+### [1900]{.fg-lblue}
+
+-  • “Color or Race”, recorded as White, Black, Chinese, Japanese, Indian
+
+
+:::
+
+::: {.column width="50%" .right}
+### [1910]{.fg-orange}
+
+-  • White, Black, Mulatto, Chinese, Japanese, Indian, Other
+
+:::
+::::
+
+
+## The U.S. Census
+
+:::: {.columns}
+::: {.column width="50%"}
+### [1930]{.fg-green}
+
+-  "Mexican" a racial category
+
+!["Mexican" category](img/07_1930_census_mexican.png)
+
+:::
+
+::: {.column width="50%" .right}
+
+:::
+::::
+
+
+## The U.S. Census
+
+:::: {.columns}
+::: {.column width="50%"}
+### [1930]{.fg-green}
+
+-  "Mexican" a racial category
+
+!["Mexican" category](img/07_1930_census_mexican.png)
+
+:::
+
+::: {.column width="50%" .right}
+### [1940]{.fg-red}
+
+![1940 race questions](img/07_1940_census_race.png)
+
+:::
+::::
+
+
+## The U.S. Census
+
+:::: {.columns}
+::: {.column width="50%"}
+### [1970]{.fg-lblue}
+:::
+
+::: {.column width="50%" .right}
+![](img/07_1970_census_race.png)
+:::
+::::
+
+## The U.S. Census
+
+:::: {.columns}
+::: {.column width="50%"}
+### [1980]{.fg-lblue}
+- Race and Ethnicity
+:::
+
+::: {.column width="50%" .right}
+![](img/07_1980_census_race.png)
+
+![](img/07_1980_census_ethnicity.png)
+
+:::
+::::
+
+
+## The U.S. Census
+
+
+:::: {.columns}
+::: {.column width="50%"}
+### [1990]{.fg-lblue}
+:::
+
+::: {.column width="50%" .right}
+![](img/07_1990_census_race.png)
+
+![](img/07_1990_census_ethnicity.png)
+
+
+:::
+::::
+
+## The U.S. Census
+
+:::: {.columns}
+::: {.column width="50%"}
+### [2000]{.fg-lblue}
+:::
+
+::: {.column width="50%" .right}
+![](img/07_2000_census_race.png)
+:::
+::::
+
+## The U.S. Census
+
+:::: {.columns}
+::: {.column width="50%"}
+### [2010]{.fg-lblue}
+:::
+
+::: {.column width="50%" .right}
+![:scale 80%](img/07_2010_census_race.png)
+:::
+::::
+
+## The U.S. Census
+
+:::: {.columns}
+::: {.column width="50%"}
+### [2020]{.fg-lblue}
+![](img/07_2020_census_race.png)
+:::
+
+::: {.column width="50%" .right}
+![](img/07_2020_census_ethnicity.png)
+:::
+::::
+
+# Social Classification
+
+## Categories and Classes
+
+![American Beef Cuts](img/07_american_beef_cuts.png)
+
+## Categories and Classes
+
+
+![French Beef Cuts](img/07_french_beef_cuts.png)
+
+## Categories and Classes
+
+![](img/07_table_deaths.png){width=40%}
+
+## Categories and Classes
+
+![](img/07_table_deaths_top.png)
+
+## Categories and Classes
+
+![](img/07_table_deaths_mid.png)
+
+## Categories and Classes
+
+![](img/07_table_deaths_bottom.png)
+
+## ICD Codes
+
+![](img/07_old_age_table.png){width=60%}
+
+## ICD Codes
+
+:::: {.columns}
+::: {.column width="50%"}
+![](img/07_errors_in_terminology.png)
+:::
+
+::: {.column width="50%" .right}
+![](img/07_errors_in_terminology_2.png)
+:::
+::::
+
+## ICD Codes
+
+![](img/07_icd_10_heart_disease.png)
+
+## ICD Codes
+
+![](img/07_norway_usa_assault.png)
+
+## ICD Codes
+
+![](img/07_cdc_terrorism.png)
+
+
+## ICD Codes
+
+![](img/07_cdc_icd_code.png)
+
+## CDC WONDER
+
+![](img/07_cdc_wonder_page.png)
+
