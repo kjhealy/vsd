@@ -399,13 +399,13 @@ usa_pyr |>
                        y = AGEGROUP, 
                        fill = SEX)) + 
   geom_col(width = 0.95, alpha = 0.75) +
-  # In the two scale functions we use ~ label_number() 
-  # and ~ str_remove_all() as anonymous functions. Slightly 
+  # In the two scale functions we use \(x) label_number() 
+  # and \(x) str_remove_all() as anonymous functions. Slightly 
   # more advanced usage than normal ...
   scale_x_continuous(
-    labels = ~ label_number(scale = 0.001, suffix = "k")(abs(.x))) + 
+    labels = \(x) label_number(scale = 0.001, suffix = "k")(abs(x))) + 
   scale_y_discrete(
-    labels = ~ str_remove_all(.x, "Age | years")) + 
+    labels = \(x) str_remove_all(x, "Age | years")) + 
   labs(x = "Count", 
        y = NULL, 
        title= "US Population Pyramid") + 
