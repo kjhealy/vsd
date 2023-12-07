@@ -702,9 +702,9 @@ print(out_asian)
 #| echo: FALSE
 #| message: FALSE
 
-# fs::file_delete(here::here("slides", "fbnyc2.Rdata"))
-# fs::file_delete(here::here("slides", "fb_map.Rdata"))
-# fs::file_delete(here::here("slides", "nyc_fb.Rdata"))
+fs::file_delete(here::here("slides", "fbnyc2.Rdata"))
+fs::file_delete(here::here("slides", "fb_map.Rdata"))
+fs::file_delete(here::here("slides", "nyc_fb.Rdata"))
 
 ```
 
