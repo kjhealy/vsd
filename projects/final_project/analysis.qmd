@@ -5,7 +5,10 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
-```{r load-libraries-data, warning=FALSE, message=FALSE}
+```{r}
+#| label = "load-libraries-data",
+#| warning = FALSE,
+#| message = FALSE
 library(tidyverse)
 library(here)
 library(socviz)

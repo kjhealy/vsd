@@ -5,7 +5,10 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
-```{r load-libraries-data, warning=FALSE, message=FALSE}
+```{r}
+#| label = "load-libraries-data",
+#| warning = FALSE,
+#| message = FALSE
 library(tidyverse)
 
 gapminder <- read_csv("data/gapminder.csv")
@@ -13,7 +16,7 @@ gapminder <- read_csv("data/gapminder.csv")
 
 # Task: Write some Markdown-formatted text and draw some plots.
 
-## 1. Learning R and RMarkdown
+## 1. Learning R and R Markdown
 
 Replace this text with two or three sentences telling me something about yourself. Hometown, major, most recent sandwich, whatever you like. Format some of the words (even if randomly) with some bold and italic text. 
 
