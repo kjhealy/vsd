@@ -129,7 +129,7 @@ nyc_zips |>
 - The [`polygon`]{.fg-orange} column is a list of lat/lon points that, when joined, draw the outline of the zip code area. This is _much_ more compact than a big table where every row is a single point.
 
 
-`r chunq_reveal("reveal-nycfrench", smallcode=TRUE,  lcolw="40", rcolw="60", title = "Let's make a summary table")`
+`r chunq_reveal("reveal-nycfrench", lcolw="50", rcolw="50", title = "Let's make a summary table")`
 
 ```{r}
 #| label: "reveal-nycfrench"
@@ -235,15 +235,94 @@ theme_nymap <- function(base_size=9, base_family="") {
 
 ```
 
-
-`r chunq_reveal("reveal-bulldogmap",  smallcode = TRUE, lcolw="40", rcolw="60", title = "First cut at a map")`
+## First cut at a map
 
 ```{r}
-#| label: "reveal-bulldogmap"
-#| include: FALSE
-# This is just for slide purposes 
+#| label: bulldog-map-manual-1
+#| output-location: column
+
+fb_map |> 
+  ggplot(mapping = aes(fill = freq)) +
+  geom_sf(color = "gray30", size = 0.1)
+
+```
+
+## First cut at a map
+
+```{r}
+#| label: bulldog-map-manual-2
+#| output-location: column
+
+fb_map |> 
+  ggplot(mapping = aes(fill = freq)) +
+  geom_sf(color = "gray30", size = 0.1) + #<<
+  scale_fill_viridis_c(option = "A") +
+  labs(fill = "Percent of All French Bulldogs") 
+```
+
+## First cut at a map
+
+```{r}
+#| label: bulldog-map-manual-3
+#| output-location: column
+
+fb_map |> 
+  ggplot(mapping = aes(fill = freq)) +
+  geom_sf(color = "gray30", size = 0.1) + #<<
+  scale_fill_viridis_c(option = "A") +
+  labs(fill = "Percent of All French Bulldogs") +
+  annotate(geom = "text", 
+             x = -74.145 + 0.029, 
+             y = 40.82-0.012, 
+           label = "New York City's French Bulldogs", 
+           size = 6) + 
+    annotate(geom = "text", 
+             x = -74.1468 + 0.029, 
+             y = 40.8075-0.012, 
+           label = "By Zip Code. Based on Licensing Data", 
+           size = 5) 
+
+```
+
+## First cut at a map
+
+```{r}
+#| label: bulldog-map-manual-4
+#| output-location: column
+
+fb_map |> 
+  ggplot(mapping = aes(fill = freq)) +
+  geom_sf(color = "gray30", size = 0.1) + #<<
+  scale_fill_viridis_c(option = "A") +
+  labs(fill = "Percent of All French Bulldogs") +
+  annotate(geom = "text", 
+             x = -74.145 + 0.029, 
+             y = 40.82-0.012, 
+           label = "New York City's French Bulldogs", 
+           size = 6) + 
+  annotate(geom = "text", 
+             x = -74.1468 + 0.029, 
+             y = 40.8075-0.012, 
+           label = "By Zip Code. Based on Licensing Data", 
+           size = 5) + 
+  kjhslides::kjh_theme_nymap() + 
+  guides(fill = 
+           guide_legend(title.position = "top", 
+                label.position = "bottom",
+                keywidth = 1, 
+                nrow = 1))  
+
+```
+
+---
+
+```{r}
+#| label: "reveal-bulldogmap-slide"
+#| echo: false
+#| fig.width: 12
+#| fig.height: 8
+
 load("fb_map.Rdata")
-#
 fb_map |> 
     ggplot(mapping = aes(fill = freq)) +
     geom_sf(color = "gray30", size = 0.1) + #<<
@@ -268,19 +347,30 @@ fb_map |>
  
 ```
 
-`r chunq_reveal("reveal-bulldogmap2", smallcode=TRUE, lcolw="40", rcolw="60", title = "Use a different palette")`
+## Use a different palette
 
 ```{r}
-#| label: "reveal-bulldogmap2"
-#| include: FALSE
-# This is just for slide purposes 
-load("nyc_fb.Rdata")
-
+#| label: "reveal-bulldogmap2-1"
+#| output-location: column
 library(colorspace)
-fb_map <- left_join(nyc_zips, nyc_fb, by = "zip_code")
 
 fb_map |> 
-  ggplot(mapping = aes(fill = freq)) +
+  ggplot(mapping = aes(fill = freq)) + 
+  geom_sf(color = "gray30", size = 0.1) +
+  scale_fill_continuous_sequential(
+    palette = "Oranges",
+    labels = scales::label_percent()) +
+  labs(fill = "Percent of all French Bulldogs") 
+```
+
+## Use a different palette
+
+```{r}
+#| label: "reveal-bulldogmap2-2"
+#| output-location: column
+
+fb_map |> 
+  ggplot(mapping = aes(fill = freq)) + 
   geom_sf(color = "gray30", size = 0.1) +
   scale_fill_continuous_sequential(
     palette = "Oranges",
@@ -305,6 +395,7 @@ fb_map |>
 
 ```
 
+
 ---
 
 
@@ -313,16 +404,14 @@ fb_map |>
 #| echo: FALSE
 #| fig.width: 12
 #| fig.height: 8
-# This is just for slide purposes 
-load("fb_map.Rdata")
 
 fb_map |> 
-  ggplot(mapping = aes(fill = freq)) +
+  ggplot(mapping = aes(fill = freq)) + 
   geom_sf(color = "gray30", size = 0.1) +
   scale_fill_continuous_sequential(
     palette = "Oranges",
     labels = scales::label_percent()) +
-  labs(fill = "Percent of All French Bulldogs") +
+  labs(fill = "Percent of all French Bulldogs") +
   annotate(geom = "text", 
            x = -74.145 + 0.029, 
            y = 40.82-0.012, 
@@ -346,11 +435,10 @@ fb_map |>
 NYC Dogs Map mark 2  
 :::
 
-`r chunq_reveal("reveal-bulldogzeros",  lcolw="40", rcolw="60", smallcode=TRUE, title = "Keep the Zero count zips")`
+## Keep the Zero-count Zips
 
 ```{r}
 #| label: "reveal-bulldogzeros"
-#| include: FALSE
 
 nyc_license  |> 
   filter(extract_year == 2018) |> 
@@ -377,7 +465,7 @@ save(fb_map2, nyc_fb2, file = "fbnyc2.Rdata")
 ```
 
 
-## Ready to map, again
+## Keep the Zero-count Zips
 
 ```{r }
 #| label: "07-make-maps-60"
@@ -387,17 +475,28 @@ fb_map2 |> select(zip_code, po_name, borough, breed_rc:freq, geometry)
 - This time, a number of previous [NA]{.fg-red} rows are now zeroes instead.
 
 
-`r chunq_reveal("reveal-bulldogfb2", smallcode=TRUE,  lcolw="40", rcolw="60", title = "Now redraw the map")`
+## Keep the Zero-count Zips
 
 ```{r}
-#| label: "reveal-bulldogfb2"
-#| include: FALSE
-# Slide workaround again
-load("fbnyc2.Rdata")
-#fb_map2 <- left_join(nyc_zips, nyc_fb2, by = "zip_code")
+#| label: "reveal-bulldogfb2-1"
+#| output-location: column
 
-fb_map2 |> 
-  ggplot(mapping = aes(fill = freq)) +
+fb_map2 |>
+  ggplot(mapping = aes(fill = freq)) + 
+  geom_sf(color = "gray30", size = 0.1) +
+  scale_fill_continuous_sequential(
+    palette = "Oranges", 
+    labels = scales::label_percent()) 
+```
+
+## Keep the Zero-count Zips
+
+```{r}
+#| label: "reveal-bulldogfb2-2"
+#| output-location: column
+
+fb_map2 |>
+  ggplot(mapping = aes(fill = freq)) + 
   geom_sf(color = "gray30", size = 0.1) +
   scale_fill_continuous_sequential(
     palette = "Oranges", 
@@ -423,7 +522,6 @@ fb_map2 |>
 ```
 
 ---
-
 
 ```{r}
 #| label: "07-make-maps-61"
@@ -702,9 +800,16 @@ print(out_asian)
 #| echo: FALSE
 #| message: FALSE
 
-fs::file_delete(here::here("slides", "fbnyc2.Rdata"))
-fs::file_delete(here::here("slides", "fb_map.Rdata"))
-fs::file_delete(here::here("slides", "nyc_fb.Rdata"))
+## Clean up. These files end up in different places conditional on 
+## whether we're running this standalone or in a targets pipeline
+if(fs::file_exists(here::here("slides", "fbnyc2.Rdata"))) fs::file_delete(here::here("slides", "fbnyc2.Rdata"))
+if(fs::file_exists(here::here("slides", "fb_map.Rdata"))) fs::file_delete(here::here("slides", "fb_map.Rdata"))
+if(fs::file_exists(here::here("slides", "nyc_fb.Rdata"))) fs::file_delete(here::here("slides", "nyc_fb.Rdata"))
+
+if(fs::file_exists(here::here("fbnyc2.Rdata"))) fs::file_delete(here::here("fbnyc2.Rdata"))
+if(fs::file_exists(here::here("fb_map.Rdata"))) fs::file_delete(here::here("fb_map.Rdata"))
+if(fs::file_exists(here::here("nyc_fb.Rdata"))) fs::file_delete(here::here("nyc_fb.Rdata"))
+
 
 ```
 

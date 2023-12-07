@@ -2,10 +2,12 @@ library(targets)
 library(tarchetypes)
 suppressPackageStartupMessages(library(tidyverse))
 
-#library(crew)
-#tar_option_set(
-#  controller = crew_controller_local(workers = 15)
-#)
+## Parallelize things --- when we build the PDFs
+## it'll take forever otherwise
+library(crew)
+tar_option_set(
+ controller = crew_controller_local(workers = 15)
+)
 
 ## Variables and options
 class_number <- "SOCIOL 232"
@@ -38,7 +40,7 @@ source("R/tar_data.R")
 source("R/tar_calendar.R")
 
 
-## THE MAIN PIPELINE ----
+## SITE PIPELINE ----
 list(
   ## Run all the data building and copying targets ----
   save_data,
@@ -47,27 +49,7 @@ list(
   tar_combine(copy_data, tar_select_targets(save_data, starts_with("copy_"))),
   tar_combine(build_data, tar_select_targets(save_data, starts_with("data_"))),
 
-  ### Convert HTML slides to PDF ----
-  #
-  # Use dynamic branching to get a list of all slide .html files and
-  # convert them to PDF
-  #
-  # tar_files(quarto_html_files, {
-  #  quarto_slides
-  #  list.files(here_rel("_site", "slides"),
-  #             pattern = "\\.html",
-  #             full.names = TRUE)
-  # }),
-#
-#   tar_target(quarto_pdfs,
-#              html_to_pdf(quarto_html_files),
-#              pattern = map(quarto_html_files),
-#              format = "file"),
-
-
-
   ## Project folders ----
-
   ### Zip up each project folder ----
   #
   # Get a list of all folders in the project folder, create dynamic branches,
@@ -108,15 +90,29 @@ list(
   #                                         legend = FALSE, color = FALSE)),
   #tar_quarto(readme, here_rel("README.qmd")),
 
-
   ## Build site ----
   tar_quarto(site, path = ".", quiet = FALSE),
+
+  ## Convert HTML slides to PDF ----
+  ### Render the built html slides in _site/slides to PDFs
+  ### We wait till quarto has built the site to do this.
+
+  tar_files(rendered_slides,
+            list.files(here_rel("_site", "slides"),
+               pattern = "\\.html", full.names = TRUE)),
+
+  tar_target(quarto_pdfs, {
+    # Force dependencies
+    site
+    html_to_pdf(rendered_slides)
+    },
+    pattern = map(rendered_slides)),
 
   ## Upload site ----
   tar_target(deploy_script, here_rel("deploy.sh"), format = "file"),
   tar_target(deploy_site, {
     # Force dependencies
-    site
+    quarto_pdfs
     # Run the deploy script if both conditions are met
     if (Sys.info()["user"] != "kjhealy" | Sys.getenv("DEPLOY_VSD") != "TRUE") message("Deployment vars not set. Will not deploy site.")
     if (Sys.info()["user"] == "kjhealy" & Sys.getenv("DEPLOY_VSD") == "TRUE") message("Running deployment script ...")
