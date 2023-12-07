@@ -511,30 +511,12 @@ pop_names
 ## Dorling Cartograms
 
 ```{r}
-
-clean_names <- function(variable, lookup) {
-  
-  vtbl <- lookup
-  
-  for(i in 1:nrow(vtbl)) {
-    variable <- stringr::str_replace(variable, 
-                                     vtbl$varname[i],
-                                     vtbl$clean[i])
-  }
-  
-  variable
-  
-}
-```
-
-## Dorling Cartograms
-
-```{r}
 fips_pop <- get_acs(geography = "county", 
                     variables = pop_names$varname, 
                     cache_table = TRUE) |>  
-  mutate(variable = clean_names(variable, lookup = pop_names)) |>  
-  select(-moe) |>  
+  left_join(pop_names, join_by(variable == varname)) |> 
+  mutate(variable = clean) |> 
+  select(-clean, -moe) |>
   pivot_wider(names_from = variable, values_from = estimate) |> 
   rename(fips = GEOID, name = NAME) |> 
   mutate(prop_pop = pop/sum(pop), 
