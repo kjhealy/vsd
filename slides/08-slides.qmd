@@ -100,8 +100,7 @@ boom |>
 ```{r}
 #| echo = FALSE
 knitr::include_graphics(
-  knitr::fig_chunk("panel-chunk-boom", "png")
-)
+  knitr::fig_chunk("panel-chunk-boom", "png"))
 ```
 
 ## Looking at the Series
@@ -121,8 +120,7 @@ boom |>
 ```{r}
 #| echo = FALSE
 knitr::include_graphics(
-  knitr::fig_chunk("panel-chunk-boom-2", "png")
-)
+  knitr::fig_chunk("panel-chunk-boom-2", "png"))
 ```
 
 Too much smoothing here
@@ -167,8 +165,7 @@ boom |>
 ```{r}
 #| echo = FALSE
 knitr::include_graphics(
-  knitr::fig_chunk("ma-boom-ma3", "png")
-)
+  knitr::fig_chunk("ma-boom-ma3", "png"))
 ```
 
 ## A Centered Moving Average, order 5
@@ -192,8 +189,7 @@ boom |>
 ```{r}
 #| echo = FALSE
 knitr::include_graphics(
-  knitr::fig_chunk("ma-boom-1", "png")
-)
+  knitr::fig_chunk("ma-boom-1", "png"))
 ```
 
 ## A Centered Moving Average, order 7
@@ -217,8 +213,7 @@ boom |>
 ```{r}
 #| echo = FALSE
 knitr::include_graphics(
-  knitr::fig_chunk("ma-boom-7", "png")
-)
+  knitr::fig_chunk("ma-boom-7", "png"))
 ```
 
 As the order goes up, the window for the average widens, and the line gets smoother and smoother.
@@ -299,8 +294,7 @@ boom |>
 ```{r}
 #| echo = FALSE
 knitr::include_graphics(
-  knitr::fig_chunk("ma-boom-12", "png")
-)
+  knitr::fig_chunk("ma-boom-12", "png"))
 ```
 
 :::
@@ -340,8 +334,7 @@ boom |>
 ```{r}
 #| echo = FALSE
 knitr::include_graphics(
-  knitr::fig_chunk("ma-boom-60", "png")
-)
+  knitr::fig_chunk("ma-boom-60", "png"))
 ```
 
 :::
@@ -366,8 +359,7 @@ boom |>
 ```{r}
 #| echo = FALSE
 knitr::include_graphics(
-  knitr::fig_chunk("ma-boom-season-1", "png")
-)
+  knitr::fig_chunk("ma-boom-season-1", "png"))
 ```
 
 ## The Additive "Classical" Decomposition
@@ -491,8 +483,7 @@ boom_ts |>
 ```{r}
 #| echo = FALSE
 knitr::include_graphics(
-  knitr::fig_chunk("seasonal-rep", "png")
-)
+  knitr::fig_chunk("seasonal-rep", "png"))
 ```
 
 ## Calculate the [Remainder]{.fg-yellow} part
@@ -556,8 +547,7 @@ boom |>
 ```{r}
 #| echo = FALSE
 knitr::include_graphics(
-  knitr::fig_chunk("autoplot-panel", "png")
-)
+  knitr::fig_chunk("autoplot-panel", "png"))
 ```
 
 :::
@@ -608,8 +598,7 @@ boom |>
 ```{r}
 #| echo = FALSE
 knitr::include_graphics(
-  knitr::fig_chunk("autoplot-stl-panel", "png")
-)
+  knitr::fig_chunk("autoplot-stl-panel", "png"))
 ```
 
 :::

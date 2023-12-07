@@ -190,8 +190,7 @@ p + geom_point()
 #| label = "01-looking-at-data-1",
 #| echo = FALSE
 knitr::include_graphics(
-  knitr::fig_chunk("codefig-first-plot", "png")
-)
+  knitr::fig_chunk("codefig-first-plot", "png"))
 ```
 
 :::
