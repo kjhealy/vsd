@@ -25,8 +25,13 @@ The slide decks for this week are available here.
 
 ```{r show-slide-tabs-1, echo=FALSE, results="asis"}
 slide_buttons("/slides/10-slides")
-slide_tabs(slide_details, "/slides/10-slides.html")
 ```
+
+<div>
+```{=html}
+<iframe class="slide-deck" src="/slides/10-slides.html"></iframe>
+```
+</div>
 
 :::{.callout-tip}
 **Tip**: If you type <kbd>?</kbd> (or <kbd>shift</kbd> + <kbd>/</kbd>) while going through the slides, you can see a list of special slide-specific commands.

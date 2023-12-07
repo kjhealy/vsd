@@ -196,7 +196,6 @@ knitr::include_graphics(
 
 :::
 ::::
-
 # We should [look at]{.fg-lblue} data
 
 # We can [look at]{.fg-lblue} society

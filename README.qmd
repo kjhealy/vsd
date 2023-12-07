@@ -2,16 +2,19 @@
 output: github_document
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- README.md is generated from README.qmd. Please edit that file -->
 
-```{r, include=FALSE}
+```{r}
+#| include = FALSE
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-withr::with_dir(here::here(), {
-  targets::tar_load(workflow_graph)
-})
+
+# withr::with_dir(here::here(), {
+#   targets::tar_load(workflow_graph)
+# })
+
 ```
 
 ## SOCIOL 232 / Visualizing Social Data / Spring 2023
@@ -28,11 +31,13 @@ Many thanks to the frighteningly energetic and exceedingly helpful [Andrew Heiss
 
 Everything is a [DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph) now. The overall structure of the site is a bit messy in part because it does a bunch of work to produce the slides, convert them to PDFs with `decktape`, zips up assignments and projects, and other things.
 
-```{r echo=FALSE, results="asis"}
+```{r}
+#| echo = FALSE,
+#| results = "asis"
 # Make sure there are newlines between the code block boundaries and the output
 # from `workflow`, which also needs to be separated by newlines
 cat("``` mermaid\n")
-cat(workflow_graph, sep = "\n")
+# cat(workflow_graph, sep = "\n")
 cat("\n```")
 ```
 

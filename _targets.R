@@ -43,37 +43,34 @@ list(
   tar_combine(build_data, tar_select_targets(save_data, starts_with("data_"))),
 
 
-  # xaringan stuff ----
-
-  ### Knit xaringan slides ----
-
-  # Use dynamic branching to get a list of all .Rmd files in slides/ and knit them
-
-  # The main index.qmd page loads xaringan_slides as a target to link it as a dependency
-  tar_files(xaringan_files, list.files(here_rel("slides"),
-                                       pattern = "\\.Rmd",
+  # The main index.qmd page loads quarto_slides as a target to link it as a dependency
+  # The slide folder is excluded from the main quarto render.
+  tar_files(quarto_files, list.files(here_rel("slides"),
+                                       pattern = "\\.qmd",
                                        full.names = TRUE)),
-  tar_target(xaringan_slides,
-             render_xaringan(xaringan_files),
-             pattern = map(xaringan_files),
+  tar_target(quarto_slides,
+             render_quarto(quarto_files),
+             pattern = map(quarto_files),
              format = "file"),
 
-  ### Convert xaringan HTML slides to PDF ----
+  ### Convert HTML slides to PDF ----
   #
-  # Use dynamic branching to get a list of all knitted slide .html files and
+  # Use dynamic branching to get a list of all slide .html files and
   # convert them to PDF
   #
-  # The main index.qmd page loads xaringan_pdfs as a target to link it as a dependency
-  tar_files(xaringan_html_files, {
-    xaringan_slides
-    list.files(here_rel("slides"),
-               pattern = "\\.html",
-               full.names = TRUE)
-  }),
-  tar_target(xaringan_pdfs,
-             xaringan_to_pdf(xaringan_html_files),
-             pattern = map(xaringan_html_files),
-             format = "file"),
+  # The main index.qmd page loads quarto_pdfs as a target to link it as a dependency
+  #tar_files(quarto_html_files, {
+  #  quarto_slides
+  #  list.files(here_rel("_site", "slides"),
+  #             pattern = "\\.html",
+  #             full.names = TRUE)
+  #}),
+#
+#   tar_target(quarto_pdfs,
+#              html_to_pdf(quarto_html_files),
+#              pattern = map(quarto_html_files),
+#              format = "file"),
+
 
 
   ## Project folders ----
@@ -113,15 +110,14 @@ list(
              format = "file"),
 
 
-  ## Knit the README ----
-  tar_target(workflow_graph, tar_mermaid(targets_only = TRUE, outdated = FALSE,
-                                         legend = FALSE, color = FALSE)),
-  tar_render(readme, here_rel("README.Rmd")),
+  ## Render the README ----
+  # tar_target(workflow_graph, tar_mermaid(targets_only = TRUE, outdated = FALSE,
+  #                                         legend = FALSE, color = FALSE)),
+  #tar_quarto(readme, here_rel("README.qmd")),
 
 
   ## Build site ----
-  tar_quarto(site, path = "."),
-
+  tar_quarto(site, path = ".", quiet = FALSE),
 
   ## Upload site ----
   tar_target(deploy_script, here_rel("deploy.sh"), format = "file"),

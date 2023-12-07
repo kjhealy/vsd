@@ -27,8 +27,16 @@ The slides for today are available online as an HTML file. Use the buttons below
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
 slide_buttons("/slides/01-slides")
-slide_tabs(slide_details, "/slides/01-slides.html")
 ```
+
+<div>
+
+```{=html}
+<iframe class="slide-deck" src="/slides/01-slides.html"></iframe>
+```
+
+</div>
+
 
 :::{.callout-tip}
 **Tip**: If you type <kbd>?</kbd> (or <kbd>shift</kbd> + <kbd>/</kbd>) while going through the slides, you can see a list of special slide-specific commands.

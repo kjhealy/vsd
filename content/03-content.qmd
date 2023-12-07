@@ -40,17 +40,26 @@ Part I:
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
 slide_buttons("/slides/03-slides")
-slide_tabs(slide_details, "/slides/03-slides.html")
 ```
+
+<div>
+```{=html}
+<iframe class="slide-deck" src="/slides/03-slides.html"></iframe>
+```
+</div>
 
 
 Part II:
 
 ```{r show-slide-tabs-2, echo=FALSE, results="asis"}
 slide_buttons("/slides/03b-slides")
-slide_tabs(slide_details, "/slides/03b-slides.html")
 ```
 
+<div>
+```{=html}
+<iframe class="slide-deck" src="/slides/03b-slides.html"></iframe>
+```
+</div>
 
 :::{.callout-tip}
 **Tip**: If you type <kbd>?</kbd> (or <kbd>shift</kbd> + <kbd>/</kbd>) while going through the slides, you can see a list of special slide-specific commands.

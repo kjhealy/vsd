@@ -27,8 +27,13 @@ The slide deck for this week is available here.
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
 slide_buttons("/slides/04-slides")
-slide_tabs(slide_details, "/slides/04-slides.html")
 ```
+
+<div>
+```{=html}
+<iframe class="slide-deck" src="/slides/04-slides.html"></iframe>
+```
+</div>
 
 
 :::{.callout-tip}
