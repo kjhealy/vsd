@@ -1641,8 +1641,15 @@
     },
     "kjhslides": {
       "Package": "kjhslides",
-      "Version": "0.0.13.9000",
-      "Source": "unknown",
+      "Version": "0.0.12.9000",
+      "Source": "GitHub",
+      "Remotes": "kjhealy/myriad, jumpingrivers/namer, gadenbuie/xaringanExtra",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "kjhslides",
+      "RemoteUsername": "kjhealy",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "1a7e4185e26a12878ff816cd8e08a32fe19e5212",
       "Requirements": [
         "dplyr",
         "fs",
@@ -1663,7 +1670,7 @@
         "tools",
         "xaringan"
       ],
-      "Hash": "403ea7daf06d899c84d8efcb0d8c7464"
+      "Hash": "56b573c1a4c1c995a3c9b7c30845c0dc"
     },
     "knitr": {
       "Package": "knitr",
@@ -1886,9 +1893,14 @@
     },
     "namer": {
       "Package": "namer",
-      "Version": "0.1.6",
-      "Source": "Repository",
-      "Repository": "CRAN",
+      "Version": "0.1.7",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "namer",
+      "RemoteUsername": "jumpingrivers",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "e6a868c3575c7cda301d2043beb4605b36215a49",
       "Requirements": [
         "cli",
         "dplyr",
@@ -1899,7 +1911,7 @@
         "rstudioapi",
         "tibble"
       ],
-      "Hash": "14eedfb618c9e7dd4813dbead28935f3"
+      "Hash": "66340857c3a182fabf4c7f08654df457"
     },
     "naniar": {
       "Package": "naniar",
@@ -1989,14 +2001,20 @@
     "nycomplaints": {
       "Package": "nycomplaints",
       "Version": "0.2.0",
-      "Source": "unknown",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "nycomplaints",
+      "RemoteUsername": "kjhealy",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "eebc198c1a70cc984d334f39cd7033d870ca9ba4",
       "Requirements": [
         "R",
         "dplyr",
         "magrittr",
         "tidyr"
       ],
-      "Hash": "b2f9fb49dc08a3278b9d96edf73cc173"
+      "Hash": "430ad8859765132e854a78eabeb706e8"
     },
     "openssl": {
       "Package": "openssl",
