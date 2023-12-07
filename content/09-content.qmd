@@ -24,17 +24,6 @@ Mapping and spatial data is a huge field all of its own. We take a look at a ver
 
 The slide decks for this week (there are three sets) are available here. 
 
-```{r show-slide-tabs-1, echo=FALSE, results="asis"}
-slide_buttons("/slides/09a-slides")
-```
-
-<div>
-```{=html}
-<iframe class="slide-deck" src="/slides/09a-slides.html"></iframe>
-```
-</div>
-
-
 
 ```{r show-slide-tabs-2, echo=FALSE, results="asis"}
 slide_buttons("/slides/09-slides")

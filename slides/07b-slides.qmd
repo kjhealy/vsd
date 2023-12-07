@@ -14,8 +14,8 @@ editor_options:
 ---
 
 ```{r}
-#| label = "packages",
-#| include = FALSE
+#| label: "packages"
+#| include: FALSE
 library(flipbookr)
 library(here)
 library(tidyverse)
@@ -24,8 +24,8 @@ library(kjhslides)
 
 
 ```{r}
-#| label = "setup",
-#| include = FALSE
+#| label: "setup"
+#| include: FALSE
 
 kjh_register_tenso()
 kjh_set_knitr_opts()
@@ -48,8 +48,8 @@ kjh_set_slide_theme()
 
 
 ```{r}
-#| label = "05-work-with-dplyr-and-geoms-1",
-#| message = TRUE
+#| label: "05-work-with-dplyr-and-geoms-1"
+#| message: TRUE
 library(here)       # manage file paths
 library(socviz)     # data and some useful things, especially %nin%
 library(tidyverse)  # your friend and mine
@@ -166,9 +166,9 @@ nc |>
 
 
 ```{r}
-#| label = "reveal-nccensus-obj",
-#| eval = TRUE,
-#| include = FALSE
+#| label: "reveal-nccensus-obj"
+#| eval: TRUE
+#| include: FALSE
 nc_wide <- nc |> 
   left_join(popvars, by = "variable") |> 
   relocate(name, .after = variable) |> 
@@ -190,14 +190,12 @@ nc_wide
 
 ## Top 20 Counties by Percent Hispanic
 
-:::: {.columns}
-::: {.column width="45%"}
 ```{r}
-#| label = "codefig-hispanicplot",
-#| message = FALSE,
-#| fig.show = "hide",
-#| fig.width = 4.8,
-#| fig.height = 5
+#| label: "codefig-hispanicplot"
+#| message: FALSE
+#| fig.width: 4.8
+#| fig.height: 5
+#| output-location: column
 nc_wide |>
   slice_max(order_by = hispanic_pct, n = 20) |> 
   ggplot(mapping = aes(x = hispanic_pct,
@@ -209,28 +207,14 @@ nc_wide |>
 
 ```
 
-:::
-
-::: {.column width="55%" .right}
-```{r}
-#| echo = FALSE
-  knitr::include_graphics(
-  knitr::fig_chunk("codefig-hispanicplot", "png"))
-```
-
-:::
-::::
-
 ## Log population vs Percent Hispanic
 
-:::: {.columns}
-::: {.column width="45%"}
 ```{r}
-#| label = "codefig-hispvpop",
-#| message = FALSE,
-#| fig.show = "hide",
-#| fig.width = 4.8,
-#| fig.height = 4.5
+#| label: "codefig-hispvpop"
+#| message: FALSE
+#| fig.width: 4.8
+#| fig.height: 4.5
+#| output-location: column
 nc_wide |>
   ggplot(mapping = aes(x = summary_value,
                        y = hispanic_pct)) + 
@@ -242,28 +226,14 @@ nc_wide |>
 
 ```
 
-:::
-
-::: {.column width="55%" .right}
-```{r}
-#| echo = FALSE
-  knitr::include_graphics(
-  knitr::fig_chunk("codefig-hispvpop", "png"))
-```
-
-:::
-::::
-
 ## Log population vs Percent Black
 
-:::: {.columns}
-::: {.column width="45%"}
 ```{r}
-#| label = "codefig-blackvpop",
-#| message = FALSE,
-#| fig.show = "hide",
-#| fig.width = 4.8,
-#| fig.height = 4.5
+#| label: "codefig-blackvpop"
+#| message: FALSE
+#| fig.width: 4.8
+#| fig.height: 4.5
+#| output-location: column
 nc_wide |>
   ggplot(mapping = aes(x = summary_value,
                        y = nh_black_pct)) + 
@@ -275,29 +245,14 @@ nc_wide |>
 
 ```
 
-:::
-
-::: {.column width="55%" .right}
-
-```{r}
-#| echo = FALSE
-  knitr::include_graphics(
-  knitr::fig_chunk("codefig-blackvpop", "png"))
-```
-
-:::
-::::
-
 ## Percent White vs Percent Black
 
-:::: {.columns}
-::: {.column width="45%"}
 ```{r}
-#| label = "codefig-blackvwhite",
-#| message = FALSE,
-#| fig.show = "hide",
-#| fig.width = 4.8,
-#| fig.height = 4.5
+#| label: "codefig-blackvwhite"
+#| message: FALSE
+#| fig.width: 4.8
+#| fig.height: 4.5
+#| output-location: column
 nc_wide |>
   ggplot(mapping = aes(x = nh_white_pct,
                        y = nh_black_pct)) + 
@@ -308,17 +263,6 @@ nc_wide |>
 
 ```
 
-:::
-
-::: {.column width="55%" .right}
-```{r}
-#| echo = FALSE
-  knitr::include_graphics(
-  knitr::fig_chunk("codefig-blackvwhite", "png"))
-```
-
-:::
-::::
 
 ## Population Pyramids
 
@@ -353,14 +297,12 @@ usa_pyr
 
 ## Population Pyramids
 
-:::: {.columns}
-::: {.column width="45%"}
 ```{r}
-#| label = "codefig-usapyrbasic",
-#| message = FALSE,
-#| fig.show = "hide",
-#| fig.width = 6,
-#| fig.height = 5.5
+#| label: "codefig-usapyrbasic"
+#| message: FALSE
+#| fig.width: 6
+#| fig.height: 5.5
+#| output-location: column
 usa_pyr |> 
   ggplot(mapping = aes(x = value, 
                        y = AGEGROUP, 
@@ -371,29 +313,16 @@ usa_pyr |>
        title= "US Population Pyramid") 
 ```
 
-:::
-
-::: {.column width="55%" .right}
-```{r}
-#| echo = FALSE
-  knitr::include_graphics(
-  knitr::fig_chunk("codefig-usapyrbasic", "png"))
-```
-
-:::
-::::
 
 
 ## Population Pyramids
 
-:::: {.columns}
-::: {.column width="45%"}
 ```{r}
-#| label = "codefig-usapyr",
-#| message = FALSE,
-#| fig.show = "hide",
-#| fig.width = 6,
-#| fig.height = 5.5
+#| label: "codefig-usapyr"
+#| message: FALSE
+#| fig.width: 6
+#| fig.height: 5.5
+#| output-location: column
 usa_pyr |> 
   ggplot(mapping = aes(x = value, 
                        y = AGEGROUP, 
@@ -412,14 +341,4 @@ usa_pyr |>
   theme(legend.position = "bottom")
 ```
 
-:::
 
-::: {.column width="55%" .right}
-```{r}
-#| echo = FALSE
-  knitr::include_graphics(
-  knitr::fig_chunk("codefig-usapyr", "png"))
-```
-
-:::
-::::

@@ -2,6 +2,11 @@ library(targets)
 library(tarchetypes)
 suppressPackageStartupMessages(library(tidyverse))
 
+#library(crew)
+#tar_option_set(
+#  controller = crew_controller_local(workers = 15)
+#)
+
 ## Variables and options
 class_number <- "SOCIOL 232"
 base_url <- "https://visualizingsociety.com/"
@@ -45,13 +50,13 @@ list(
 
   # The main index.qmd page loads quarto_slides as a target to link it as a dependency
   # The slide folder is excluded from the main quarto render.
-  tar_files(quarto_files, list.files(here_rel("slides"),
-                                       pattern = "\\.qmd",
-                                       full.names = TRUE)),
-  tar_target(quarto_slides,
-             render_quarto(quarto_files),
-             pattern = map(quarto_files),
-             format = "file"),
+  # tar_files(quarto_files, list.files(here_rel("slides"),
+  #                                      pattern = "\\.qmd",
+  #                                      full.names = TRUE)),
+  # tar_target(quarto_slides,
+  #            render_quarto(quarto_files),
+  #            pattern = map(quarto_files),
+  #            format = "file"),
 
   ### Convert HTML slides to PDF ----
   #
@@ -111,7 +116,7 @@ list(
 
 
   ## Render the README ----
-  # tar_target(workflow_graph, tar_mermaid(targets_only = TRUE, outdated = FALSE,
+  #tar_target(workflow_graph, tar_mermaid(targets_only = TRUE, outdated = FALSE,
   #                                         legend = FALSE, color = FALSE)),
   #tar_quarto(readme, here_rel("README.qmd")),
 

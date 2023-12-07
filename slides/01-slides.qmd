@@ -162,16 +162,15 @@ p + geom_point()
 
 ## And Render your document
 
-:::: {.columns}
-::: {.column width="50%"}
-  Write this out inside the "code chunk" in your notes.
+Write this out inside the "code chunk" in your notes.
 
 ```{r}
-#| label = "codefig-first-plot-b",
-#| message = FALSE,
-#| fig.show = "hide",
-#| fig.width = 4,
-#| fig.height = 3.5
+#| label: "codefig-first-plot-b",
+#| message: FALSE,
+#| fig.width: 4,
+#| fig.height: 3.5
+#| output-location: column
+
 library(tidyverse)
 library(gapminder)
 
@@ -183,18 +182,6 @@ p <- ggplot(data = gapminder,
 p + geom_point()
 ```
 
-:::
-
-::: {.column width="50%" .right}
-```{r}
-#| label = "01-looking-at-data-1",
-#| echo = FALSE
-knitr::include_graphics(
-  knitr::fig_chunk("codefig-first-plot", "png"))
-```
-
-:::
-::::
 # We should [look at]{.fg-lblue} data
 
 # We can [look at]{.fg-lblue} society

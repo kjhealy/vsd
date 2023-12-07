@@ -14,8 +14,8 @@ editor_options:
 ---
 
 ```{r}
-#| label = "packages",
-#| include = FALSE
+#| label: "packages"
+#| include: FALSE
 library(flipbookr)
 library(here)
 library(tidyverse)
@@ -24,8 +24,8 @@ library(kjhslides)
 
 
 ```{r}
-#| label = "setup",
-#| include = FALSE
+#| label: "setup"
+#| include: FALSE
 
 kjh_register_tenso()
 kjh_set_knitr_opts()
@@ -58,7 +58,7 @@ library(ggforce)    # ggplot extensions
 ## Take a look at this data
 
 ```{r }
-#| label = "07-make-maps-6"
+#| label: "07-make-maps-6"
 ## This is from the map library
 # library(maps)
 
@@ -77,7 +77,7 @@ us_states
 ## What is this, at root?
 
 ```{r }
-#| label = "07-make-maps-7"
+#| label: "07-make-maps-7"
 us_states
 
 ```
@@ -87,16 +87,12 @@ us_states
 
 ## Like this, with [`geom_polygon()`]{.fg-green}
 
-::: {.panel-tabset}
-
-### Code
-
 ```{r}
-#| label = "codefig-poly1",
-#| message = FALSE,
-#| fig.show = "hide",
-#| fig.width = 6,
-#| fig.height = 4.5
+#| label: "codefig-poly1"
+#| message: FALSE
+#| fig.width: 6
+#| fig.height: 4.5
+#| output-location: column
   
 us_states |>
   ggplot(mapping = aes(x = long, 
@@ -108,29 +104,15 @@ us_states |>
 
 ```
 
-### Map
-
-```{r}
-#| label = "07-make-maps-8",
-#| echo = FALSE
-  knitr::include_graphics(
-  knitr::fig_chunk("codefig-poly1", "png"))
-```
-
-:::
 
 ## We can show a [`fill`]{.fg-orange}, too, like any geom
 
-::: {.panel-tabset}
-
-### Code
-
 ```{r}
-#| label = "codefig-poly2",
-#| message = FALSE,
-#| fig.show = "hide",
-#| fig.width = 6,
-#| fig.height = 4.5
+#| label: "codefig-poly2"
+#| message: FALSE
+#| fig.width: 6
+#| fig.height: 4.5
+#| output-location: column
 
 us_states |>
   ggplot(mapping = aes(x = long, 
@@ -147,17 +129,6 @@ us_states |>
 
 ```
 
-### Map
-
-```{r}
-#| label = "07-make-maps-9",
-#| echo = FALSE
-  knitr::include_graphics(
-  knitr::fig_chunk("codefig-poly2", "png"))
-```
-
-:::
-
 ## We need to do two things
 
 - 1: Fix the [map projection]{.fg-lblue}
@@ -171,8 +142,8 @@ us_states |>
 `r chunq_reveal("reveal-coord",  lcolw="50", rcolw="50", smallcode = TRUE, title = "Fix the projection")`
 
 ```{r}
-#| label = "reveal-coord",
-#| include = FALSE
+#| label: "reveal-coord"
+#| include: FALSE
 us_states <- as_tibble(map_data("state"))
 
 us_states |>
@@ -185,9 +156,6 @@ us_states |>
   coord_map(projection = "albers", 
             lat0 = 39, 
             lat1 = 45) 
-
-## A coordinate transformation!
-
 ```
 
 ## U.S. Map Projections
@@ -203,10 +171,10 @@ us_states |>
 
 
 ```{r}
-#| label = "07-make-maps-10",
-#| echo = FALSE,
-#| fig.height = 8,
-#| fig.width = 15
+#| label: "07-make-maps-10"
+#| echo: FALSE
+#| fig.height: 8
+#| fig.width: 15
 us_states |>
   ggplot(mapping = aes(x = long, 
                        y = lat,
@@ -229,7 +197,7 @@ We can merge our state-level `election` data with the `us_states` table, but we 
 :::: {.columns}
 ::: {.column width="50%"}
 ```{r }
-#| label = "07-make-maps-11"
+#| label: "07-make-maps-11"
 us_states
 ```
 
@@ -237,7 +205,7 @@ us_states
 
 ::: {.column width="50%" .right}
 ```{r }
-#| label = "07-make-maps-12"
+#| label: "07-make-maps-12"
 election
 ```
 
@@ -250,7 +218,7 @@ election
 ## Recode to make a key
 
 ```{r }
-#| label = "07-make-maps-13"
+#| label: "07-make-maps-13"
 election <- election |>
   mutate(region = tolower(state)) |> 
   relocate(region)
@@ -263,7 +231,7 @@ election
 :::: {.columns}
 ::: {.column width="50%"}
 ```{r }
-#| label = "07-make-maps-14"
+#| label: "07-make-maps-14"
 us_states
 ```
 
@@ -271,7 +239,7 @@ us_states
 
 ::: {.column width="50%" .right}
 ```{r }
-#| label = "07-make-maps-15"
+#| label: "07-make-maps-15"
 election
 ```
 
@@ -281,7 +249,7 @@ election
 ## This is a [_left join_]{.fg-pink}
 
 ```{r }
-#| label = "07-make-maps-16"
+#| label: "07-make-maps-16"
 us_states_elec <- left_join(us_states, election, by = "region")
 
 us_states_elec
@@ -293,16 +261,12 @@ Now our `us_states_elec` table has both the line-drawing information and (very r
 
 ## Choropleths
 
-::: {.panel-tabset}
-
-### Code
-
 ```{r}
-#| label = "codefig-choroparty",
-#| message = FALSE,
-#| fig.show = "hide",
-#| fig.width = 4.8,
-#| fig.height = 4.5
+#| label: "codefig-choroparty"
+#| message: FALSE
+#| fig.width: 4.8
+#| fig.height: 4.5
+#| output-location: column
 
 us_states_elec |>
   ggplot(mapping = aes(x = long, 
@@ -319,23 +283,13 @@ us_states_elec |>
 ```
 
 
-### Map
-
-```{r}
-#| label = "07-make-maps-17",
-#| echo = FALSE
-  knitr::include_graphics(
-  knitr::fig_chunk("codefig-choroparty", "png"))
-```
-
-:::
 
 ## Let's turn off the gridlines
 
 This is a [_theme function_]{.fg-pink}.
 
 ```{r }
-#| label = "07-make-maps-18"
+#| label: "07-make-maps-18"
 theme_map <- function(base_size=9, base_family="") {
     require(grid)
     theme_bw(base_size=base_size, base_family=base_family) %+replace%
@@ -356,16 +310,12 @@ theme_map <- function(base_size=9, base_family="") {
 
 ## Add the theme function at the end
 
-::: {.panel-tabset}
-
-### Code
-
 ```{r}
-#| label = "codefig-choropartytheme",
-#| message = FALSE,
-#| fig.show = "hide",
-#| fig.width = 4.8,
-#| fig.height = 4.5
+#| label: "codefig-choropartytheme"
+#| message: FALSE
+#| fig.width: 4.8
+#| fig.height: 4.5
+#| output-location: column
 
 us_states_elec |> 
   ggplot(mapping = aes(x = long, 
@@ -377,33 +327,16 @@ us_states_elec |>
   coord_map(projection = "albers", 
             lat0 = 39, lat1 = 45) +
   theme_map()
-
-
 ```
-
-### Map
-
-```{r}
-#| label = "07-make-maps-19",
-#| echo = FALSE
-  knitr::include_graphics(
-  knitr::fig_chunk("codefig-choropartytheme", "png"))
-```
-
-:::
 
 ## Fix the Party Colors
 
-::: {.panel-tabset}
-
-### Code
-
 ```{r}
-#| label = "codefig-choropartycolors",
-#| message = FALSE,
-#| fig.show = "hide",
-#| fig.width = 4.8,
-#| fig.height = 4.5
+#| label: "codefig-choropartycolors"
+#| message: FALSE
+#| fig.width: 4.8
+#| fig.height: 4.5
+#| output-location: column
   
 ## Hex color codes for Democratic Blue and Republican Red
 party_colors <- c("#2E74C0", "#CB454A")
@@ -423,29 +356,14 @@ us_states_elec |>
 
 ```
 
-### Map
-
-```{r}
-#| label = "07-make-maps-20",
-#| echo = FALSE
-  knitr::include_graphics(
-  knitr::fig_chunk("codefig-choropartycolors", "png"))
-```
-
-:::
-
 ## Continuous measures are _gradients_
 
-::: {.panel-tabset}
-
-### Code
-
 ```{r}
-#| label = "codefig-gradient1",
-#| message = FALSE,
-#| fig.show = "hide",
-#| fig.width = 4.8,
-#| fig.height = 4.5
+#| label: "codefig-gradient1"
+#| message: FALSE
+#| fig.width: 4.8
+#| fig.height: 4.5
+#| output-location: column
 
 us_states_elec |> 
   ggplot(mapping = aes(x = long, 
@@ -462,30 +380,14 @@ us_states_elec |>
 
 ```
 
-### Map
-
-```{r}
-#| label = "07-make-maps-21",
-#| echo = FALSE
-  knitr::include_graphics(
-  knitr::fig_chunk("codefig-gradient1", "png"))
-```
-]
-
-:::
-
 ## Fix the gradient with a [scale function]{.fg-orange}
 
-::: {.panel-tabset}
-
-### Code
-
 ```{r}
-#| label = "codefig-gradient2",
-#| message = FALSE,
-#| fig.show = "hide",
-#| fig.width = 4.8,
-#| fig.height = 4.5
+#| label: "codefig-gradient2"
+#| message: FALSE
+#| fig.width: 4.8
+#| fig.height: 4.5
+#| output-location: column
 
 us_states_elec |> 
   ggplot(mapping = aes(x = long, 
@@ -506,29 +408,14 @@ us_states_elec |>
 
 ```
 
-### Map
-
-```{r}
-#| label = "07-make-maps-22",
-#| echo = FALSE
-  knitr::include_graphics(
-  knitr::fig_chunk("codefig-gradient2", "png"))
-```
-
-:::
-
 ## Some gradients are [_diverging_]{.fg-yellow}
 
-::: {.panel-tabset}
-
-### Code
-
 ```{r}
-#| label = "codefig-diverging1",
-#| message = FALSE,
-#| fig.show = "hide",
-#| fig.width = 4.8,
-#| fig.height = 4.5
+#| label: "codefig-diverging1"
+#| message: FALSE
+#| fig.width: 4.8
+#| fig.height: 4.5
+#| output-location: column
 
 us_states_elec |> 
   ggplot(mapping = aes(x = long, 
@@ -547,29 +434,14 @@ us_states_elec |>
 
 ```
 
-### Map
-
-```{r}
-#| label = "07-make-maps-23",
-#| echo = FALSE
-  knitr::include_graphics(
-  knitr::fig_chunk("codefig-diverging1", "png"))
-```
-
-:::
-
 ## Purple America Map
 
-::: {.panel-tabset}
-
-### Code
-
 ```{r}
-#| label = "codefig-purpleamerica",
-#| message = FALSE,
-#| fig.show = "hide",
-#| fig.width = 4.8,
-#| fig.height = 4.5
+#| label: "codefig-purpleamerica"
+#| message: FALSE
+#| fig.width: 4.8
+#| fig.height: 4.5
+#| output-location: column
 
 us_states_elec |> 
   ggplot(mapping = aes(x = long, 
@@ -593,24 +465,13 @@ us_states_elec |>
 
 ```
 
-### Map
-
-```{r}
-#| label = "07-make-maps-24",
-#| echo = FALSE
-  knitr::include_graphics(
-  knitr::fig_chunk("codefig-purpleamerica", "png"))
-```
-
-:::
-
 ---
 
 ```{r}
-#| label = "07-make-maps-25",
-#| echo = FALSE,
-#| fig.width = 12,
-#| fig.height = 7
+#| label: "07-make-maps-25"
+#| echo: FALSE
+#| fig.width: 12
+#| fig.height: 7
 us_states_elec |> 
   ggplot(mapping = aes(x = long, 
                        y = lat,
@@ -642,17 +503,12 @@ Take a closer look at this, though.
 
 ## Purple America Map, without DC
 
-::: {.panel-tabset}
-
-### Code
-
-
 ```{r}
-#| label = "codefig-purpleamerica2",
-#| message = FALSE,
-#| fig.show = "hide",
-#| fig.width = 4.8,
-#| fig.height = 4.5
+#| label: "codefig-purpleamerica2"
+#| message: FALSE
+#| fig.width: 4.8
+#| fig.height: 4.5
+#| output-location: column
 
 us_states_elec |> 
   filter(region %nin% "district of columbia") |> #<<
@@ -673,25 +529,14 @@ us_states_elec |>
 
 ```
 
-### Map
-
-```{r}
-#| label = "07-make-maps-26",
-#| echo = FALSE
-  knitr::include_graphics(
-  knitr::fig_chunk("codefig-purpleamerica2", "png"))
-```
-
-:::
-
 ---
 
 
 ```{r}
-#| label = "07-make-maps-27",
-#| echo = FALSE,
-#| fig.width = 12,
-#| fig.height = 7
+#| label: "07-make-maps-27"
+#| echo: FALSE
+#| fig.width: 12
+#| fig.height: 7
 us_states_elec |> 
   filter(region %nin% "district of columbia") |> #<<
   ggplot(mapping = aes(x = long, 
@@ -714,7 +559,6 @@ us_states_elec |>
 
 More balanced.
 
-
 # [America's]{.fg-yellow}<br />[Ur-Choropleths]{.fg-lblue}
 
 ## County-level choropleths
@@ -722,7 +566,7 @@ More balanced.
 - Conceptually identical to state ones. The tables are just bigger, because there are way more lines to draw. 
 
 ```{r }
-#| label = "07-make-maps-28"
+#| label: "07-make-maps-28"
 county_map <- as_tibble(county_map)
 county_map
 ```
@@ -733,7 +577,7 @@ county_map
 ## County-level choropleths
 
 ```{r }
-#| label = "07-make-maps-29"
+#| label: "07-make-maps-29"
 county_data <- as_tibble(county_data)
 county_data
 ```
@@ -745,7 +589,7 @@ county_data
 - Sample a few rows, with specific columns:
 
 ```{r }
-#| label = "07-make-maps-30"
+#| label: "07-make-maps-30"
 county_data  |> 
     select(id, name, state, pop_dens, pct_black) |>
     sample_n(10)
@@ -755,7 +599,7 @@ county_data  |>
 ## Joined table
 
 ```{r }
-#| label = "07-make-maps-31"
+#| label: "07-make-maps-31"
 county_full <- as_tibble(left_join(county_map, county_data, by = "id"))
 
 county_full
@@ -765,8 +609,8 @@ county_full
 `r chunq_reveal("reveal-countypop",  lcolw="50", rcolw="50", smallcode = TRUE, title = "County Population Density")`
 
 ```{r}
-#| label = "reveal-countypop",
-#| include = FALSE
+#| label: "reveal-countypop"
+#| include: FALSE
 county_full <- as_tibble(left_join(county_map, county_data, by = "id"))
 
 
@@ -790,10 +634,10 @@ county_full |>
 ---
 
 ```{r}
-#| label = "07-make-maps-32",
-#| echo = FALSE,
-#| fig.height = 8,
-#| fig.width = 12
+#| label: "07-make-maps-32"
+#| echo: FALSE
+#| fig.height: 8
+#| fig.width: 12
 county_full |> 
   ggplot(mapping = aes(x = long, y = lat,
                           fill = pop_dens, 
@@ -817,8 +661,8 @@ Population Density by County, binned
 `r chunq_reveal("reveal-choroblack",  lcolw="50", rcolw="50", smallcode = TRUE, title = "Same again for Percent Black")`
 
 ```{r}
-#| label = "reveal-choroblack",
-#| include = FALSE
+#| label: "reveal-choroblack"
+#| include: FALSE
 county_full <- as_tibble(left_join(county_map, county_data, by = "id"))
 
 county_full |> 
@@ -841,10 +685,10 @@ county_full |>
 ---
 
 ```{r}
-#| label = "07-make-maps-33",
-#| echo = FALSE,
-#| fig.height = 8,
-#| fig.width = 12
+#| label: "07-make-maps-33"
+#| echo: FALSE
+#| fig.height: 8
+#| fig.width: 12
 county_full |> 
   ggplot(mapping = aes(x = long, y = lat,
                        fill = pct_black, #<< 
@@ -875,17 +719,17 @@ Percent Black, by County, binned
 ### Code
 
 ```{r }
-#| label = "07-make-maps-34"
+#| label: "07-make-maps-34"
 orange_pal <- RColorBrewer::brewer.pal(n = 6, 
                                        name = "Oranges")
 orange_pal
 ```
 
 ```{r}
-#| label = "07-make-maps-35",
-#| echo = FALSE,
-#| fig.height = 0.5,
-#| fig.width = 5
+#| label: "07-make-maps-35"
+#| echo: FALSE
+#| fig.height: 0.5
+#| fig.width: 5
 par(mar = c(0, 0, 0, 0))
 colorspace::swatchplot("Orange Palette" = orange_pal, nrow = 1)
 ```
@@ -893,17 +737,17 @@ colorspace::swatchplot("Orange Palette" = orange_pal, nrow = 1)
 ### Reverse
 
 ```{r }
-#| label = "07-make-maps-36"
+#| label: "07-make-maps-36"
 # Just reverse it
 orange_rev <- rev(orange_pal)
 orange_rev
 ```
 
 ```{r}
-#| label = "07-make-maps-37",
-#| echo = FALSE,
-#| fig.height = 0.5,
-#| fig.width = 5
+#| label: "07-make-maps-37"
+#| echo: FALSE
+#| fig.height: 0.5
+#| fig.width: 5
 par(mar = c(0, 0, 0, 0))
 colorspace::swatchplot("Reverse Orange" = orange_rev, nrow = 1)
 ```
@@ -913,7 +757,7 @@ colorspace::swatchplot("Reverse Orange" = orange_rev, nrow = 1)
 ## Build a plot
 
 ```{r }
-#| label = "07-make-maps-38"
+#| label: "07-make-maps-38"
 p_g1 <- county_full |> 
   ggplot(mapping = aes(x = long, y = lat,
                        fill = su_gun6, #<< 
@@ -932,10 +776,10 @@ p_g1 <- county_full |>
 ---
 
 ```{r}
-#| label = "07-make-maps-39",
-#| echo = FALSE,
-#| fig.height = 8,
-#| fig.width = 12
+#| label: "07-make-maps-39"
+#| echo: FALSE
+#| fig.height: 8
+#| fig.width: 12
 p_g1 
 ```
 
@@ -944,7 +788,7 @@ Regular palette
 ## And another
 
 ```{r }
-#| label = "07-make-maps-40"
+#| label: "07-make-maps-40"
 p_g2 <- county_full |> 
   ggplot(mapping = aes(x = long, y = lat,
                        fill = pop_dens6, #<< 
@@ -963,10 +807,10 @@ p_g2 <- county_full |>
 ---
 
 ```{r}
-#| label = "07-make-maps-41",
-#| echo = FALSE,
-#| fig.height = 8,
-#| fig.width = 12
+#| label: "07-make-maps-41"
+#| echo: FALSE
+#| fig.height: 8
+#| fig.width: 12
 p_g2
 ```
 
@@ -977,10 +821,10 @@ Reverse-coded density
 :::: {.columns}
 ::: {.column width="50%"}
 ```{r}
-#| label = "07-make-maps-42",
-#| echo = FALSE,
-#| fig.height = 6,
-#| fig.width = 8
+#| label: "07-make-maps-42"
+#| echo: FALSE
+#| fig.height: 6
+#| fig.width: 8
 p_g1
 ```
 
@@ -988,10 +832,10 @@ p_g1
 
 ::: {.column width="50%" .right}
 ```{r}
-#| label = "07-make-maps-43",
-#| echo = FALSE,
-#| fig.height = 6,
-#| fig.width = 8
+#| label: "07-make-maps-43"
+#| echo: FALSE
+#| fig.height: 6
+#| fig.width: 8
 p_g2
 ```
 
@@ -1004,7 +848,7 @@ p_g2
 ## Opiate-related Mortality, 1999-2014
 
 ```{r }
-#| label = "07-make-maps-44"
+#| label: "07-make-maps-44"
 opiates
 
 opiates$state <- tolower(opiates$state)
@@ -1016,7 +860,7 @@ opiates_map <- left_join(us_states, opiates, by = "state")
 ---
 
 ```{r }
-#| label = "07-make-maps-45"
+#| label: "07-make-maps-45"
 p_out <- opiates_map |> 
   ggplot(mapping = aes(x = long, y = lat,
                        group = group,
@@ -1036,10 +880,10 @@ p_out <- opiates_map |>
 ---
 
 ```{r}
-#| label = "07-make-maps-46",
-#| echo = FALSE,
-#| fig.height = 8,
-#| fig.width = 16
+#| label: "07-make-maps-46"
+#| echo: FALSE
+#| fig.height: 8
+#| fig.width: 16
 p_out
 ```
 
@@ -1052,8 +896,8 @@ Faceting works just as it would for any other kind of plot.
 `r chunq_reveal("reveal-maxstates",  lcolw="50", rcolw="50", smallcode = TRUE, title = "The two leading states in each region in 2014")`
 
 ```{r}
-#| label = "reveal-maxstates",
-#| include = FALSE
+#| label: "reveal-maxstates"
+#| include: FALSE
 ## Put this in an object called `st_top`
 opiates |> 
   filter(year == max(year), 
@@ -1067,8 +911,8 @@ opiates |>
 `r chunq_reveal("reveal-opiateline", lcolw="50", rcolw="50", smallcode = TRUE, title = "Opiates Time Series plot")`
 
 ```{r}
-#| label = "reveal-opiateline",
-#| include = FALSE
+#| label: "reveal-opiateline"
+#| include: FALSE
 st_top <- opiates |>  filter(year == max(year), abbr != "DC") |> 
   group_by(region) |> 
   slice_max(order_by = adjusted, n = 2)
@@ -1104,10 +948,10 @@ opiates |>
 ---
 
 ```{r}
-#| label = "07-make-maps-48",
-#| echo = FALSE,
-#| fig.height = 6,
-#| fig.width = 15
+#| label: "07-make-maps-48"
+#| echo: FALSE
+#| fig.height: 6
+#| fig.width: 15
 p_out <- opiates |> 
   ggplot(aes(x = year, 
              y = adjusted)) +

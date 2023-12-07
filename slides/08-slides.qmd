@@ -14,8 +14,8 @@ editor_options:
 ---
 
 ```{r}
-#| label = "packages",
-#| include = FALSE
+#| label: "packages"
+#| include: FALSE
 library(flipbookr)
 library(here)
 library(tidyverse)
@@ -25,8 +25,8 @@ library(lubridate)
 
 
 ```{r}
-#| label = "setup",
-#| include = FALSE
+#| label: "setup"
+#| include: FALSE
 
 kjh_register_tenso()
 kjh_set_knitr_opts()
@@ -50,8 +50,8 @@ xaringanExtra::use_panelset()
 
 
 ```{r}
-#| label = "05-work-with-dplyr-and-geoms-1",
-#| message = FALSE
+#| label: "05-work-with-dplyr-and-geoms-1"
+#| message: FALSE
 library(here)       # manage file paths
 library(socviz)     # data and some useful things, especially %nin%
 library(tidyverse)  # your friend and mine
@@ -87,40 +87,26 @@ Here the `births` column means "Average daily births per million population"
 ## Looking at the Series
 
 ```{r}
-#| label = "panel-chunk-boom",
-#| fig.show = "hide",
-#| fig.width = 16,
-#| fig.height = 4
+#| label: "panel-chunk-boom"
+#| fig.width: 16
+#| fig.height: 4
 boom |> 
   ggplot(mapping = aes(x = date, 
                        y = births)) + 
   geom_line()
 ```
 
-```{r}
-#| echo = FALSE
-knitr::include_graphics(
-  knitr::fig_chunk("panel-chunk-boom", "png"))
-```
-
 ## Looking at the Series
 
 ```{r}
-#| label = "panel-chunk-boom-2",
-#| fig.show = "hide",
-#| fig.width = 16,
-#| fig.height = 4
+#| label: "panel-chunk-boom-2"
+#| fig.width: 16
+#| fig.height: 4
 boom |> 
   ggplot(mapping = aes(x = date, 
                        y = births)) + 
   geom_line() + 
   geom_smooth()
-```
-
-```{r}
-#| echo = FALSE
-knitr::include_graphics(
-  knitr::fig_chunk("panel-chunk-boom-2", "png"))
 ```
 
 Too much smoothing here
@@ -135,7 +121,7 @@ Too much smoothing here
 ## Centered Moving Averages: [`slider`]{.fg-yellow}
 
 ```{r}
-#| label = "ma-boom"
+#| label: "ma-boom"
 boom |> 
   mutate(
     ma3 = slide_dbl(births, mean,
@@ -147,10 +133,10 @@ boom |>
 
 
 ```{r}
-#| label = "ma-boom-ma3",
-#| fig.show = "hide",
-#| fig.width = 16,
-#| fig.height = 4
+#| label: "ma-boom-ma3"
+#| fig.width: 16
+#| fig.height: 4
+#| output-location: slide
 boom |> 
   mutate(
     ma3 = slide_dbl(births, mean,
@@ -162,19 +148,14 @@ boom |>
   labs(title = "MA Order 3 (1 month either side)")
 ```
 
-```{r}
-#| echo = FALSE
-knitr::include_graphics(
-  knitr::fig_chunk("ma-boom-ma3", "png"))
-```
 
 ## A Centered Moving Average, order 5
 
 ```{r}
-#| label = "ma-boom-1",
-#| fig.show = "hide",
-#| fig.width = 16,
-#| fig.height = 4
+#| label: "ma-boom-1"
+#| fig.width: 16
+#| fig.height: 4
+#| output-location: slide
 boom |> 
   mutate(
     mav = slide_dbl(births, mean,
@@ -186,19 +167,14 @@ boom |>
   labs(title = "MA Order 5 (two months either side)")
 ```
 
-```{r}
-#| echo = FALSE
-knitr::include_graphics(
-  knitr::fig_chunk("ma-boom-1", "png"))
-```
 
 ## A Centered Moving Average, order 7
 
 ```{r}
-#| label = "ma-boom-7",
-#| fig.show = "hide",
-#| fig.width = 16,
-#| fig.height = 4
+#| label: "ma-boom-7"
+#| fig.width: 16
+#| fig.height: 4
+#| output-location: slide
 boom |> 
   mutate(
     mav = slide_dbl(births, mean,
@@ -208,12 +184,6 @@ boom |>
   geom_line(aes(x = date, y = births)) + 
   geom_line(aes(x = date, y = mav), linewidth = rel(1.2), color = "firebrick") + 
   labs(title = "MA Order 7 (three months either side)")
-```
-
-```{r}
-#| echo = FALSE
-knitr::include_graphics(
-  knitr::fig_chunk("ma-boom-7", "png"))
 ```
 
 As the order goes up, the window for the average widens, and the line gets smoother and smoother.
@@ -244,10 +214,10 @@ This just means e.g. we use half of December of the previous year and half of De
 We can calculate the CMA for even orders in two steps.
 
 ```{r}
-#| label = "ma-boom-codeonly",
-#| fig.show = "hide",
-#| fig.width = 16,
-#| fig.height = 4
+#| label: "ma-boom-codeonly"
+#| fig.show: "hide"
+#| fig.width: 16
+#| fig.height: 4
 boom |> 
   mutate(
     mav12 = slide_dbl(births, mean,
@@ -262,15 +232,11 @@ See how we lose observations as our window widens.
 
 ## A Centered Moving Average, order 12
 
-::: {.panel-tabset}
-
-### Code
-
 ```{r}
-#| label = "ma-boom-12",
-#| fig.show = "hide",
-#| fig.width = 16,
-#| fig.height = 4
+#| label: "ma-boom-12"
+#| fig.width: 16
+#| fig.height: 4
+#| output-location: slide
 boom |> 
   mutate(
     mav12 = slide_dbl(births, mean,
@@ -289,27 +255,14 @@ boom |>
   Doing it this way---e.g. taking a yearly average of 12 monthly values---means all the seasonality is averaged away.
 :::
 
-### Plot
 
-```{r}
-#| echo = FALSE
-knitr::include_graphics(
-  knitr::fig_chunk("ma-boom-12", "png"))
-```
-
-:::
- 
 ## A 5 year CMA
 
-::: {.panel-tabset}
-
-### Code
-
 ```{r}
-#| label = "ma-boom-60",
-#| fig.show = "hide",
-#| fig.width = 16,
-#| fig.height = 4
+#| label: "ma-boom-60"
+#| fig.width: 16
+#| fig.height: 4
+#| output-location: slide
 boom |> 
   mutate(
     mav12 = slide_dbl(births, mean,
@@ -328,25 +281,14 @@ boom |>
   The wider the window, the flatter the line. And we continue to lose observations.
 ::: 
 
-
-### Plot
-
-```{r}
-#| echo = FALSE
-knitr::include_graphics(
-  knitr::fig_chunk("ma-boom-60", "png"))
-```
-
-:::
-
 ## [Seasonality]{.fg-green} in US Birth Rates
 
 
 ```{r}
-#| label = "ma-boom-season-1",
-#| fig.show = "hide",
-#| fig.width = 16,
-#| fig.height = 4
+#| label: "ma-boom-season-1"
+#| fig.width: 16
+#| fig.height: 4
+#| output-location: slide
 boom |> 
   filter(date > as.Date("1949-12-01"), 
          date < as.Date("1956-01-01")) |> 
@@ -356,11 +298,6 @@ boom |>
                date_labels = "%b")
 ```
 
-```{r}
-#| echo = FALSE
-knitr::include_graphics(
-  knitr::fig_chunk("ma-boom-season-1", "png"))
-```
 
 ## The Additive "Classical" Decomposition
 
@@ -375,10 +312,10 @@ knitr::include_graphics(
 - This is the moving average we just calculated.
 
 ```{r}
-#| label = "ma-boom-trend",
-#| fig.show = "hide",
-#| fig.width = 16,
-#| fig.height = 4
+#| label: "ma-boom-trend"
+#| fig.show: "hide"
+#| fig.width: 16
+#| fig.height: 4
 boom_t <- boom |> 
   select(date, births) |> 
   mutate(
@@ -397,9 +334,9 @@ boom_t
 - First "detrend" the series by subtracting `t` from `births`.
 
 ```{r}
-#| fig.show = "hide",
-#| fig.width = 16,
-#| fig.height = 4
+#| fig.show: "hide"
+#| fig.width: 16
+#| fig.height: 4
 boom_t |> 
   mutate(detrended = births - t) 
   
@@ -410,9 +347,9 @@ boom_t |>
 - Then take the average by month.
 
 ```{r}
-#| fig.show = "hide",
-#| fig.width = 16,
-#| fig.height = 4
+#| fig.show: "hide"
+#| fig.width: 16
+#| fig.height: 4
 boom_t |> 
   mutate(detrended = births - t, 
          month = lubridate::month(date)) |> 
@@ -426,9 +363,9 @@ boom_t |>
 - Then "mean-center" each point by taking the average again and subtracting it from each observation. (This way the observations all sum to zero.)
 
 ```{r}
-#| fig.show = "hide",
-#| fig.width = 16,
-#| fig.height = 4
+#| fig.show: "hide"
+#| fig.width: 16
+#| fig.height: 4
 boom_t |> 
   mutate(detrended = births - t) |> 
   group_by(month) |> 
@@ -441,9 +378,9 @@ boom_t |>
 
 - Put this in an object
 ```{r}
-#| fig.show = "hide",
-#| fig.width = 16,
-#| fig.height = 4
+#| fig.show: "hide"
+#| fig.width: 16
+#| fig.height: 4
 boom_s <- boom_t |> 
   mutate(detrended = births - t) |> 
   group_by(month) |> 
@@ -471,19 +408,12 @@ boom_ts
 - In a "Classical" decomposition the Seasonal part just repeats. 
 
 ```{r}
-#| label = "seasonal-rep",
-#| fig.show = "hide",
-#| fig.width = 16,
-#| fig.height = 1.2
+#| label: "seasonal-rep"
+#| fig.width: 16
+#| fig.height: 1.2
 boom_ts |> 
   ggplot(aes(x = date, y = s)) + 
   geom_line()
-```
-
-```{r}
-#| echo = FALSE
-knitr::include_graphics(
-  knitr::fig_chunk("seasonal-rep", "png"))
 ```
 
 ## Calculate the [Remainder]{.fg-yellow} part
@@ -523,15 +453,11 @@ boom |>
 
 ## Plot all the components at once
 
-::: {.panel-tabset}
-
-### Code
-
 ```{r}
-#| label = "autoplot-panel",
-#| fig.show = "hide",
-#| fig.width = 16,
-#| fig.height = 6
+#| label: "autoplot-panel"
+#| fig.width: 16
+#| fig.height: 6
+#| output-location: slide
 boom |> 
   mutate(date = yearmonth(date)) |> 
   as_tsibble(index = "date") |> 
@@ -541,18 +467,6 @@ boom |>
   components() |> 
   autoplot()
 ```
-
-### Plot
-
-```{r}
-#| echo = FALSE
-knitr::include_graphics(
-  knitr::fig_chunk("autoplot-panel", "png"))
-```
-
-:::
-
----
 
 ## The [STL]{.fg-green} Decomposition
 
@@ -572,15 +486,11 @@ knitr::include_graphics(
 
 ## The [STL]{.fg-green} Decomposition 
 
-::: {.panel-tabset}
-
-### Code
-
 ```{r}
-#| label = "autoplot-stl-panel",
-#| fig.show = "hide",
-#| fig.width = 16,
-#| fig.height = 6
+#| label: "autoplot-stl-panel"
+#| fig.width: 16
+#| fig.height: 6
+#| output-location: slide
 boom |> 
   mutate(date = yearmonth(date)) |> 
   as_tsibble(index = "date") |> 
@@ -593,15 +503,6 @@ boom |>
   autoplot()
 ```
 
-### Plot
-
-```{r}
-#| echo = FALSE
-knitr::include_graphics(
-  knitr::fig_chunk("autoplot-stl-panel", "png"))
-```
-
-:::
 
 ## Manually plotting the components
 
@@ -624,10 +525,10 @@ bc
 ## Manually plotting the components
 
 ```{r}
-#| label = "autoplot-stl-panel-2",
-#| fig.show = "hide",
-#| fig.width = 15,
-#| fig.height = 9
+#| label: "autoplot-stl-panel-2"
+#| fig.width: 15
+#| fig.height: 9
+#| output-location: slide
 bc |> 
   pivot_longer(cols = c(births, trend, season_year, remainder)) |> 
   mutate(
@@ -647,35 +548,6 @@ bc |>
        subtitle = "Average number of daily births per million population each month", 
        x = "Time", y = "Birth rate")
   
-```
-
----
-
-
-```{r}
-#| echo = FALSE,
-#| fig.width = 15,
-#| fig.height = 9
-bc |> 
-  pivot_longer(cols = c(births, trend, season_year, remainder)) |> 
-  mutate(
-    date = as.Date(date),
-    name = factor(name, levels = c("births", "trend", 
-                                        "season_year", "remainder"), 
-                  labels = c("Births", "Trend", "Seasonal", "Remainder"),
-                       ordered = TRUE)) |> 
-  ggplot() +
-  geom_line(aes(date, value)) +
-  scale_x_date(breaks = seq(as.Date("1935-01-01"), 
-                                 as.Date("2015-01-01"), 
-                                 by="10 years"),
-               date_labels = "%Y") + 
-  ggforce::facet_col(~ name, scales = 'free', space = 'free') + 
-  labs(title = "Decomposition of US Monthly Births, 1933-2017", 
-       subtitle = "Average number of daily births per million population each month", 
-       x = "Time", y = "Birth rate") + 
-  theme(axis.text.y = element_text(size = rel(0.5)))
-
 ```
 
 ## Comparing seasonality
@@ -713,6 +585,8 @@ bc_int |>
 ## Comparing seasonality
 
 ```{r}
+#| output-location: slide
+#| 
 my_labs <- bc_int$seq_id
 names(my_labs) <- bc_int$month
 
@@ -720,8 +594,7 @@ ind <- names(my_labs) %in% c("Jan", "May", "Sep")
 
 my_labs <- my_labs[ind]
 
-
-p_out <- bc_int |> 
+bc_int |> 
   ggplot(aes(x = seq_id, 
              y = season_year, 
              color = period)) +
@@ -734,13 +607,3 @@ p_out <- bc_int |>
        title = "Changing Seasonality in Births: Three Six-Year periods in Three Decades", 
        subtitle = "Seasonal Component from an STL decomposition of 1933-2015 monthly births")
 ```
-
----
-
-```{r}
-#| fig.width = 15,
-#| fig.height = 8.25,
-#| echo = FALSE
-p_out
-```
-
