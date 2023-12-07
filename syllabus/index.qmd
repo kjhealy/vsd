@@ -22,7 +22,6 @@ library(pander)
 - {{< fa university >}} &nbsp; {{< var instructor.office >}}
 - {{< fa envelope >}} &nbsp; <a href="mailto:{{< var instructor.email >}}">{{< var instructor.email >}}</a>
 - {{< fa brands mastodon >}} &nbsp; [{{< var instructor.mastodon >}}](https://mastodon.social/{{< var instructor.mastodon >}})
-<!-- - {{< fa calendar-check >}} &nbsp; [Schedule an appointment]({{< var instructor.appointment_url >}}) -->
 :::
 
 ::: {.col-sm-6}
@@ -33,7 +32,6 @@ library(pander)
 - {{< fa calendar >}} &nbsp; {{< var course.days >}}
 - {{< fa clock >}} &nbsp; {{< var course.time >}}
 - {{< fa location-dot >}} &nbsp; {{< var course.location >}}
-<!-- - {{< fa brands slack >}} &nbsp; [Slack]({{< var course.slack >}}) -->
 :::
 
 :::

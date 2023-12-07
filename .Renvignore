@@ -1,0 +1,16 @@
+# ignore all text files
+*.txt
+
+# ignore all data folders
+data/
+
+# ignore only data folders from the root of the project
+/data/
+
+# ignore projects folder
+projects/
+
+# ignore quarto outputs
+_site/
+_freeze/
+
