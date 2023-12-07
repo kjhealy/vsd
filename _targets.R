@@ -47,29 +47,17 @@ list(
   tar_combine(copy_data, tar_select_targets(save_data, starts_with("copy_"))),
   tar_combine(build_data, tar_select_targets(save_data, starts_with("data_"))),
 
-
-  # The main index.qmd page loads quarto_slides as a target to link it as a dependency
-  # The slide folder is excluded from the main quarto render.
-  # tar_files(quarto_files, list.files(here_rel("slides"),
-  #                                      pattern = "\\.qmd",
-  #                                      full.names = TRUE)),
-  # tar_target(quarto_slides,
-  #            render_quarto(quarto_files),
-  #            pattern = map(quarto_files),
-  #            format = "file"),
-
   ### Convert HTML slides to PDF ----
   #
   # Use dynamic branching to get a list of all slide .html files and
   # convert them to PDF
   #
-  # The main index.qmd page loads quarto_pdfs as a target to link it as a dependency
-  #tar_files(quarto_html_files, {
+  # tar_files(quarto_html_files, {
   #  quarto_slides
   #  list.files(here_rel("_site", "slides"),
   #             pattern = "\\.html",
   #             full.names = TRUE)
-  #}),
+  # }),
 #
 #   tar_target(quarto_pdfs,
 #              html_to_pdf(quarto_html_files),

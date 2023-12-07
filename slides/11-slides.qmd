@@ -15,8 +15,8 @@ editor_options:
 
 
 ```{r}
-#| label = "packages",
-#| include = FALSE
+#| label: "packages"
+#| include: FALSE
 library(flipbookr)
 library(here)
 library(tidyverse)
@@ -25,8 +25,8 @@ library(kjhslides)
 
 
 ```{r}
-#| label = "setup",
-#| include = FALSE
+#| label: "setup"
+#| include: FALSE
 
 kjh_register_tenso()
 kjh_set_knitr_opts()
@@ -52,8 +52,8 @@ kjh_set_slide_theme()
 
 
 ```{r}
-#| label = "07-iterating-on-data-2",
-#| message = TRUE
+#| label: "07-iterating-on-data-2"
+#| message: TRUE
 library(here)      # manage file paths
 library(socviz)    # data and some useful functions
 library(tidyverse) # your friend and mine
@@ -63,8 +63,8 @@ library(tidyverse) # your friend and mine
 
 
 ```{r}
-#| label = "07-iterating-on-data-3",
-#| message = TRUE
+#| label: "07-iterating-on-data-3"
+#| message: TRUE
 library(tidytext)    # Tools for analyzing text
 library(gutenbergr)  # Get books from Project Gutenberg
 library(janeaustenr) # Pre-organized dataset of Jane Austen's novels
@@ -117,8 +117,8 @@ tidy_books |>
 ## Word frequency
 
 ```{r}
-#| fig.width = 5,
-#| fig.height = 4
+#| fig.width: 5
+#| fig.height: 4
 tidy_books |>
   count(word, sort = TRUE) |>
   filter(n > 600) |>
@@ -151,8 +151,8 @@ book_words
 
 
 ```{r}
-#| fig.width = 24,
-#| fig.height = 4
+#| fig.width: 24
+#| fig.height: 4
 ggplot(book_words, aes(n/total, fill = book)) +
   geom_histogram(show.legend = FALSE) +
   xlim(NA, 0.0009) +
@@ -176,8 +176,8 @@ freq_by_rank
 ## Zipf's Law
 
 ```{r}
-#| fig.height = 6,
-#| fig.width = 8
+#| fig.height: 6
+#| fig.width: 8
 freq_by_rank |> 
   ggplot(aes(rank, `term frequency`, color = book)) + 
   geom_line(size = 1.1, alpha = 0.8, show.legend = FALSE) + 
@@ -266,8 +266,8 @@ out <- bigram_tf_idf |>
 ---
 
 ```{r}
-#| fig.width = 15,
-#| fig.height = 6
+#| fig.width: 15
+#| fig.height: 6
 print(out)
 ```
 
@@ -345,8 +345,8 @@ out <- sent  |>
 ---
 
 ```{r}
-#| fig.width = 15,
-#| fig.height = 5
+#| fig.width: 15
+#| fig.height: 5
 print(out)
 ```
 
@@ -369,8 +369,8 @@ out
 ## Sentiment Analysis
 
 ```{r}
-#| fig.height = 5,
-#| fig.width = 15
+#| fig.height: 5
+#| fig.width: 15
 out |> 
   ggplot(mapping = aes(index, sentiment)) +
   geom_col(show.legend = FALSE)
@@ -407,8 +407,8 @@ out <- pronouns |>
 ---
 
 ```{r}
-#| fig.width = 8,
-#| fig.height = 8
+#| fig.width: 8
+#| fig.height: 8
 print(out)
 ```
 

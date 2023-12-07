@@ -15,8 +15,8 @@ editor_options:
 
 
 ```{r}
-#| label = "packages",
-#| include = FALSE
+#| label: "packages"
+#| include: FALSE
 library(flipbookr)
 library(here)
 library(tidyverse)
@@ -25,8 +25,8 @@ library(kjhslides)
 
 
 ```{r}
-#| label = "setup",
-#| include = FALSE
+#| label: "setup"
+#| include: FALSE
 
 kjh_register_tenso()
 kjh_set_knitr_opts()
@@ -51,8 +51,8 @@ kjh_set_slide_theme()
 
 
 ```{r}
-#| label = "07-iterating-on-data-2",
-#| message = TRUE
+#| label: "07-iterating-on-data-2"
+#| message: TRUE
 library(here)      # manage file paths
 library(socviz)    # data and some useful functions
 library(tidyverse) # your friend and mine
@@ -62,8 +62,8 @@ library(tidyverse) # your friend and mine
 
 
 ```{r}
-#| label = "07-iterating-on-data-3",
-#| message = FALSE
+#| label: "07-iterating-on-data-3"
+#| message: FALSE
 library(tidygraph) # tidy management of relational data
 library(ggraph)   # geoms for drawing graphs
 
@@ -209,9 +209,9 @@ out <- revere_groups |>
 ---
 
 ```{r}
-#| fig.height = 10,
-#| fig.width = 12,
-#| echo = FALSE
+#| fig.height: 10
+#| fig.width: 12
+#| echo: FALSE
 print(out)
 ```
 
@@ -234,8 +234,8 @@ out <-  revere_persons |>
 ---
 
 ```{r}
-#| fig.height = 15,
-#| fig.width = 20,
-#| echo = FALSE
+#| fig.height: 15
+#| fig.width: 20
+#| echo: FALSE
 print(out)
 ```

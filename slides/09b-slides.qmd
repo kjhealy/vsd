@@ -14,8 +14,8 @@ editor_options:
 ---
 
 ```{r}
-#| label = "packages",
-#| include = FALSE
+#| label: "packages"
+#| include: FALSE
 library(flipbookr)
 library(here)
 library(tidyverse)
@@ -24,8 +24,8 @@ library(kjhslides)
 
 
 ```{r}
-#| label = "setup",
-#| include = FALSE
+#| label: "setup"
+#| include: FALSE
 
 kjh_register_tenso()
 kjh_set_knitr_opts()
@@ -48,8 +48,8 @@ kjh_set_slide_theme()
 
 
 ```{r}
-#| label = "05-work-with-dplyr-and-geoms-1",
-#| message = TRUE
+#| label: "05-work-with-dplyr-and-geoms-1"
+#| message: TRUE
 library(here)       # manage file paths
 library(socviz)     # data and some useful functions
 library(tidyverse)  # your friend and mine
@@ -76,16 +76,16 @@ library(ggforce)    # Useful enhancements to ggplot
 ## The Simple Features package
 
 ```{r}
-#| label = "07-make-maps-49",
-#| echo = FALSE
+#| label: "07-make-maps-49"
+#| echo: FALSE
 detach(package:sf)
 ```
 
 - When we load [`sf`]{.fg-lblue} it creates a way to use several standard GIS concepts and tools, such as the [GEOS]{.fg-lblue} library for computational geometry, the [PROJ]{.fg-lblue} software that transforms spatial coordinates from one reference system to another, as in map projections, and the Simple Features standard for specifying the elements of spatial attributes. 
 
 ```{r}
-#| label = "07-make-maps-50",
-#| message = TRUE
+#| label: "07-make-maps-50"
+#| message: TRUE
 library(sf)
 ```
 
@@ -96,7 +96,7 @@ Let's see the main upshot for us.
 :::: {.columns}
 ::: {.column width="70%"}
 ```{r }
-#| label = "07-make-maps-51"
+#| label: "07-make-maps-51"
 library(nycdogs)
 nyc_license
 ```
@@ -114,14 +114,14 @@ nyc_license
 - The metadata tells you this is not a regular tibble.
 
 ```{r }
-#| label = "07-make-maps-52"
+#| label: "07-make-maps-52"
 nyc_zips
 ```
 
 ## The [`nycdogs`]{.fg-lblue} package
 
 ```{r }
-#| label = "07-make-maps-53"
+#| label: "07-make-maps-53"
 nyc_zips |> 
   select(objectid:borough)
 ```
@@ -132,8 +132,8 @@ nyc_zips |>
 `r chunq_reveal("reveal-nycfrench", smallcode=TRUE,  lcolw="40", rcolw="60", title = "Let's make a summary table")`
 
 ```{r}
-#| label = "reveal-nycfrench",
-#| include = FALSE
+#| label: "reveal-nycfrench"
+#| include: FALSE
 nyc_license  |> 
   filter(extract_year == 2018) |> 
   group_by(breed_rc, zip_code) |> 
@@ -145,8 +145,8 @@ nyc_license  |>
 ```
 
 ```{r}
-#| label = "make_nyc_fb",
-#| echo = FALSE
+#| label: "make_nyc_fb"
+#| echo: FALSE
 nyc_license  |> 
   filter(extract_year == 2018) |> 
   group_by(breed_rc, zip_code) |> 
@@ -157,8 +157,8 @@ nyc_license  |>
 ```
 
 ```{r}
-#| label = "save_nyc_fb",
-#| echo = FALSE
+#| label: "save_nyc_fb"
+#| echo: FALSE
 save(nyc_fb, file = "nyc_fb.Rdata")
 ```
 
@@ -170,7 +170,7 @@ save(nyc_fb, file = "nyc_fb.Rdata")
 :::: {.columns}
 ::: {.column width="70%"}
 ```{r }
-#| label = "07-make-maps-54"
+#| label: "07-make-maps-54"
 nyc_zips |> select(objectid:st_fips)
 ```
 
@@ -178,7 +178,7 @@ nyc_zips |> select(objectid:st_fips)
 
 ::: {.column width="30%" .right}
 ```{r }
-#| label = "07-make-maps-55"
+#| label: "07-make-maps-55"
 nyc_fb |> select(breed_rc:n)
 ```
 
@@ -190,21 +190,21 @@ nyc_fb |> select(breed_rc:n)
 - Join them:
 
 ```{r }
-#| label = "07-make-maps-56"
+#| label: "07-make-maps-56"
 fb_map <- left_join(nyc_zips, nyc_fb, by = "zip_code")
 ```
 
 ## Ready to map
 
 ```{r }
-#| label = "07-make-maps-57"
+#| label: "07-make-maps-57"
 fb_map |> select(zip_code, po_name, borough, breed_rc:freq, geometry)
 ```
 
 ```{r}
-#| label = "save_fb_map",
-#| echo = FALSE,
-#| message = FALSE
+#| label: "save_fb_map"
+#| echo: FALSE
+#| message: FALSE
 save(fb_map, file = "fb_map.Rdata")
 ```
 
@@ -214,7 +214,7 @@ save(fb_map, file = "fb_map.Rdata")
 - Just moving the legend, really.
 
 ```{r }
-#| label = "07-make-maps-58"
+#| label: "07-make-maps-58"
 theme_nymap <- function(base_size=9, base_family="") {
     require(grid)
     theme_bw(base_size=base_size, base_family=base_family) %+replace%
@@ -239,8 +239,8 @@ theme_nymap <- function(base_size=9, base_family="") {
 `r chunq_reveal("reveal-bulldogmap",  smallcode = TRUE, lcolw="40", rcolw="60", title = "First cut at a map")`
 
 ```{r}
-#| label = "reveal-bulldogmap",
-#| include = FALSE
+#| label: "reveal-bulldogmap"
+#| include: FALSE
 # This is just for slide purposes 
 load("fb_map.Rdata")
 #
@@ -271,8 +271,8 @@ fb_map |>
 `r chunq_reveal("reveal-bulldogmap2", smallcode=TRUE, lcolw="40", rcolw="60", title = "Use a different palette")`
 
 ```{r}
-#| label = "reveal-bulldogmap2",
-#| include = FALSE
+#| label: "reveal-bulldogmap2"
+#| include: FALSE
 # This is just for slide purposes 
 load("nyc_fb.Rdata")
 
@@ -309,10 +309,10 @@ fb_map |>
 
 
 ```{r}
-#| label = "07-make-maps-59",
-#| echo = FALSE,
-#| fig.width = 12,
-#| fig.height = 8
+#| label: "07-make-maps-59"
+#| echo: FALSE
+#| fig.width: 12
+#| fig.height: 8
 # This is just for slide purposes 
 load("fb_map.Rdata")
 
@@ -349,8 +349,8 @@ NYC Dogs Map mark 2
 `r chunq_reveal("reveal-bulldogzeros",  lcolw="40", rcolw="60", smallcode=TRUE, title = "Keep the Zero count zips")`
 
 ```{r}
-#| label = "reveal-bulldogzeros",
-#| include = FALSE
+#| label: "reveal-bulldogzeros"
+#| include: FALSE
 
 nyc_license  |> 
   filter(extract_year == 2018) |> 
@@ -372,7 +372,7 @@ fb_map2 <- left_join(nyc_zips,
 ```
 
 ```{r}
-#| echo = FALSE
+#| echo: FALSE
 save(fb_map2, nyc_fb2, file = "fbnyc2.Rdata")
 ```
 
@@ -380,7 +380,7 @@ save(fb_map2, nyc_fb2, file = "fbnyc2.Rdata")
 ## Ready to map, again
 
 ```{r }
-#| label = "07-make-maps-60"
+#| label: "07-make-maps-60"
 fb_map2 |> select(zip_code, po_name, borough, breed_rc:freq, geometry)
 ```
 
@@ -390,8 +390,8 @@ fb_map2 |> select(zip_code, po_name, borough, breed_rc:freq, geometry)
 `r chunq_reveal("reveal-bulldogfb2", smallcode=TRUE,  lcolw="40", rcolw="60", title = "Now redraw the map")`
 
 ```{r}
-#| label = "reveal-bulldogfb2",
-#| include = FALSE
+#| label: "reveal-bulldogfb2"
+#| include: FALSE
 # Slide workaround again
 load("fbnyc2.Rdata")
 #fb_map2 <- left_join(nyc_zips, nyc_fb2, by = "zip_code")
@@ -426,10 +426,10 @@ fb_map2 |>
 
 
 ```{r}
-#| label = "07-make-maps-61",
-#| echo = FALSE,
-#| fig.width = 12,
-#| fig.height = 8
+#| label: "07-make-maps-61"
+#| echo: FALSE
+#| fig.width: 12
+#| fig.height: 8
 fb_map2 |> 
   ggplot(mapping = aes(fill = freq)) +
   geom_sf(color = "gray30", size = 0.1) +
@@ -603,9 +603,9 @@ out_black <- county_dorling |>
 ## Dorling Cartograms
 
 ```{r}
-#| echo = FALSE,
-#| warning = FALSE,
-#| message = FALSE
+#| echo: FALSE
+#| warning: FALSE
+#| message: FALSE
 out_hispanic <- county_dorling |>
   filter(!str_detect(name, "Alaska|Hawaii|Puerto|Guam")) |>
   ggplot(aes(fill = hisp_disc)) +
@@ -669,38 +669,38 @@ out_asian <- county_dorling |>
 ---
 
 ```{r}
-#| fig.width = 10,
-#| fig.height = 8
+#| fig.width: 10
+#| fig.height: 8
 print(out_black)
 ```
 
 ---
 
 ```{r}
-#| fig.width = 10,
-#| fig.height = 8
+#| fig.width: 10
+#| fig.height: 8
 print(out_white)
 ```
 
 ---
 
 ```{r}
-#| fig.width = 10,
-#| fig.height = 8
+#| fig.width: 10
+#| fig.height: 8
 print(out_hispanic)
 ```
 
 ---
 
 ```{r}
-#| fig.width = 10,
-#| fig.height = 8
+#| fig.width: 10
+#| fig.height: 8
 print(out_asian)
 ```
 
 ```{r}
-#| echo = FALSE,
-#| message = FALSE
+#| echo: FALSE
+#| message: FALSE
 
 # fs::file_delete(here::here("slides", "fbnyc2.Rdata"))
 # fs::file_delete(here::here("slides", "fb_map.Rdata"))

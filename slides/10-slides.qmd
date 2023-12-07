@@ -15,8 +15,8 @@ editor_options:
 
 
 ```{r}
-#| label = "packages",
-#| include = FALSE
+#| label: "packages"
+#| include: FALSE
 library(flipbookr)
 library(here)
 library(tidyverse)
@@ -25,8 +25,8 @@ library(kjhslides)
 
 
 ```{r}
-#| label = "setup",
-#| include = FALSE
+#| label: "setup"
+#| include: FALSE
 
 kjh_register_tenso()
 kjh_set_knitr_opts()
@@ -51,8 +51,8 @@ kjh_set_slide_theme()
 
 
 ```{r}
-#| label = "07-iterating-on-data-2",
-#| message = TRUE
+#| label: "07-iterating-on-data-2"
+#| message: TRUE
 library(here)      # manage file paths
 library(socviz)    # data and some useful functions
 library(tidyverse) # your friend and mine
@@ -66,7 +66,7 @@ Say we have a local folder of data named `congress/`
 
 ::: {.smallcode}
 ```{r }
-#| label = "07-iterating-on-data-3"
+#| label: "07-iterating-on-data-3"
 # A little trick from the fs package: 
 fs::dir_tree(here("files", "data", "congress"))
 ```
@@ -79,7 +79,7 @@ fs::dir_tree(here("files", "data", "congress"))
 Let's look at one.
 
 ```{r }
-#| label = "07-iterating-on-data-4"
+#| label: "07-iterating-on-data-4"
 read_csv(here("files", "data", "congress", "17_95_congress.csv")) |> 
   janitor::clean_names() |> 
   head()
@@ -134,7 +134,7 @@ Speaking loosely, think of [**`map()`**]{.fg-green} as a way of [iterating]{.fg-
 The simplest cases are not that different from the vectorized arithmetic we're already familiar with. 
 
 ```{r }
-#| label = "07-iterating-on-data-5"
+#| label: "07-iterating-on-data-5"
 a <- c(1:10)
 
 b <- 1
@@ -154,7 +154,7 @@ R's vectorized rules add `b` to every element of `a`. In a sense, the [**`+`**]{
 We can make this explicit by writing a function:
 
 ```{r }
-#| label = "07-iterating-on-data-6"
+#| label: "07-iterating-on-data-6"
 add_b <- function(x) {
   b <- 1
   x + b # for any x
@@ -166,7 +166,7 @@ add_b <- function(x) {
 Now:
 
 ```{r }
-#| label = "07-iterating-on-data-7"
+#| label: "07-iterating-on-data-7"
 add_b(x = a)
 ```
 :::::
@@ -177,12 +177,12 @@ add_b(x = a)
 Again, R's vectorized approach means it automatically adds `b` to every element of the x we give it.
 
 ```{r }
-#| label = "07-iterating-on-data-8"
+#| label: "07-iterating-on-data-8"
 add_b(x = 10)
 ```
 
 ```{r }
-#| label = "07-iterating-on-data-9"
+#| label: "07-iterating-on-data-9"
 add_b(x = c(1, 99, 1000))
 ```
 
@@ -191,7 +191,7 @@ add_b(x = c(1, 99, 1000))
 Some operations can't directly be vectorized in this way, which is why we need to manually iterate, or will want to write loops. 
 
 ```{r }
-#| label = "07-iterating-on-data-10"
+#| label: "07-iterating-on-data-10"
 library(gapminder)
 gapminder |> 
   summarize(country_n = n_distinct(country), 
@@ -208,7 +208,7 @@ That's tedious to write! Computers are supposed to allow us to avoid that sort o
 So how would we iterate this? What we want is to apply the [**`n_distinct()`**]{.fg-green} function to each column of `gapminder`, but in a way that still allows us to use pipelines and so on. 
 
 ```{r }
-#| label = "07-iterating-on-data-11"
+#| label: "07-iterating-on-data-11"
 library(gapminder)
 gapminder |> 
   summarize(n_distinct(country), 
@@ -227,7 +227,7 @@ gapminder |>
 You'd use [**across()**]{.fg-green}, like this:
 
 ```{r }
-#| label = "07-iterating-on-data-12"
+#| label: "07-iterating-on-data-12"
 gapminder |> 
   summarize(across(everything(), n_distinct))
 ```
@@ -237,7 +237,7 @@ gapminder |>
 But you could also do this ... 
 
 ```{r }
-#| label = "07-iterating-on-data-13"
+#| label: "07-iterating-on-data-13"
   map(gapminder, n_distinct)
 ```
 
@@ -255,7 +255,7 @@ Read it as "Feed each column of `gapminder` to the [**`n_distinct()`**]{.fg-gree
 Or, in pipeline form:
 
 ```{r }
-#| label = "07-iterating-on-data-14"
+#| label: "07-iterating-on-data-14"
 gapminder |> 
   map(n_distinct)
 ```
@@ -267,7 +267,7 @@ You can see we are getting a _list_ back.
 Or, in pipeline form:
 
 ```{r }
-#| label = "07-iterating-on-data-15"
+#| label: "07-iterating-on-data-15"
 result <- gapminder |> 
   map(n_distinct)
 
@@ -285,7 +285,7 @@ But we know [**`n_distinct()`**]{.fg-green} should always return an integer. So 
 
 
 ```{r }
-#| label = "07-iterating-on-data-16"
+#| label: "07-iterating-on-data-16"
 gapminder |> 
   map_int(n_distinct)
 ```
@@ -295,7 +295,7 @@ The thing about the [**`map()`**]{.fg-green} family is that they can deal with a
 ## Get a vector of [filenames]{.fg-pink}
 
 ```{r }
-#| label = "07-iterating-on-data-17"
+#| label: "07-iterating-on-data-17"
 filenames <- dir(path = here("files", "data", "congress"),
                  pattern = "*.csv",
                  full.names = TRUE)
@@ -309,7 +309,7 @@ filenames[1:15] # Just displaying the first 15, to save slide space
 ... using the variant of [**`map()`**]{.fg-green} that returns data frames and tibbles.
 
 ```{r }
-#| label = "07-iterating-on-data-18"
+#| label: "07-iterating-on-data-18"
 df <- filenames |> 
   map_dfr(read_csv, .id = "congress") |> #<<
   janitor::clean_names()
@@ -326,7 +326,7 @@ df
 No `map_df()` required:
 
 ```{r }
-#| label = "07-iterating-on-data-19"
+#| label: "07-iterating-on-data-19"
 tmp <- read_csv(filenames, id = "path",
                 name_repair = janitor::make_clean_names)
 
@@ -344,15 +344,15 @@ tmp |>
 - Mapped iteration is not just for local files!
 
 ```{r }
-#| label = "07-iterating-on-data-20"
+#| label: "07-iterating-on-data-20"
 ## Remember to use your free Census API key
 library(tidycensus)
 ```
 
 ```{r}
-#| label = "07-iterating-on-data-21",
-#| message = FALSE,
-#| results = "hide"
+#| label: "07-iterating-on-data-21"
+#| message: FALSE
+#| results: "hide"
 out <- get_acs(geography = "county", 
                     variables = "B19013_001",
                     state = "NY", 
@@ -362,7 +362,7 @@ out <- get_acs(geography = "county",
 ```
 
 ```{r}
-#| label = "07-iterating-on-data-22"
+#| label: "07-iterating-on-data-22"
 out
 ```
 
@@ -372,9 +372,9 @@ out
 - All counties in New York State for a specific year
 
 ```{r}
-#| label = "07-iterating-on-data-23",
-#| message = FALSE,
-#| results = "hide"
+#| label: "07-iterating-on-data-23"
+#| message: FALSE
+#| results: "hide"
 out <- get_acs(geography = "county", 
                     variables = "B19013_001",
                     state = "NY", 
@@ -383,7 +383,7 @@ out <- get_acs(geography = "county",
 ```
 
 ```{r}
-#| label = "07-iterating-on-data-24"
+#| label: "07-iterating-on-data-24"
 out
 ```
 
@@ -393,7 +393,7 @@ out
 - First, a handy function: [**`set_names()`**]{.fg-green}
 
 ```{r}
-#| label = "07-iterating-on-data-25, 07-iterating-on-census-3"
+#| label: "07-iterating-on-data-25 07-iterating-on-census-3"
 x <- c(1:10)
 
 x
@@ -408,7 +408,7 @@ x
 By default, [**`set_names()`**]{.fg-green} will label a vector with that vector’s values:
 
 ```{r}
-#| label = "07-iterating-on-data-26, 07-iterating-on-census-4"
+#| label: "07-iterating-on-data-26 07-iterating-on-census-4"
 c(1:10) |> 
   set_names()
 
@@ -419,9 +419,9 @@ c(1:10) |>
 
 
 ```{r}
-#| label = "07-iterating-on-data-27",
-#| message = FALSE,
-#| results = "hide"
+#| label: "07-iterating-on-data-27"
+#| message: FALSE
+#| results: "hide"
 df <- 2005:2019 |> 
   map(\(x) get_acs(geography = "county",
                    variables = "B19013_001",
@@ -433,7 +433,7 @@ df <- 2005:2019 |>
 ```
 
 ```{r}
-#| label = "07-iterating-on-data-28"
+#| label: "07-iterating-on-data-28"
 df
 ```
 
@@ -444,9 +444,9 @@ we use [**`set_names()`**]{.fg-green}, and also name it `year` when we create it
 
 
 ```{r}
-#| label = "07-iterating-on-data-29",
-#| message = FALSE,
-#| results = "hide"
+#| label: "07-iterating-on-data-29"
+#| message: FALSE
+#| results: "hide"
 df <- 2005:2019 |> 
   set_names() |> 
   map(\(x) get_acs(geography = "county",
@@ -461,7 +461,7 @@ df <- 2005:2019 |>
 ## Iterating on the [US Census]{.fg-yellow}
 
 ```{r}
-#| label = "07-iterating-on-data-30"
+#| label: "07-iterating-on-data-30"
 df
 ```
 
@@ -471,9 +471,9 @@ character vector, so we converted it back to an integer again at the end.
 ## Iterating on the [US Census]{.fg-yellow}
 
 ```{r}
-#| label = "07-iterating-on-data-31",
-#| message = FALSE,
-#| results = "hide"
+#| label: "07-iterating-on-data-31"
+#| message: FALSE
+#| results: "hide"
 p_out <- 2005:2019 |> 
   set_names() |> 
    map(\(x) get_acs(geography = "county",
@@ -495,9 +495,9 @@ p_out <- 2005:2019 |>
 ## Iterating on the [US Census]{.fg-yellow}
 
 ```{r}
-#| label = "07-iterating-on-data-32",
-#| fig.width = 12,
-#| fig.height = 5
+#| label: "07-iterating-on-data-32"
+#| fig.width: 12
+#| fig.height: 5
 print(p_out)
 ```
 
@@ -507,7 +507,7 @@ print(p_out)
 ## Cleaning up [congress]{.fg-yellow}
 
 ```{r }
-#| label = "07-iterating-on-data-33"
+#| label: "07-iterating-on-data-33"
 df <- filenames |>
   map(read_csv) |> #<<
   list_rbind(names_to = "congress") |>
@@ -530,7 +530,7 @@ In particular it has many convenience functions to help with the many different 
 ## Cleaning up [congress]{.fg-yellow}
 
 ```{r }
-#| label = "07-iterating-on-data-34"
+#| label: "07-iterating-on-data-34"
 library(lubridate)
 
 date_recodes <- c("born", "death", "start", "end")
@@ -545,7 +545,7 @@ df
 ## Cleaning up [congress]{.fg-yellow}
 
 ```{r }
-#| label = "07-iterating-on-data-35"
+#| label: "07-iterating-on-data-35"
 sessions <- tibble(congress = 79:116,
                    start_year = seq(1945, 2019, by = 2),
                    end_year = seq(1947, 2021, by = 2)) |> 
@@ -565,7 +565,7 @@ sessions
 ### The big table
 
 ```{r }
-#| label = "07-iterating-on-data-36"
+#| label: "07-iterating-on-data-36"
 df |> 
   select(congress, last, born)
 
@@ -577,7 +577,7 @@ df |>
 ### The smaller table
 
 ```{r }
-#| label = "07-iterating-on-data-37"
+#| label: "07-iterating-on-data-37"
 sessions
 
 ```
@@ -591,8 +591,8 @@ sessions
 We will use [**`left_join()`**]{.fg-green} which is what you want most of the time when you are looking to merge a smaller table with additional information into a larger main one. 
 
 ```{r}
-#| label = "07-iterating-on-data-38",
-#| message = TRUE
+#| label: "07-iterating-on-data-38"
+#| message: TRUE
 
 df <- left_join(df, sessions) |> 
   relocate(start_year:end_year, .after = congress)  
@@ -648,7 +648,7 @@ Most of the time you will be looking to make a [**`left_join()`**]{.fg-green}
 The result of almost any operation involving a missing/unknown value will be missing/unknown.
 
 ```{r }
-#| label = "07-iterating-on-data-39"
+#| label: "07-iterating-on-data-39"
 df <- tribble(
   ~subject, ~age,
   "A", 20,
@@ -666,7 +666,7 @@ df
 The result of almost any operation involving a missing/unknown value will be missing/unknown.
 
 ```{r }
-#| label = "07-iterating-on-data-40"
+#| label: "07-iterating-on-data-40"
 # OK
 df |> 
   filter(age == 25)
@@ -677,21 +677,21 @@ df |>
 The result of almost any operation involving a missing/unknown value will be missing/unknown.
 
 ```{r }
-#| label = "07-iterating-on-data-40a"
+#| label: "07-iterating-on-data-40a"
 # OK
 df |> 
   filter(age == 25)
 ```
 
 ```{r }
-#| label = "07-iterating-on-data-41"
+#| label: "07-iterating-on-data-41"
 # Nope
 df |> 
   filter(age == NA)
 ```
 
 ```{r }
-#| label = "07-iterating-on-data-42"
+#| label: "07-iterating-on-data-42"
 # E.g.
 23 == NA
 ```
@@ -702,7 +702,7 @@ df |>
 Always use [**`is.na()`**]{.fg-green} instead
 
 ```{r }
-#| label = "07-iterating-on-data-43"
+#| label: "07-iterating-on-data-43"
 # Yes
 df |> 
   filter(is.na(age))
@@ -711,7 +711,7 @@ df |>
 ## Using [naniar]{.fg-yellow} and [visdat]{.fg-yellow}
 
 ```{r }
-#| label = "07-iterating-on-data-44"
+#| label: "07-iterating-on-data-44"
 # install.packages() if they're not available
 library(naniar)
 library(visdat)
@@ -723,27 +723,27 @@ organdata
 
 
 ```{r}
-#| label = "07-iterating-on-data-45",
-#| fig.height = 6,
-#| fig.width = 8
+#| label: "07-iterating-on-data-45"
+#| fig.height: 6
+#| fig.width: 8
 gg_miss_var(organdata)
 ```
 
 ## Using [naniar]{.fg-yellow} and [visdat]{.fg-yellow}
 
 ```{r}
-#| label = "07-iterating-on-data-46",
-#| fig.height = 6,
-#| fig.width = 8
+#| label: "07-iterating-on-data-46"
+#| fig.height: 6
+#| fig.width: 8
 vis_dat(organdata)
 ```
 
 ## Using [naniar]{.fg-yellow} and [visdat]{.fg-yellow}
 
 ```{r}
-#| label = "07-iterating-on-data-47",
-#| fig.height = 6,
-#| fig.width = 8
+#| label: "07-iterating-on-data-47"
+#| fig.height: 6
+#| fig.width: 8
 miss_var_summary(organdata)
 ```
 
@@ -751,14 +751,14 @@ miss_var_summary(organdata)
 ## Using [naniar]{.fg-yellow} and [visdat]{.fg-yellow}
 
 ```{r }
-#| label = "07-iterating-on-data-48"
+#| label: "07-iterating-on-data-48"
 miss_case_summary(organdata)
 ```
 
 ## Using [naniar]{.fg-yellow} and [visdat]{.fg-yellow}
 
 ```{r }
-#| label = "07-iterating-on-data-49"
+#| label: "07-iterating-on-data-49"
 organdata |>
   select(consent_law, year, pubhealth, roads) |>
   group_by(consent_law) |>
@@ -769,27 +769,27 @@ organdata |>
 ## Using [naniar]{.fg-yellow} and [visdat]{.fg-yellow}
 
 ```{r}
-#| label = "07-iterating-on-data-50",
-#| fig.height = 6,
-#| fig.width = 8
+#| label: "07-iterating-on-data-50"
+#| fig.height: 6
+#| fig.width: 8
 vis_miss(organdata)
 ```
 
 ## Using [naniar]{.fg-yellow} and [visdat]{.fg-yellow}
 
 ```{r}
-#| label = "07-iterating-on-data-52",
-#| fig.height = 6,
-#| fig.width = 8
+#| label: "07-iterating-on-data-52"
+#| fig.height: 6
+#| fig.width: 8
 vis_miss(organdata, cluster = TRUE)
 ```
 
 ## Using [naniar]{.fg-yellow} and [visdat]{.fg-yellow}
 
 ```{r}
-#| label = "07-iterating-on-data-53",
-#| fig.height = 6,
-#| fig.width = 8
+#| label: "07-iterating-on-data-53"
+#| fig.height: 6
+#| fig.width: 8
 gg_miss_upset(organdata)
 ```
 
@@ -803,7 +803,7 @@ gg_miss_upset(organdata)
 ## [Upset plots]{.fg-yellow} 
 
 ```{r }
-#| label = "07-iterating-on-data-54"
+#| label: "07-iterating-on-data-54"
 symptoms <- c("Anosmia", "Cough", "Fatigue", 
               "Diarrhea", "Breath", "Fever")
 names(symptoms) <- symptoms
@@ -813,7 +813,7 @@ symptoms
 ## [Upset plots]{.fg-yellow} 
 
 ```{r }
-#| label = "07-iterating-on-data-55"
+#| label: "07-iterating-on-data-55"
 # An Excel file!
 dat <- readxl::read_xlsx(here("files", "data", "symptoms.xlsx")) 
 dat |> print(n = nrow(dat))
@@ -823,7 +823,7 @@ dat |> print(n = nrow(dat))
 ## [Upset plots]{.fg-yellow} 
 
 ```{r }
-#| label = "07-iterating-on-data-56"
+#| label: "07-iterating-on-data-56"
 subsets <- dat |> 
   pull(combination)
 
@@ -841,7 +841,7 @@ symptom_mat <- map(subsets, \(x) str_detect(x, symptoms)) |>
 Now we have a table we can do something with.
 
 ```{r }
-#| label = "07-iterating-on-data-57"
+#| label: "07-iterating-on-data-57"
 symptom_mat |> print(n = nrow(symptom_mat))
 ```
 
@@ -850,7 +850,7 @@ symptom_mat |> print(n = nrow(symptom_mat))
 Uncounting tables:
 
 ```{r }
-#| label = "07-iterating-on-data-58"
+#| label: "07-iterating-on-data-58"
 indvs <- symptom_mat |>
     uncount(count) 
 
@@ -864,10 +864,10 @@ Now we've reconstructed the individual-level observations.
 
 
 ```{r}
-#| label = "07-iterating-on-data-59",
-#| fig.width = 16,
-#| fig.height = 9,
-#| eval = FALSE
+#| label: "07-iterating-on-data-59"
+#| fig.width: 16
+#| fig.height: 9
+#| eval: FALSE
 # devtools::install_github("krassowski/complex-upset")
 
 library(ComplexUpset)
@@ -885,10 +885,10 @@ upset(data = indvs, intersect = symptoms,
 ## [Upset plots]{.fg-yellow} 
 
 ```{r}
-#| label = "07-iterating-on-data-60",
-#| fig.width = 12,
-#| fig.height = 7,
-#| echo = FALSE
+#| label: "07-iterating-on-data-60"
+#| fig.width: 12
+#| fig.height: 7
+#| echo: FALSE
 # devtools::install_github("krassowski/complex-upset")
 
 library(ComplexUpset)
@@ -976,8 +976,8 @@ df |>
 ## Example: Success in the NBA
 
 ```{r}
-#| fig.width = 10,
-#| fig.height = 5
+#| fig.width: 10
+#| fig.height: 5
 df |>
   ggplot(aes(x = player_height_inches, y = pts/gp)) +
   geom_jitter(position = position_jitter(height = 0, width = 0.2)) +
@@ -1020,8 +1020,8 @@ out <- df |>
 ## Example: Success in the NBA
 
 ```{r}
-#| fig.width = 12,
-#| fig.height = 6
+#| fig.width: 12
+#| fig.height: 6
 print(out)
 ```
 
@@ -1067,8 +1067,8 @@ out_obs <- hw_obs |>
 ##  Imaginary Hollywood Example
 
 ```{r}
-#| fig.height = 5,
-#| fig.width = 8
+#| fig.height: 5
+#| fig.width: 8
 print(out_obs)
 ```
 
@@ -1086,8 +1086,8 @@ out <- hw |>
 ## Why this happens in the example
 
 ```{r}
-#| fig.width = 8,
-#| fig.height = 5
+#| fig.width: 8
+#| fig.height: 5
 print(out)
 ```
 

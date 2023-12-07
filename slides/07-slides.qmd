@@ -15,8 +15,8 @@ editor_options:
 
 
 ```{r}
-#| label = "packages",
-#| include = FALSE
+#| label: "packages"
+#| include: FALSE
 library(flipbookr)
 library(here)
 library(tidyverse)
@@ -25,8 +25,8 @@ library(kjhslides)
 
 
 ```{r}
-#| label = "setup",
-#| include = FALSE
+#| label: "setup"
+#| include: FALSE
 
 kjh_register_tenso()
 kjh_set_knitr_opts()
@@ -49,8 +49,8 @@ kjh_set_slide_theme()
 
 
 ```{r}
-#| label = "05-work-with-dplyr-and-geoms-1",
-#| message = TRUE
+#| label: "05-work-with-dplyr-and-geoms-1"
+#| message: TRUE
 library(here)       # manage file paths
 library(socviz)     # data and some useful functions
 library(tidyverse)  # your friend and mine
