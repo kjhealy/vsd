@@ -3,7 +3,7 @@ author: Kieran Healy
 instructor:
   name: Professor Kieran Healy
   name_no_title: Kieran Healy
-  email: kieran.healy@duke.edu
+  email: "kieran.healy@duke.edu"
   url: "https://www.kieranhealy.org"
   mastodon: kjhealy
   github: kjhealy
@@ -17,11 +17,11 @@ course:
   days: "Wed/Fri"
   time: "10:15am-11:30am"
   location: "Perkins LINK 088 (Classroom 4)"
-  dates: "January 11th–April 26th, 2023"
+  dates: "January 10th–April 24th, 2023"
   github: "https://www.github.com/kjhealy/vsd"
   url: "https://visualizingsociety.com"
-  sakai: "https://sakai.duke.edu/portal/site/6d53e0f4-8c8f-47af-8dbc-ad3563d51bad"
-  copyright_year: "2023"
+  canvas: "https://canvas.duke.edu/courses/26198"
+  copyright_year: "2024"
 
 university:
   name: Duke University

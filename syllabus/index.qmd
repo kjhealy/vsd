@@ -20,7 +20,7 @@ library(pander)
 
 - {{< fa user >}} &nbsp; [{{< var instructor.name_no_title >}}]({{< var instructor.url >}})
 - {{< fa university >}} &nbsp; {{< var instructor.office >}}
-- {{< fa envelope >}} &nbsp; <a href="mailto:{{< var instructor.email >}}">{{< var instructor.email >}}</a>
+- {{< fa envelope >}} &nbsp; [{{< var instructor.email >}}](mailto:{{< var instructor.email >}})
 - {{< fa brands mastodon >}} &nbsp; [{{< var instructor.mastodon >}}](https://mastodon.social/{{< var instructor.mastodon >}})
 :::
 
@@ -84,7 +84,7 @@ The [weekly schedule](/schedule/) can be viewed on its [own page](/schedule/). I
 
 Three kinds of work are required: problem sets and class participation, a midterm project, and a final project. 
 
-- Weekly **Class Participation** and **Problem Sets** will let you reflect on any reading and practice your coding and visualization skills. Problem sets are due on _Tuesdays_ by 6:00pm.
+- Weekly **Class Participation** and **Problem Sets** will let you reflect on the reading and practice your coding and visualization skills. Problem sets are due by end of day the _Monday_ after they are assigned.
 - A **Midterm Project**. 
 - A **Final Project**.  
 
@@ -94,7 +94,7 @@ There is no final exam.
 
 ## How you should approach this course
 
-The material covered in the course has a lot of _continuity_ and it is _cumulative_. You will be learning a set of practical skills. This means that techniques we learn early on will be necessary for understanding things that come later. It also means that regular practice will help you a lot. So, this is not a "Topic of the week" course where you can tune out for a few weeks while expecting to be able to easily drop back in later. The material we cover each week will not be overwhelming, though. If you participate during class and keep up with the weekly assignments you'll be in a very strong position to do well in the class. 
+The material covered in the course has a lot of _continuity_ and it is _cumulative_. You will be learning a set of practical skills. This means that techniques we learn early on will be necessary for understanding things that come later. It also means that regular practice will help you a lot. So, this is not a "Topic of the week" course where you can tune out for a few weeks while expecting to be able to easily drop back in later. The material we cover each week will not be overwhelming. If you participate during class and keep up with the weekly assignments you'll be in a very strong position to do well in the class. If you don't, it'll be harder than you expected.
 
 ## Duke community standard
 
