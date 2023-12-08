@@ -1,5 +1,5 @@
 ---
-output: github_document
+format: gfm
 ---
 
 <!-- README.md is generated from README.qmd. Please edit that file -->
@@ -11,9 +11,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-#withr::with_dir(here::here(), {
-#   targets::tar_load(workflow_graph)
-#})
+workflow_graph <- readr::read_lines(here::here("merm.txt"))
 
 ```
 
@@ -27,3 +25,13 @@ This repo contains Course materials and website for [Visualizing Social Data](ht
 
 Many thanks to [Andrew Heiss](https://www.andrewheiss.com) for, as usual, being ahead of the adoption curve with these tools and making several of his own courses [publicly available](https://www.andrewheiss.com/teaching/). Much of the back-end code and the `targets` pipeline used here has been adapted from Andrew's work. 
   
+
+### Everything is a DAG now
+
+This is the dependency graph for the site.
+
+```{r, results = "asis", echo = FALSE}
+cat("``` mermaid\n")
+cat(workflow_graph, sep = "\n")
+cat("\n```")  
+```

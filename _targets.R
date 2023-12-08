@@ -38,7 +38,7 @@ source("R/tar_slides.R")
 source("R/tar_projects.R")
 source("R/tar_data.R")
 source("R/tar_calendar.R")
-
+source("R/tar_mermaid.R")
 
 ## SITE PIPELINE ----
 list(
@@ -84,11 +84,12 @@ list(
                        here_rel("files", "schedule.ics")),
              format = "file"),
 
-
-  ## Render the README ----
-  #tar_target(workflow_graph, tar_mermaid(targets_only = TRUE, outdated = FALSE,
-  #                                         legend = FALSE, color = FALSE)),
-  #tar_quarto(readme, here_rel("README.qmd")),
+  # Broken
+  # tar_target(workflow_graph, tar_mermaid(
+  #   targets_only = TRUE, outdated = FALSE,
+  #   legend = FALSE, color = FALSE, store = "_targets"
+  # )),
+  # tar_quarto(readme, here_rel("README.qmd")),
 
   ## Build site ----
   tar_quarto(site, path = ".", quiet = FALSE),
@@ -119,3 +120,5 @@ list(
     if (Sys.info()["user"] == "kjhealy" & Sys.getenv("DEPLOY_VSD") == "TRUE") processx::run(paste0("./", deploy_script), echo = TRUE)
   })
 )
+
+
