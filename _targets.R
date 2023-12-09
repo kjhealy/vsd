@@ -97,17 +97,23 @@ list(
   ## Convert HTML slides to PDF ----
   ### Render the built html slides in _site/slides to PDFs
   ### We wait till quarto has built the site to do this.
+  # tar_files(rendered_slides,
+  #           list.files(here_rel("_site", "slides"),
+  #              pattern = "\\.html", full.names = TRUE)),
 
-  tar_files(rendered_slides,
-            list.files(here_rel("_site", "slides"),
-               pattern = "\\.html", full.names = TRUE)),
+  tar_files(rendered_slides, {
+            # Force dependencies
+            site
+            fl <- list.files(here_rel("slides"),
+                       pattern = "\\.qmd", full.names = TRUE)
+            paste0("_site/", stringr::str_replace(fl, "qmd", "html"))
+            }),
 
   tar_target(quarto_pdfs, {
-    # Force dependencies
-    site
     html_to_pdf(rendered_slides)
     },
-    pattern = map(rendered_slides)),
+    pattern = map(rendered_slides),
+    format = "file"),
 
   ## Upload site ----
   tar_target(deploy_script, here_rel("deploy.sh"), format = "file"),
