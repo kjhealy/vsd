@@ -40,6 +40,39 @@ source("R/tar_data.R")
 source("R/tar_calendar.R")
 source("R/tar_mermaid.R")
 
+# Ensure deletion_candidates has at least one dummy dir, to keep target branching happy
+if(!fs::dir_exists(here::here("00_dummy_files"))) { fs::dir_create(here::here("00_dummy_files")) }
+if(!fs::dir_exists(here::here("00_dummy_files/figure-revealjs"))) { fs::dir_create(here::here("00_dummy_files/figure-revealjs")) }
+fs::file_create(here::here("00_dummy_files/figure-revealjs/00_dummy.png"))
+
+
+get_flipbookr_orphans <- function() {
+  all_candidates <- fs::dir_ls(glob = "*_files/figure-revealjs/*.png", recurse = TRUE)
+  all_candidates <- all_candidates[stringr::str_detect(all_candidates, "_site", negate = TRUE)]
+  if(length(all_candidates) == 0) { return(character(0))}
+  all_candidates
+}
+
+relocate_orphans <- function(file) {
+  if(length(file) == 0) { return(character(0))}
+  if(is.null(file)) { return(character(0))}
+  if(stringr::str_detect(file, "00_dummy")) { return(character(0))}
+  fs::file_move(file, paste0("_site/slides/", file))
+}
+
+get_leftover_dirs <- function() {
+  # the figure-revealjs subdirs will all have been moved
+  deletion_candidates <- fs::dir_ls(glob = "*_files", recurse = TRUE)
+  deletion_candidates <- deletion_candidates[stringr::str_detect(deletion_candidates, "_site|_targets", negate = TRUE)]
+  }
+
+remove_leftover_dirs <- function (dirs) {
+  if(length(dirs) == 0) { return(character(0))}
+  if(is.null(dirs)) { return(character(0))}
+  fs::dir_delete(dirs)
+}
+
+
 ## SITE PIPELINE ----
 list(
   ## Run all the data building and copying targets ----
@@ -114,6 +147,38 @@ list(
     },
     pattern = map(rendered_slides),
     format = "file"),
+
+  ## Fix any flipbookr leftover files
+  tar_files(flipbookr_orphans, {
+    # Force dependencies
+    rendered_slides
+    # Flipbooks created in the top level
+    get_flipbookr_orphans()
+  }
+  ),
+
+  tar_target(move_orphans, {
+    relocate_orphans(flipbookr_orphans)
+  },
+  pattern = map(flipbookr_orphans),
+  format = "file"),
+
+  # # Remove any flipbookr leftover dirs
+  # tar_files(flipbookr_dirs, {
+  #   # Force dependencies
+  #   flipbookr_orphans
+  #   # Top-level flipbookr dirs now empty
+  #   get_leftover_dirs()
+  # }
+  # ),
+  #
+  # tar_target(empty_dirs, {
+  #   remove_leftover_dirs(flipbookr_dirs)
+  # },
+  # pattern = map(flipbookr_dirs),
+  # format = "file"),
+  #
+
 
   ## Upload site ----
   tar_target(deploy_script, here_rel("deploy.sh"), format = "file"),
