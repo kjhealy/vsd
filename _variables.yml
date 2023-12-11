@@ -30,3 +30,7 @@ university:
 school:
   name: Sociology Department
   url: "https://sociology.duke.edu/"
+
+deploy:
+  user: "kjhealy"
+  site: false

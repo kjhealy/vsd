@@ -23,10 +23,9 @@ tar_option_set(
   workspace_on_error = TRUE
 )
 
-# Deployment flag—one of two tests to deploy_site target.
-# See deploy_site below for the user condition
-
-Sys.setenv(DEPLOY_VSD = FALSE)
+# Deployment variables:
+# See deploy_site below for how these are applied
+yaml_vars <- yaml::read_yaml(here::here("_variables.yml"))
 
 # There's no way to get a relative path directly out of here::here(), but
 # fs::path_rel() works fine with it (see
@@ -184,12 +183,11 @@ list(
   tar_target(deploy_script, here_rel("deploy.sh"), format = "file"),
   tar_target(deploy_site, {
     # Force dependencies
-    quarto_pdfs
+    site
     # Run the deploy script if both conditions are met
-    if (Sys.info()["user"] != "kjhealy" | Sys.getenv("DEPLOY_VSD") != "TRUE") message("Deployment vars not set. Will not deploy site.")
-    if (Sys.info()["user"] == "kjhealy" & Sys.getenv("DEPLOY_VSD") == "TRUE") message("Running deployment script ...")
-    if (Sys.info()["user"] == "kjhealy" & Sys.getenv("DEPLOY_VSD") == "TRUE") processx::run(paste0("./", deploy_script), echo = TRUE)
+    # deploy_username and deploy_site are set in _variables.yml
+    if (Sys.info()["user"] != yaml_vars$deploy$user | yaml_vars$deploy$site != TRUE) message("Deployment vars not set. Will not deploy site.")
+    if (Sys.info()["user"] == yaml_vars$deploy$user & yaml_vars$deploy$site == TRUE) message("Running deployment script ...")
+    if (Sys.info()["user"] == yaml_vars$deploy$user & yaml_vars$deploy$site == TRUE) processx::run(paste0("./", deploy_script), echo = TRUE)
   })
 )
-
-
