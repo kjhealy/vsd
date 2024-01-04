@@ -75,9 +75,18 @@ during the first week.
 
 ## Schedule
 
-The [weekly schedule](/schedule/) can be viewed on its [own page](/schedule/).
-It is likely to change as we go. Links to readings, lecture notes, assignments,
-and other materials from class will be posted via this website.
+The [weekly schedule](/schedule/) can be viewed on its [own page](/schedule/), which has more details on readings, examples, and problem sets.
+
+```{r,echo=FALSE}
+readxl::read_xlsx(here::here("data", "schedule-condensed.xlsx")) |> 
+  dplyr::mutate(date = lubridate::ymd(date), 
+                date = glue::glue('{format(date, "%b %e")} / {format(day2, "%b %e")}'), 
+                date = stringr::str_replace_all(date, "NA", "-")) |> 
+  dplyr::select(subgroup, date, title) |> 
+  dplyr::rename(Week = subgroup, Date = date, Topic = title) |> 
+  pander::pander()
+```
+
 
 ## Course policies
 

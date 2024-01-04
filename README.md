@@ -1,4 +1,5 @@
 
+
 <!-- README.md is generated from README.qmd. Please edit that file -->
 
 ## SOCIOL 232 / Visualizing Social Data / Spring 2024
