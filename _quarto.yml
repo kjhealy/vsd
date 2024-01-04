@@ -6,9 +6,10 @@ project:
     - "!renv/"
     - "!README.qmd"
     - "!staging/"
+    - "!staging/projects/"
   resources:
-    - "files/"
-    - "projects/"
+    - "/files/"
+    - "/projects/"
   preview:
     port: 27514
 

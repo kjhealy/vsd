@@ -4,6 +4,7 @@
 .Ruserdata
 
 /.quarto/
+/renv/
 
 /_site/
 /_freeze/
