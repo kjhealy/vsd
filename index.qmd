@@ -15,7 +15,7 @@ withr::with_dir(here::here(), {
 
 ![](images/plotter-cropped.gif)
 
-This is the course website for the Spring 2023 edition of SOCIOL 232, Visualizing Social Data, taught at [Duke University](https://duke.edu) by [Kieran Healy](https://kieranhealy.org/).
+This is the course website for the Spring 2024 edition of SOCIOL 232, Visualizing Social Data, taught at [Duke University](https://duke.edu) by [Kieran Healy](https://kieranhealy.org/).
 
 
 ## Syllabus & Schedule

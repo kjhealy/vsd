@@ -10,8 +10,10 @@ tar_option_set(
 )
 
 ## Variables and options
-class_number <- "SOCIOL 232"
-base_url <- "https://visualizingsociety.com/"
+yaml_vars <- yaml::read_yaml(here::here("_variables.yml"))
+
+class_number <- yaml_vars$course$number
+base_url <- yaml_vars$course$url
 page_suffix <- ".html"
 
 options(tidyverse.quiet = TRUE,
@@ -23,9 +25,8 @@ tar_option_set(
   workspace_on_error = TRUE
 )
 
-# Deployment variables:
-# See deploy_site below for how these are applied
-yaml_vars <- yaml::read_yaml(here::here("_variables.yml"))
+
+
 
 # There's no way to get a relative path directly out of here::here(), but
 # fs::path_rel() works fine with it (see
@@ -108,7 +109,7 @@ list(
 
 
   ## Class schedule calendar ----
-  tar_target(schedule_file, here_rel("data", "schedule.csv"), format = "file"),
+  tar_target(schedule_file, here_rel("data", "schedule-condensed.xlsx"), format = "file"),
   tar_target(schedule_page_data, build_schedule_for_page(schedule_file)),
   tar_target(schedule_ical_data, build_ical(schedule_file, base_url, page_suffix, class_number)),
   tar_target(schedule_ical_file,

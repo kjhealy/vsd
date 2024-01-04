@@ -1,0 +1,1076 @@
+{
+    "sources": [
+        {
+            "URL": "https://research.google.com/pubs/pub42901.html",
+            "author": [
+                {
+                    "family": "Armstrong",
+                    "given": "Zan"
+                },
+                {
+                    "family": "Wattenberg",
+                    "given": "Martin"
+                }
+            ],
+            "container-title": "Proceedings of IEEE InfoVis 2014",
+            "id": "armstrongwattenberg:2014",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014
+                    ]
+                ]
+            },
+            "title": "Visualizing statistical mix effects and Simpson’s paradox",
+            "type": "paper-conference"
+        },
+        {
+            "author": [
+                {
+                    "family": "Battle-Baptiste",
+                    "given": "Whitney"
+                },
+                {
+                    "family": "Rusert",
+                    "given": "Britt"
+                }
+            ],
+            "id": "battle-baptiste18:_w",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "publisher": "Princeton Architectural Press",
+            "publisher-place": "New York",
+            "title": "W. E. B. Du bois’s data portraits: Visualizing black america",
+            "title-short": "W. E. B. Du bois’s data portraits",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Berger",
+                    "given": "John"
+                }
+            ],
+            "id": "berger72:_ways_seein",
+            "issued": {
+                "date-parts": [
+                    [
+                        1972
+                    ]
+                ]
+            },
+            "publisher": "BBC Books / Penguin",
+            "publisher-place": "London",
+            "title": "Ways of seeing",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Berinato",
+                    "given": "Scott"
+                }
+            ],
+            "id": "berinato16:_good_chart",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "publisher": "Harvard Business Review Press",
+            "publisher-place": "Cambridge, MA",
+            "title": "Good charts: The HBR guide to making smarter, more persuasive data visualizations",
+            "title-short": "Good charts",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Bertin",
+                    "given": "Jacques"
+                }
+            ],
+            "id": "bertin10:_semiol_graph",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010
+                    ]
+                ]
+            },
+            "publisher": "ESRI Press",
+            "publisher-place": "Redlands, CA",
+            "title": "Semiology of graphics",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Bouk",
+                    "given": "Dan"
+                }
+            ],
+            "container-title": "OSIRIS",
+            "id": "bouk17:_histor_polit_econom_person_data",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "page": "856-106",
+            "title": "The history and political economy of personal data over the last two centuries in three acts",
+            "type": "article-journal",
+            "volume": "32"
+        },
+        {
+            "author": [
+                {
+                    "family": "Cairo",
+                    "given": "Alberto"
+                }
+            ],
+            "id": "cairo16:_truth_art",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "publisher": "New Riders",
+            "publisher-place": "Berkeley, California",
+            "title": "The truthful art: Data, charts, and maps for communication",
+            "title-short": "The truthful art",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Cairo",
+                    "given": "Alberto"
+                }
+            ],
+            "id": "cairo:2013",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013
+                    ]
+                ]
+            },
+            "publisher": "New Riders",
+            "publisher-place": "Berkeley, California",
+            "title": "The functional art: An introduction to information graphics and visualization",
+            "title-short": "The functional art",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Cairo",
+                    "given": "Alberto"
+                }
+            ],
+            "id": "cairo:2016",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "publisher": "New Riders",
+            "publisher-place": "Berkeley, California",
+            "title": "The truthful art: Data, charts, and maps for communication",
+            "title-short": "The truthful art",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Cairo",
+                    "given": "Alberto"
+                }
+            ],
+            "id": "cairo:2019",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "publisher": "W.W. Norton",
+            "publisher-place": "New York",
+            "title": "How charts lie",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Cleveland",
+                    "given": "William S."
+                }
+            ],
+            "id": "cleveland1993",
+            "issued": {
+                "date-parts": [
+                    [
+                        1993
+                    ]
+                ]
+            },
+            "publisher": "Hobart Press",
+            "title": "The elements of graphing data",
+            "type": "book"
+        },
+        {
+            "ISBN": "0963488406",
+            "author": [
+                {
+                    "family": "Cleveland",
+                    "given": "William S."
+                }
+            ],
+            "id": "cleveland1994",
+            "issued": {
+                "date-parts": [
+                    [
+                        1994
+                    ]
+                ]
+            },
+            "publisher": "Hobart Press",
+            "title": "Visualizing data",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Few",
+                    "given": "Stephen"
+                }
+            ],
+            "id": "few09:_now_you_see_it",
+            "issued": {
+                "date-parts": [
+                    [
+                        2009
+                    ]
+                ]
+            },
+            "publisher": "Analytics Press",
+            "publisher-place": "Oakland, CA",
+            "title": "Now you see it: Simple visualization techniques for quantitative analysis",
+            "title-short": "Now you see it",
+            "type": "book"
+        },
+        {
+            "URL": "http://www.perceptualedge.com/articles/visual_business_intelligence/dual-scaled_axes.pdf",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2017,
+                        9,
+                        20
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Few",
+                    "given": "Stephen"
+                }
+            ],
+            "container-title": "Visual Business Intelligence Newsletter",
+            "id": "few:2008",
+            "issued": {
+                "date-parts": [
+                    [
+                        2008,
+                        3
+                    ]
+                ]
+            },
+            "title": "Dual-scaled axes in graphs: Are they ever the best solution?",
+            "title-short": "Dual-scaled axes in graphs",
+            "type": "article-journal"
+        },
+        {
+            "author": [
+                {
+                    "family": "Field",
+                    "given": "Kenneth"
+                }
+            ],
+            "id": "field18:_cartog",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "publisher": "ESRI Press",
+            "publisher-place": "Redlands, CA",
+            "title": "Cartography",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Friendly",
+                    "given": "Michael"
+                },
+                {
+                    "family": "Meyer",
+                    "given": "David"
+                }
+            ],
+            "id": "friendly17:_discr_data_analy_r",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "publisher": "CRC/Chapman; Hall",
+            "publisher-place": "Boca Raton, FL",
+            "title": "Discrete data analysis with r",
+            "type": "book"
+        },
+        {
+            "URL": "http://socviz.co/",
+            "author": [
+                {
+                    "family": "Healy",
+                    "given": "Kieran"
+                }
+            ],
+            "id": "healy:2019",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "publisher": "Princeton University Press",
+            "publisher-place": "Princeton",
+            "title": "Data visualization: A practical introduction",
+            "title-short": "Data visualization",
+            "type": "book"
+        },
+        {
+            "DOI": "10.1145/1753326.1753357",
+            "URL": "http://vis.stanford.edu/papers/crowdsourcing-graphical-perception",
+            "author": [
+                {
+                    "family": "Heer",
+                    "given": "Jeffrey"
+                },
+                {
+                    "family": "Bostock",
+                    "given": "Michael"
+                }
+            ],
+            "container-title": "ACM human factors in computing systems",
+            "id": "heerbostock:2010",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010
+                    ]
+                ]
+            },
+            "page": "203-12",
+            "title": "Crowdsourcing graphical perception: Using mechanical turk to assess visualization design",
+            "title-short": "Crowdsourcing graphical perception",
+            "type": "paper-conference"
+        },
+        {
+            "URL": "http://otexts.com/fpp3",
+            "author": [
+                {
+                    "family": "Hyndman",
+                    "given": "Rob J"
+                },
+                {
+                    "family": "Athanasopoulos",
+                    "given": "George"
+                }
+            ],
+            "id": "hyndman20:_forec",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "publisher": "OTexts",
+            "publisher-place": "Melbourne, Australia",
+            "title": "Forecasting: Principles and practice",
+            "title-short": "Forecasting",
+            "type": "book"
+        },
+        {
+            "DOI": "10.1109/tvcg.2011.160",
+            "author": [
+                {
+                    "family": "Isenberg",
+                    "given": "Petra"
+                },
+                {
+                    "family": "Bezerianos",
+                    "given": "Anastasia"
+                },
+                {
+                    "family": "Dragicevic",
+                    "given": "Pierre"
+                },
+                {
+                    "dropping-particle": "and",
+                    "family": "Jean-Daniel Fekete"
+                }
+            ],
+            "container-title": "IEEE Transactions on Visualization and Computer Graphics",
+            "id": "isenbergbezerianosdragicevic:2011",
+            "issue": "12",
+            "issued": {
+                "date-parts": [
+                    [
+                        2011
+                    ]
+                ]
+            },
+            "page": "2469-2478",
+            "title": "A study on dual-scale data charts",
+            "type": "article-journal",
+            "volume": "17"
+        },
+        {
+            "URL": "https://moderndive.com/",
+            "author": [
+                {
+                    "family": "Ismay",
+                    "given": "Chester"
+                },
+                {
+                    "family": "Kim",
+                    "given": "Albert Y."
+                }
+            ],
+            "id": "ismaykim:2018",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "note": "version 0.4.0",
+            "title": "ModernDive: An introduction to statistical and data sciences via R",
+            "title-short": "ModernDive",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Lima",
+                    "given": "Manuel"
+                }
+            ],
+            "id": "lima14:_book_trees",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014
+                    ]
+                ]
+            },
+            "publisher": "Princeton Architectural Press",
+            "publisher-place": "New York",
+            "title": "The book of trees",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Lupton",
+                    "given": "Ellen"
+                }
+            ],
+            "edition": "Second",
+            "id": "lupton10:_think_type",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010
+                    ]
+                ]
+            },
+            "publisher": "Princeton Architectural Press",
+            "publisher-place": "New York",
+            "title": "Thinking with type: A critical guide for designers, writers, editors, & students",
+            "title-short": "Thinking with type",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Lupton",
+                    "given": "Ellen"
+                }
+            ],
+            "container-title": "Design Issues",
+            "id": "lupton86:_readin_isoty",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        1986
+                    ]
+                ]
+            },
+            "page": "47-58",
+            "title": "Reading isotype",
+            "type": "article-journal",
+            "volume": "3"
+        },
+        {
+            "author": [
+                {
+                    "family": "Lynch",
+                    "given": "Kevin"
+                }
+            ],
+            "id": "lynch60:_image_city",
+            "issued": {
+                "date-parts": [
+                    [
+                        1960
+                    ]
+                ]
+            },
+            "publisher": "MIT Press",
+            "publisher-place": "Cambridge, MA",
+            "title": "The image of the city",
+            "type": "book"
+        },
+        {
+            "URL": "https://arxiv.org/abs/1507.03989",
+            "author": [
+                {
+                    "family": "Momcheva",
+                    "given": "Ivelina"
+                },
+                {
+                    "family": "Tollerud",
+                    "given": "Erik"
+                }
+            ],
+            "id": "momchevatollerud:2015",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015,
+                        7,
+                        14
+                    ]
+                ]
+            },
+            "title": "Software use in astronomy: An informal survey",
+            "title-short": "Software use in astronomy",
+            "type": "article-journal"
+        },
+        {
+            "author": [
+                {
+                    "family": "Munzer",
+                    "given": "Tamara"
+                }
+            ],
+            "collection-title": "AK peters visualization series",
+            "id": "munzer14:_visual_analy_desig",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014
+                    ]
+                ]
+            },
+            "publisher": "CRC Press",
+            "publisher-place": "Boca Raton, FL",
+            "title": "Visualization analysis and design",
+            "type": "book"
+        },
+        {
+            "URL": "www.kateto.net/network-visualization",
+            "author": [
+                {
+                    "family": "Ognyanova",
+                    "given": "Katya"
+                }
+            ],
+            "id": "ognyanova19:_networ_visual_r",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "title": "Network visualization with r",
+            "type": ""
+        },
+        {
+            "author": [
+                {
+                    "family": "Pettit",
+                    "given": "Becky"
+                }
+            ],
+            "id": "pettit12:_invis_men",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "publisher": "Russell Sage Foundation",
+            "publisher-place": "New York",
+            "title": "Invisible men",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Rendgen",
+                    "given": "Sandra"
+                }
+            ],
+            "id": "rendgen18:_minar_system",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "publisher": "Princeton Architectural Press",
+            "publisher-place": "New York",
+            "title": "The minard system: The complete statistical graphics of charles joseph minard",
+            "title-short": "The minard system",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Rendgen",
+                    "given": "Sandra"
+                }
+            ],
+            "id": "rendgen19:_histor_infor_graph",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "note": "Edited by Julius Wiedemann, with contribtions from David Rumsey, Michael Friendly, Michael Stoll, and Scott Klein",
+            "publisher": "Taschen",
+            "publisher-place": "Cologne",
+            "title": "History of information graphics",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Reynolds",
+                    "given": "Garr"
+                }
+            ],
+            "edition": "1",
+            "id": "reynolds:2008",
+            "issued": {
+                "date-parts": [
+                    [
+                        2008
+                    ]
+                ]
+            },
+            "publisher": "New Riders",
+            "publisher-place": "Berkeley, California",
+            "title": "Presentation zen: Simple ideas on presentation design and delivery",
+            "title-short": "Presentation zen",
+            "type": "book"
+        },
+        {
+            "URL": "https://www.tidytextmining.com/",
+            "author": [
+                {
+                    "family": "Silge",
+                    "given": "Julia"
+                },
+                {
+                    "family": "Robinson",
+                    "given": "David"
+                }
+            ],
+            "id": "silgerobinson:2017",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "publisher": "O’Reilly Media",
+            "publisher-place": "Sebastopol, California",
+            "title": "Text mining with R",
+            "type": "book"
+        },
+        {
+            "DOI": "10.3102/10769986030004353",
+            "URL": "http://www.psych.utoronto.ca/users/spence/Spence%202005.pdf",
+            "author": [
+                {
+                    "family": "Spence",
+                    "given": "Ian"
+                }
+            ],
+            "container-title": "Journal of Educational and Behavioral Statistics",
+            "id": "spence:2005",
+            "issue": "4, Winter",
+            "issued": {
+                "date-parts": [
+                    [
+                        2005
+                    ]
+                ]
+            },
+            "page": "353-368",
+            "title": "No humble pie: The origins and usage of a statistical chart",
+            "title-short": "No humble pie",
+            "type": "article-journal",
+            "volume": "30"
+        },
+        {
+            "editor": [
+                {
+                    "family": "Alonso",
+                    "given": "William"
+                },
+                {
+                    "family": "Starr",
+                    "given": "Paul"
+                }
+            ],
+            "id": "alonso80:_polit_number",
+            "issued": {
+                "date-parts": [
+                    [
+                        1980
+                    ]
+                ]
+            },
+            "publisher": "Russell Sage Foundation",
+            "publisher-place": "New York",
+            "title": "The politics of numbers",
+            "type": "book"
+        },
+        {
+            "DOI": "10.1177/0003122413509813",
+            "author": [
+                {
+                    "family": "Mora",
+                    "given": "G. Cristina"
+                }
+            ],
+            "container-title": "American Sociological Review",
+            "id": "mora14:_cross_field_effec_ethnic_class",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014
+                    ]
+                ]
+            },
+            "page": "183-210",
+            "title": "Cross-field effects and ethnic classification: The institutionalization of hispanic panethnicity, 1965 to 1990",
+            "title-short": "Cross-field effects and ethnic classification",
+            "type": "article-journal",
+            "volume": "79"
+        },
+        {
+            "URL": "https://idlewords.com/2010/03/scott_and_scurvy.htm",
+            "author": [
+                {
+                    "family": "Cegłowski",
+                    "given": "Maciej"
+                }
+            ],
+            "id": "cegłowski10:_scott_scurv",
+            "title": "Scott and scurvy",
+            "type": "webpage"
+        },
+        {
+            "author": [
+                {
+                    "family": "Starr",
+                    "given": "Paul"
+                }
+            ],
+            "container-title": "Social Research",
+            "id": "starr92:_social_categ_claim_liber_state",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        1992
+                    ]
+                ]
+            },
+            "page": "263-295",
+            "title": "Social categories and claims in the liberal state",
+            "type": "article-journal",
+            "volume": "59"
+        },
+        {
+            "DOI": "10.4054/DemRes.2017.36.21",
+            "author": [
+                {
+                    "family": "Schöley",
+                    "given": "Jonas"
+                },
+                {
+                    "family": "Willekens",
+                    "given": "Frans"
+                }
+            ],
+            "container-title": "Demographic Research",
+            "id": "schöley17:_visual_compos_data_lexis_surfac",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "page": "627-658",
+            "title": "Visualizing compositional data on the lexis surface",
+            "type": "article-journal",
+            "volume": "36"
+        },
+        {
+            "author": [
+                {
+                    "family": "Tufte",
+                    "given": "Edward R."
+                }
+            ],
+            "id": "tufte83:_visual_displ_quant_infor",
+            "issued": {
+                "date-parts": [
+                    [
+                        1983
+                    ]
+                ]
+            },
+            "publisher": "Graphics Press",
+            "publisher-place": "Cheshire, CT",
+            "title": "The visual display of quantitative information",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Tukey",
+                    "given": "John"
+                }
+            ],
+            "id": "tukey77:_explor_data_analy",
+            "issued": {
+                "date-parts": [
+                    [
+                        1977
+                    ]
+                ]
+            },
+            "publisher": "Addison Wesley",
+            "title": "Exploratory data analysis",
+            "type": "book"
+        },
+        {
+            "URL": "https://www.loc.gov/item/05019329/",
+            "author": [
+                {
+                    "family": "Walker",
+                    "given": "Francis"
+                }
+            ],
+            "id": "walker70:_statis_united_states",
+            "issued": {
+                "date-parts": [
+                    [
+                        1870
+                    ]
+                ]
+            },
+            "publisher": "United States Census Bureau",
+            "publisher-place": "Washington, DC",
+            "title": "Statistical atlas of the united states based on the results of the ninth census 1870 with contributions from many eminent men of science and several departments of the government",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Ware",
+                    "given": "Colin"
+                }
+            ],
+            "id": "ware08:_visual_think_desig",
+            "issued": {
+                "date-parts": [
+                    [
+                        2008
+                    ]
+                ]
+            },
+            "publisher": "Morgan Kaufman",
+            "publisher-place": "Waltham, MA",
+            "title": "Visual thinking for design",
+            "type": "book"
+        },
+        {
+            "URL": "http://r4ds.had.co.nz/",
+            "author": [
+                {
+                    "family": "Wickham",
+                    "given": "Hadley"
+                },
+                {
+                    "family": "Grolemund",
+                    "given": "Garrett"
+                }
+            ],
+            "id": "wickhamgrolemund:2017",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "publisher": "O’Reilly Media",
+            "publisher-place": "Sebastopol, California",
+            "title": "R for data science: Import, tidy, transform, visualize, and model data",
+            "title-short": "R for data science",
+            "type": "book"
+        },
+        {
+            "URL": "https://serialmentor.com/dataviz/",
+            "author": [
+                {
+                    "family": "Wilke",
+                    "given": "Claus E."
+                }
+            ],
+            "id": "wilke:2019",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "publisher": "O’Reilly Media",
+            "publisher-place": "Sebastopol, California",
+            "title": "Fundamentals of data visualization",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Yau",
+                    "given": "Nathan"
+                }
+            ],
+            "id": "yau11:_visual_this",
+            "issued": {
+                "date-parts": [
+                    [
+                        2011
+                    ]
+                ]
+            },
+            "publisher": "Wiley",
+            "publisher-place": "New York",
+            "title": "Visualize this: The FlowingData guide to design, visualization, and statistics",
+            "title-short": "Visualize this",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Lupi",
+                    "given": "Giorgia"
+                },
+                {
+                    "family": "Posavec",
+                    "given": "Stefanie"
+                }
+            ],
+            "id": "lupi16:_dear_data",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "publisher": "Princeton Architectural Press",
+            "publisher-place": "New York",
+            "title": "Dear data",
+            "type": "book"
+        },
+        {
+            "URL": "https://walker-data.com/census-r",
+            "author": [
+                {
+                    "family": "Walker",
+                    "given": "Kyle"
+                }
+            ],
+            "id": "walker22:_analy_us_census_data",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "publisher": "CRC Press",
+            "title": "Analyzing US census data: Methods, maps, and models in R",
+            "title-short": "Analyzing US census data",
+            "type": "book"
+        }
+    ],
+    "project_biblios": [
+        "files/bib/references.bib"
+    ]
+}

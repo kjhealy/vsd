@@ -5,6 +5,7 @@ project:
     - "!projects/"
     - "!renv/"
     - "!README.qmd"
+    - "!staging/"
   resources:
     - "files/"
     - "projects/"
@@ -37,7 +38,6 @@ website:
       - text: "Assignments"
         file: assignment/index.qmd
 
-
   sidebar:
     - title: "Content"
       style: "docked"
@@ -51,30 +51,30 @@ website:
           contents:
             - text: "01: Orientation"
               file: content/01-content.qmd
-            - text: "02: Writing R"
-              file: content/02-content.qmd
-            - text: "03: Ways of Seeing"
-              file: content/03-content.qmd
-            - text: "04: How ggplot Thinks"
-              file: content/04-content.qmd
-            - text: "05: Show the Right Numbers"
-              file: content/05-content.qmd
-            - text: "06: Expand your Vocabulary"
-              file: content/06-content.qmd
+            # - text: "02: Writing R"
+            #   file: content/02-content.qmd
+            # - text: "03: Ways of Seeing"
+            #   file: content/03-content.qmd
+            # - text: "04: How ggplot Thinks"
+            #   file: content/04-content.qmd
+            # - text: "05: Show the Right Numbers"
+            #   file: content/05-content.qmd
+            # - text: "06: Expand your Vocabulary"
+            #   file: content/06-content.qmd
         - section: "Applications"
           contents:
-            - text: "07: Social Data and the State"
-              file: content/07-content.qmd
-            - text: "08: Trends and Time Series"
-              file: content/08-content.qmd
-            - text: "09: Maps and Spatial Data"
-              file: content/09-content.qmd
-            - text: "10: Iteration and Missingness"
-              file: content/10-content.qmd
-            - text: "11: Text as Data"
-              file: content/11-content.qmd
-            - text: "12: Network Data"
-              file: content/12-content.qmd
+            # - text: "07: Social Data and the State"
+            #   file: content/07-content.qmd
+            # - text: "08: Trends and Time Series"
+            #   file: content/08-content.qmd
+            # - text: "09: Maps and Spatial Data"
+            #   file: content/09-content.qmd
+            # - text: "10: Iteration and Missingness"
+            #   file: content/10-content.qmd
+            # - text: "11: Text as Data"
+            #   file: content/11-content.qmd
+            # - text: "12: Network Data"
+            #   file: content/12-content.qmd
 
     - title: "Assignments"
       contents:
@@ -84,13 +84,13 @@ website:
         - section: "Problem sets"
           contents:
             - assignment/01-problem-set.qmd
-            - assignment/02-problem-set.qmd
-            - assignment/03-problem-set.qmd
-            - assignment/midterm.qmd
-            - assignment/07-problem-set.qmd
-            - assignment/08-problem-set.qmd
-            - assignment/12-problem-set.qmd
-            - assignment/final-project.qmd
+            # - assignment/02-problem-set.qmd
+            # - assignment/03-problem-set.qmd
+            # - assignment/midterm.qmd
+            # - assignment/07-problem-set.qmd
+            # - assignment/08-problem-set.qmd
+            # - assignment/12-problem-set.qmd
+            # - assignment/final-project.qmd
 
     - title: "Examples"
       contents:
@@ -101,30 +101,30 @@ website:
           contents:
             - text: "01: Get set up"
               file: example/01-example.qmd
-            - text: "02: First steps in R"
-              file: example/02-example.qmd
-            - text: "03: Basic Plots"
-              file: example/03-example.qmd
-            - text: "04: Core ggplot"
-              file: example/04-example.qmd
-            - text: "05: Core dplyr"
-              file: example/05-example.qmd
-            - text: "06: More Vocabulary"
-              file: example/06-example.qmd
+            # - text: "02: First steps in R"
+            #   file: example/02-example.qmd
+            # - text: "03: Basic Plots"
+            #   file: example/03-example.qmd
+            # - text: "04: Core ggplot"
+            #   file: example/04-example.qmd
+            # - text: "05: Core dplyr"
+            #   file: example/05-example.qmd
+            # - text: "06: More Vocabulary"
+            #   file: example/06-example.qmd
         - section: "Applications"
           contents:
-            - text: "07: Social Data and the State"
-              file: example/07-example.qmd
-            - text: "08: Trends and Time"
-              file: example/08-example.qmd
-            - text: "09: Maps and Spatial Data"
-              file: example/09-example.qmd
-            - text: "12: Network Data"
-              file: example/12-example.qmd
+            # - text: "07: Social Data and the State"
+            #   file: example/07-example.qmd
+            # - text: "08: Trends and Time"
+            #   file: example/08-example.qmd
+            # - text: "09: Maps and Spatial Data"
+            #   file: example/09-example.qmd
+            # - text: "12: Network Data"
+            #   file: example/12-example.qmd
         - section: "Final Project"
           contents:
-            - text: "Final Project"
-              file: example/final-project-example.qmd
+            # - text: "Final Project"
+            #   file: example/final-project-example.qmd
 
 
   page-footer:
