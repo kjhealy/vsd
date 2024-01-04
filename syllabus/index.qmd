@@ -1,6 +1,9 @@
 ---
-title: "Syllabus" 
+title: "Sociol 232 Syllabus" 
 link-citations: false
+format:
+  html: default
+  pdf: default
 ---
 
 ```{r setup, message=FALSE, warning=FALSE, include=FALSE}
@@ -15,7 +18,7 @@ library(pander)
 ### Instructor
 - {{< fa user >}} &nbsp; [{{< var instructor.name_no_title >}}]({{< var instructor.url >}})
 - {{< fa university >}} &nbsp; {{< var instructor.office >}}
-- {{< fa envelope >}} &nbsp; [{{< var instructor.email >}}](mailto:{{< var instructor.email >}})
+- {{< fa envelope >}} &nbsp; {{< var instructor.email >}}
 - {{< fa brands mastodon >}} &nbsp; [{{< var instructor.mastodon >}}](https://mastodon.social/{{< var instructor.mastodon >}})
 :::
 ::: {.col-sm-6}
@@ -24,7 +27,7 @@ library(pander)
 - {{< fa calendar-alt >}} &nbsp; {{< var course.dates >}}
 - {{< fa calendar >}} &nbsp; {{< var course.days >}}
 - {{< fa clock >}} &nbsp; {{< var course.time >}}
-- {{< fa location-dot >}} &nbsp; {{< var course.location >}}
+- {{< fa map-marker >}} &nbsp; {{< var course.location >}}
 :::
 :::
 :::
@@ -38,21 +41,21 @@ data, and society more generally. We will think about different ways of looking
 at data, about where social science data comes from in the first place, and
 about the implications of choosing to represent it in different ways.
 By the end of the course you will
+
 - Understand the basic principles behind effective data visualization.
-- Have a practical sense for why some graphs and figures work well,
-while others may fail to inform or actively mislead.
 - Know how to create a wide range of plots in R using ggplot2.
 - Know a fair amount about how to use R for things other than data visualization.
-- Know how to refine plots for effective presentation.
-- Have an understanding of issues surrounding the collection and
-representation of data in the social sciences and beyond.
+- Have a good understanding of issues surrounding the collection and representation of data in the social sciences and beyond.
 
 ## Core texts
 
 I recommend (but do not require you buy) three books. Draft versions of all of
-them are available for free online.
+them are available for free online. 
+
 - [@healy:2019] The print version can be purchased at [Amazon](https://amzn.to/2vfAixM) and other bookshops.
-- [@wickhamgrolemund:2017] The print version can be purchased at [Amazon](https://www.amazon.com/R-Data-Science-Hadley-Wickham/dp/1491910399/) and other bookshops.
+
+- [@wickham23:_r_data_scien] The print version can be purchased at [Amazon](https://www.amazon.com/Data-Science-Transform-Visualize-Model/dp/1492097403) and other bookshops.
+
 - [@wilke:2019] The print version can be purchased at [Amazon](https://www.amazon.com/gp/product/1492031089) and other bookshops.
 
 ## Software
@@ -86,10 +89,11 @@ and other materials from class will be posted via this website.
 
 Three kinds of work are required: problem sets and class participation, a
 midterm project, and a final project.
+
 - Weekly **Class Participation** and **Problem Sets** will let you reflect on the reading and practice your coding and visualization skills. Problem sets are due by end of day the _Monday_ after they are assigned.
 - A **Midterm Project**.
-- A **Final Project**.
-There is no final exam.
+- A **Final Project**. There is no final exam.
+
 **Grade components**: Problem Sets and Class Participation: 50% / Midterm Project 20% / Final Project 30%.
 
 ## How you should approach this course

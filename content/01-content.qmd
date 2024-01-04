@@ -1,6 +1,6 @@
 ---
 title: "1. Orientation"
-date: "2023-01-13"
+date: "2024-01-12"
 ---
 
 ```{r slides, echo=FALSE, include=FALSE}
@@ -19,7 +19,7 @@ The course is not focused on particular statistical methods or modeling techniqu
 
 ## Readings
 
-- Read the [syllabus](/syllabus.qmd), [content](/content/index.qmd), [examples](/example/index.qmd), and [assignments](/assignment/index.qmd) pages for this class.
+- Read the [syllabus](/syllabus/index.qmd), [content](/content/index.qmd), [examples](/example/index.qmd), and [assignments](/assignment/index.qmd) pages for this class.
 
 ## Slides
 

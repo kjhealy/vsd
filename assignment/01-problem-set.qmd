@@ -1,6 +1,6 @@
 ---
 title: "Problem set 01"
-date: "2023-01-17"
+date: "2024-01-16"
 ---
 
 ```{r setup, include=FALSE}
@@ -12,43 +12,29 @@ source(here::here("R", "slide-things.R"))
 
 The first thing we need to do is install the tools we'll be using. We'll follow the steps in [Example 01](/example/01-example.html) in class. 
 
-## Task 2: Get introduced to R
+## Task 2: Get introduced to R and RStudio
 
-Complete these primers. 
+R is a programming language and environment for statistical computing. RStudio is an *integrated development environment*, or IDE for R. It is an application that acts as a kind of staging zone for the various related things you have to do when doing data analysis with R. It lets you type and save code in scripts or documents, run that code in R itself, see the results of what you have written, and manage various other tasks.
 
-- **The Basics**
-	- [Visualization Basics](https://posit.cloud/learn/primers/1.1)
-	- [Programming Basics](https://posit.cloud/learn/primers/1.2)
-- **Work with Data**
-	- [Working with Tibbles](https://posit.cloud/learn/primers/2.1)
-	- [Isolating Data with dplyr](https://posit.cloud/learn/primers/2.2)
-	- [Deriving Information with dplyr](https://posit.cloud/learn/primers/2.3)
+The best way to get started is to jump in directly. Read and follow along with Chapters 1 and 2 of Wickham et al's _R for Data Science_.
 
 
-## Task 3: Get familiar with RStudio
+## Task 3: RStudio projects
 
-The RStudio primers were set up to run in a browser in a semi-interactive way. But you typically won't type code in a browser when you work with R. Instead, you'll use RStudio. RStudio is an *integrated development environment*, or IDE. It is an application that acts as a kind of staging zone for the various related things you have to do when doing data analysis. It lets you type and save code in scripts or documents, run that code in R itself, see the results of what you have written, and manage various other tasks.
-
-## Task 4: RStudio projects
-
-[Read this very short chapter on RStudio projects to learn how to create and use them.](https://r4ds.had.co.nz/workflow-projects.html#rstudio-projects)
-
-When working independently, you create a new project by going to File > New Project > New Directory > Empty Project. This will create a new folder on your computer that is empty except for a single `.Rproj` file. Double click on that file to open an RStudio instance that is pointed at the correct folder.
-
-For today, and for most of our problem sets, we will start with a zipped (i.e. compressed) file containing a project that has been partly prepared in advance. 
+For today, and for most of our problem sets, we will start with a zipped (i.e. compressed) file containing a project that has been mostly prepared in advance for you. 
 
 ```{r project-download, echo=FALSE, results="asis"}
 project_buttons("/projects/01-problem-set")
 ```
 
-Click the button above to download the project. Unzip it, and double-click the file named `01-problem-set.Rproj` to launch a new instance of RStudio. In RStudio, open the file named `analysis.Rmd` and knit it. Read the `Rmd` file and compare it to its output.
+Click the button above to download the project. Unzip it, and double-click the file named `01-problem-set.Rproj` to launch a new instance of RStudio. In RStudio, open the file named `analysis.qmd` and render it. Read the `qmd` file and compare it to its output.
 
-## Task 5: Getting familiar with RMarkdown
+## Task 4: Getting familiar with Quarto and RMarkdown
 
-To ensure that the analysis and graphics you make are reproducible, you'll do the majority of your work in this class using **R Markdown** files. Watch this brief video, maybe more than once:
+To ensure that the analysis and graphics you make are reproducible, you'll do the majority of your work in this class using **R Markdown** files. Watch this video, maybe more than once:
 
 <div class="ratio ratio-16x9">
-<iframe src="https://player.vimeo.com/video/178485416?color=428bca" frameborder="0"  allow="autoplay; fullscreen" allowfullscreen></iframe>
+<iframe src="https://www.youtube.com/watch?v=_f3latmOhew" frameborder="0"  allow="autoplay; fullscreen" allowfullscreen></iframe>
 </div>
 
 

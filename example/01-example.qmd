@@ -33,32 +33,20 @@ Begin by installing R (<http://cloud.r-project.org>). Choose the version appropr
 ```{r, eval=FALSE, echo=TRUE}
 
 course_packages <- c("tidyverse", "babynames", "broom",
-    "drat", "gapminder", "here", "janitor", "naniar", 
+    "gapminder", "here", "janitor", "naniar", 
     "palmerpenguins", "skimr", "slider", "socviz",
-    "usethis", "visdat","reprex")
+    "usethis", "visdat","reprex", "remotes")
 
 install.packages(course_packages, repos = "http://cran.rstudio.com")
 
 data_packages <- c("covdata", "congress", "nycdogs", 
                    "ukelection2019", "uscenpops")
 
-drat::addRepo("kjhealy")
-install.packages(data_packages)
+
+remotes::install_github(data_packages)
 ```
 
 Installing these packages may take a little time. Once you have completed this step, you'll be ready to download the course packet and begin.
 
-### 4. Optional step: get set up on GitHub 
-
-GitHub is a software development platform and service that is widely used by R contributors, as well as software developers in general. You can [read some background on it from an R user's point of view here](https://happygitwithr.com/big-picture.html).
-
-If you do not have one already, it will be useful to create a GitHub account and obtain a GitHub Personal Access Token. This is _not required_ for the course, but would be helpful to have. After you have installed R and RStudio, to get set up, read and _carefully follow_ the instructions here:
-
-- Register a [GitHub Account](https://happygitwithr.com/github-acct.html)
-- Install a [Git Client](https://happygitwithr.com/git-client.html)
-- Connect to [GitHub](https://happygitwithr.com/push-pull-github.html)
-- Get a [Personal Access Token](https://happygitwithr.com/credential-caching.html)
-
-Again, setting up a GitHub account is _not required_ to fully participate in the course.
 
 

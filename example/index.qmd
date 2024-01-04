@@ -2,7 +2,7 @@
 title: "Code examples"
 ---
 
-This section contains worked examples in R together with supplementary information that will be useful as you work on your problem sets and project. You will see both chunks of code and the output the code produces as well. For example: 
+This section contains worked examples in R together with supplementary information that will be useful as you work on your problem sets and project. Examples are listed in the menu on the left. You will see both chunks of code and the output the code produces as well. For example: 
 
 ```{r}
 letters

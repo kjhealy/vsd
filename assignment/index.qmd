@@ -3,3 +3,4 @@ title: "Assignments"
 ---
 
 
+Assignments will appear in the menu to the left.
