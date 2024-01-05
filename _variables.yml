@@ -12,14 +12,14 @@ instructor:
   appointment_url: https://calendly.com/kjhealy/
 
 course:
-  number: "SOCIOL 232"
+  number: "SOCIOL 690S"
   semester: "Spring 2024"
-  days: "Wed/Fri"
-  time: "10:05am-11:20am"
-  location: "Perkins LINK 088 (Classroom 4)"
+  days: "Weds"
+  time: "1:25pm-3:55pm"
+  location: "Reuben-Cooke Building 329"
   dates: "January 10th–April 24th, 2024"
-  github: "https://www.github.com/kjhealy/vsd"
-  url: "https://visualizingsociety.com"
+  github: "https://www.github.com/kjhealy/socdata.co"
+  url: "https://socdata.co"
   canvas: "https://canvas.duke.edu/courses/26198"
   copyright_year: "2024"
 
@@ -33,4 +33,4 @@ school:
 
 deploy:
   user: "kjhealy"
-  site: true
+  site: false

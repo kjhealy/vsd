@@ -6,7 +6,7 @@ suppressPackageStartupMessages(library(tidyverse))
 ## it'll take forever otherwise
 library(crew)
 tar_option_set(
- controller = crew_controller_local(workers = 15)
+  controller = crew_controller_local(workers = 15)
 )
 
 ## Variables and options
@@ -64,7 +64,7 @@ get_leftover_dirs <- function() {
   # the figure-revealjs subdirs will all have been moved
   deletion_candidates <- fs::dir_ls(glob = "*_files", recurse = TRUE)
   deletion_candidates <- deletion_candidates[stringr::str_detect(deletion_candidates, "_site|_targets", negate = TRUE)]
-  }
+}
 
 remove_leftover_dirs <- function (dirs) {
   if(length(dirs) == 0) { return(character(0))}
@@ -135,18 +135,18 @@ list(
   #              pattern = "\\.html", full.names = TRUE)),
 
   tar_files(rendered_slides, {
-            # Force dependencies
-            site
-            fl <- list.files(here_rel("slides"),
-                       pattern = "\\.qmd", full.names = TRUE)
-            paste0("_site/", stringr::str_replace(fl, "qmd", "html"))
-            }),
+    # Force dependencies
+    site
+    fl <- list.files(here_rel("slides"),
+                     pattern = "\\.qmd", full.names = TRUE)
+    paste0("_site/", stringr::str_replace(fl, "qmd", "html"))
+  }),
 
   tar_target(quarto_pdfs, {
     html_to_pdf(rendered_slides)
-    },
-    pattern = map(rendered_slides),
-    format = "file"),
+  },
+  pattern = map(rendered_slides),
+  format = "file"),
 
   ## Fix any flipbookr leftover files
   tar_files(flipbookr_orphans, {
