@@ -46,7 +46,7 @@ data_packages <- c("covdata", "congress", "nycdogs",
 remotes::install_github(data_packages)
 ```
 
-Installing these packages may take a little time. Once you have completed this step, you'll be ready to download the course packet and begin.
+Installing these packages may take a little time. Once you have completed this step, you'll be ready to begin.
 
 
 

@@ -66,32 +66,33 @@ save_data <- list(
 
   tar_target(copy_penguins_1,
              copy_file(data_penguins,
-                       new_folder = here_rel("projects", "01-problem-set", "data"))),
-
-
-  # Problem set 02
-  tar_target(copy_gapminder_2,
-             copy_file(data_gapminder,
-                       new_folder = here_rel("projects", "02-problem-set", "data"))),
-
-  tar_target(copy_penguins_2,
-             copy_file(data_penguins,
-                       new_folder = here_rel("projects", "02-problem-set", "data"))),
-
-  # Midterm
-  tar_target(copy_ukelection,
-             copy_file(data_ukelection,
-                      new_folder = here_rel("projects", "midterm", "data"))),
-
-  # Problem set 07
-  tar_target(copy_uscenpops,
-             copy_file(data_uscenpops,
-                       new_folder = here_rel("projects", "07-problem-set", "data"))),
-
-  # Problem set 08
-  tar_target(copy_apple,
-             copy_file(original_file = here_rel("files", "data", "apple.csv"),
-                       new_folder = here_rel("projects", "08-problem-set", "data")))
+                       new_folder = here_rel("projects", "01-problem-set", "data")))
 )
+
+
+  # # Problem set 02
+  # tar_target(copy_gapminder_2,
+  #            copy_file(data_gapminder,
+  #                      new_folder = here_rel("projects", "02-problem-set", "data"))),
+  #
+  # tar_target(copy_penguins_2,
+  #            copy_file(data_penguins,
+  #                      new_folder = here_rel("projects", "02-problem-set", "data"))),
+  #
+  # # Midterm
+  # tar_target(copy_ukelection,
+  #            copy_file(data_ukelection,
+  #                     new_folder = here_rel("projects", "midterm", "data"))),
+  #
+  # # Problem set 07
+  # tar_target(copy_uscenpops,
+  #            copy_file(data_uscenpops,
+  #                      new_folder = here_rel("projects", "07-problem-set", "data"))),
+  #
+  # # Problem set 08
+  # tar_target(copy_apple,
+  #            copy_file(original_file = here_rel("files", "data", "apple.csv"),
+  #                      new_folder = here_rel("projects", "08-problem-set", "data")))
+
 
 

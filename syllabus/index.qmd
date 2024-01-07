@@ -34,6 +34,19 @@ library(pander)
 
 ## About this course
 
+This course will teach you how to use modern, widely-used tools to create insightful,
+beautiful, reproducible visualizations of social science data. You will also
+learn about the theory and practice of efforts to visualize social-scientific
+data, and society more generally. We will think about different ways of looking
+at data, about where social science data comes from in the first place, and
+about the implications of choosing to represent it in different ways.
+
+By the end of the course you will
+
+- Understand the basic principles behind effective data visualization.
+- Know how to create a wide range of plots in R using ggplot2.
+- Know a fair amount about how to use R for things other than data visualization.
+- Have a good understanding of issues surrounding the collection and representation of data in the social sciences and beyond.
 
 
 ## Core texts
