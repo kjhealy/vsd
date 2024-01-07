@@ -28,12 +28,13 @@ format_days <- function(date, day2, date_end) {
 # easier to display the schedule by group
 build_schedule_for_page <- function(schedule_file) {
   schedule <- readxl::read_xlsx(schedule_file)  |>
-    dplyr::mutate(group = forcats::fct_inorder(group)) |>
-    dplyr::mutate(subgroup = forcats::fct_inorder(subgroup)) |>
-    dplyr::mutate(date = lubridate::ymd(date)) |>
-    dplyr::mutate(day2 = lubridate::ymd(day2)) |>
-    dplyr::mutate(deadline = lubridate::ymd(deadline)) |>
-    dplyr::mutate(var_note = ifelse(!is.na(note),
+    dplyr::mutate(group = forcats::fct_inorder(group),
+                  subgroup = forcats::fct_inorder(subgroup),
+                  date = lubridate::ymd(date),
+                  day2 = lubridate::ymd(day2),
+                  date_end = lubridate::ymd(date_end),
+                  deadline = lubridate::ymd(deadline),
+                  var_note = ifelse(!is.na(note),
                                     glue::glue('<br><span class="content-note">{note}</span>'),
                                     glue::glue(""))) |>
     dplyr::mutate(var_title = ifelse(!is.na(content),
@@ -51,9 +52,6 @@ build_schedule_for_page <- function(schedule_file) {
     dplyr::mutate(var_assignment = ifelse(!is.na(assignment),
                                           glue::glue('<a href="{assignment}.qmd"><i class="fa-solid fa-pen-ruler fa-lg"></i></a>'),
                                           glue::glue('<font color="#e9ecef"><i class="fa-solid fa-pen-ruler fa-lg"></i></font>'))) |>
-    # dplyr::mutate(col_date = ifelse(is.na(date_end),
-    #                          glue::glue('<strong>{format(date, "%B %e")}</strong>'),
-    #                          glue::glue('<strong>{format(date, "%B %e")}</strong>–<strong>{format(date_end, "%B %e")}</strong>'))) |>
     dplyr::mutate(col_date = format_days(date, day2, date_end)) |>
     dplyr::mutate(col_title = glue::glue('{var_title}{var_deadline}{var_note}')) |>
     dplyr::mutate(col_content = var_content,

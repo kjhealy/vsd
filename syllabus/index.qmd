@@ -69,6 +69,7 @@ The [weekly schedule](/schedule/) can be viewed on its [own page](/schedule/), w
 ```{r,echo=FALSE}
 readxl::read_xlsx(here::here("data", "schedule-condensed.xlsx")) |> 
   dplyr::mutate(date = lubridate::ymd(date), 
+                day2 = lubridate::ymd(day2),
                 date = glue::glue('{format(date, "%b %e")} / {format(day2, "%b %e")}'), 
                 date = stringr::str_replace_all(date, "NA", "-")) |> 
   dplyr::select(subgroup, date, title) |> 
