@@ -1,5 +1,5 @@
 ---
-title: "Visualizing Social Data / Spring '24"
+title: "Visualizing Social Data"
 ---
 
 

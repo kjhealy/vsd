@@ -1,5 +1,5 @@
 ---
-title: "Sociol 690S: Data Visualization and Data Wrangling Syllabus" 
+title: "Sociol 232: Visualizing Social Data" 
 link-citations: false
 format:
   html: default
