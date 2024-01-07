@@ -31,10 +31,10 @@ Click the button above to download the project. Unzip it, and double-click the f
 
 ## Task 4: Getting familiar with Quarto and RMarkdown
 
-To ensure that the analysis and graphics you make are reproducible, you'll do the majority of your work in this class using **R Markdown** files. Watch this video, maybe more than once:
+To ensure that the analysis and graphics you make are reproducible, you'll do the majority of your work in this class using **Quarto** documents. Watch this video, maybe more than once:
 
 <div class="ratio ratio-16x9">
-<iframe src="https://www.youtube.com/watch?v=_f3latmOhew" frameborder="0"  allow="autoplay; fullscreen" allowfullscreen></iframe>
+<iframe src="https://www.youtube.com/embed/_f3latmOhew?si=i8sWOSJ1uTUIf949" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </div>
 
 
