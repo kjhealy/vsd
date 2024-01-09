@@ -58,7 +58,7 @@ library(tidyverse)
 
 ## The Gapminder data
 
-Here we load a data file from the `data/` folder inside this project.
+In the next chunk we load a data file from the `data/` folder inside this project.
 
 ```{r}
 #| label = "load-gapminder-data"
