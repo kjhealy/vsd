@@ -183,6 +183,7 @@ list(
   tar_target(deploy_site, {
     # Force dependencies
     site
+    quarto_pdfs
     # Run the deploy script if both conditions are met
     # deploy_username and deploy_site are set in _variables.yml
     if (Sys.info()["user"] != yaml_vars$deploy$user | yaml_vars$deploy$site != TRUE) message("Deployment vars not set. Will not deploy site.")
