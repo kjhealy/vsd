@@ -58,6 +58,10 @@ kjh_set_slide_theme()
 
 ![](img/01_excess_deaths_by_cause_annotated.png)
 
+___
+
+![](img/01_network_exchange_graph.png)
+
 ---
 
 ![](img/01_france_blackposter_100-01.png)
