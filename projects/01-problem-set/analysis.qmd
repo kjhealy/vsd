@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Quarto and R Markdown
 
-This is an Quarto document. It is a structured plain-text format that allows you to mix text and pieces (also called "chunks" or "cells") of code in a way that can be turned into HTML, PDF, and MS Word documents. For more details on using Quarto see <https://quarto.org/docs/get-started/hello/rstudio.html>.
+This is a Quarto document. It is a structured plain-text format that allows you to mix text and pieces (also called "chunks" or "cells") of code in a way that can be turned into HTML, PDF, and MS Word documents. For more details on using Quarto see <https://quarto.org/docs/get-started/hello/rstudio.html>.
 
 When you click the **Render** button in RStudio a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
