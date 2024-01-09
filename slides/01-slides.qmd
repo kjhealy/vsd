@@ -84,11 +84,6 @@ ___
 
 ---
 
-![](img/01_manhattan_heights_po_detail_2.png)
-
----
-
-
 ## Course Website
 
 :::{.center .large}
@@ -118,6 +113,21 @@ ___
  [https://www.posit.co](https://www.posit.co)
 :::
 
+## Download Problem Set 01
+
+:::{.center .large}
+ [https://www.visualizingsociety.com/](https://www.visualizingsociety.com/)
+:::
+
+
+## Open it
+
+- Uncompress the Zip file if that doesn't happen automatically
+- Double-click the `01-problem-set.Rproj` file. 
+- RStudio should launch
+
+![](img/01_up_and_running_00.png)
+
 ---
 
 ![](img/01_up_and_running_01.png)
@@ -128,9 +138,9 @@ ___
 
 ---
 
-## Try [knitting]{.fg-yellow} your notes
+## Try [rendering]{.fg-yellow} the problem set
 
-![](img/01_up_and_running_03.png)
+![](img/01_up_and_running_03.png) 
 
 ---
 
@@ -166,7 +176,7 @@ p + geom_point()
 :::
 ::::
 
-## And Render your document
+## And render your document
 
 Write this out inside the "code chunk" in your notes.
 
@@ -188,6 +198,21 @@ p <- ggplot(data = gapminder,
 p + geom_point()
 ```
 
-# We should [look at]{.fg-lblue} data
+# Two Pieces
 
-# We can [look at]{.fg-lblue} society
+## The [mechanics]{.fg-yellow} of it
+
+::: {.large}
+- Learning some software and understanding how to tell it what to do
+- Useful, practical, powerful
+- (At times annoying, because computers are stupid)
+:::
+
+## The [reasons]{.fg-lblue} for it
+
+::: {.large}
+- Thinking about how to picture social data
+- Thinking about where social data comes from
+- Thinking about its scope, limits, and meaning
+:::
+
