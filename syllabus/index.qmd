@@ -1,9 +1,14 @@
 ---
 title: "Sociol 232: Visualizing Social Data" 
-link-citations: false
+author:
+  - name: Kieran Healy
+    email: kieran.healy@duke.edu
+    affiliations: 
+      - id: duke
+        name: Duke University
 format:
   html: default
-  pdf: default
+  minion-pdf: default
 ---
 
 ```{r setup, message=FALSE, warning=FALSE, include=FALSE}
@@ -11,6 +16,8 @@ library(dplyr)
 library(tibble)
 library(pander)
 ```
+
+:::: {.content-visible when-format="html"}
 ::: {.container .course-details .course-details-smaller}
 ::: {.row}
 ::: {.col-sm-6}
@@ -31,6 +38,70 @@ library(pander)
 :::
 :::
 :::
+::::
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 8
+#| fig-height: 3.5
+#| fig-cap: U.S. Births, 1933-2015.
+
+library(tidyverse)
+library(demog)
+library(patchwork)
+
+p_boomline <- okboomer |> 
+  filter(country == "United States") |> 
+  ggplot(mapping = aes(x = date, 
+                       y = births_pct_day)) + 
+  geom_line() + 
+  scale_x_date(limits = c(lubridate::ymd("1933-01-01"), 
+                          lubridate::ymd("2015-12-01")), 
+               expand = c(0,0)) + 
+  labs(x = NULL, y = "Daily births/million") +
+  theme_minimal() + 
+  theme(axis.ticks.x = element_blank(), 
+        axis.text.x = element_blank())
+
+p_boomtile <- okboomer |>
+    filter(country == "United States") |> 
+    mutate(year_fct = 
+             factor(year,  
+                    levels = unique(year),
+                    ordered = TRUE),
+           month_fct = factor(month,
+                              levels = rev(c(1:12)),
+                              labels = rev(c("Jan", "Feb", "Mar", "Apr",
+                                  "May", "Jun", "Jul", "Aug",
+                                  "Sep", "Oct", "Nov", "Dec")),
+                              ordered = TRUE)) |>
+    select(year, month, year_fct, month_fct, everything()) |> 
+    ggplot(aes(x = year_fct, y = month_fct)) +
+    geom_tile(mapping = aes(fill = births_pct_day), 
+              color = "white") + 
+   scale_x_discrete(breaks = seq(1940, 2010, 5)) +    
+   scale_fill_viridis_c(option = "B") + 
+  labs(x = NULL, y = NULL, 
+       fill = NULL) + 
+  guides(fill = "none") + 
+  coord_fixed() +
+  theme(axis.text.y = element_text(size = rel(0.85)))
+
+(p_boomline / p_boomtile) + plot_layout(heights = c(2, 3))
+
+```
+
+
+:::: {.content-visible when-format="pdf"}
+
+- Instructor: [{{< var instructor.name_no_title >}}]({{< var instructor.url >}}), Sociology Department, {{< var instructor.office >}}.
+- Time and Place: {{< var course.days >}} at {{< var course.time >}} in {{< var course.location >}} from {{< var course.dates >}}. 
+
+::::
+
+
 
 ## About this course
 

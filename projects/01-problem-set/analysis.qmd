@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Quarto and R Markdown
 
-This is an Quarto document. It is a structured plain-text document format that allows you to mix text and code in a way that can be turned into HTML, PDF, and MS Word documents. For more details on using Quarto see <https://quarto.org/docs/get-started/hello/rstudio.html>.
+This is an Quarto document. It is a structured plain-text format that allows you to mix text and pieces (also called "chunks" or "cells") of code in a way that can be turned into HTML, PDF, and MS Word documents. For more details on using Quarto see <https://quarto.org/docs/get-started/hello/rstudio.html>.
 
 When you click the **Render** button in RStudio a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
@@ -24,23 +24,25 @@ When you click the **Render** button in RStudio a document will be generated tha
 
 ## Installing Support Packages
 
-We will only need to run this chunk _once_, so this code chunk has a flag or option not to run when the document is knitted.
+We will only need to run this chunk _once_, so this code chunk has a flag or option that sets it not to run when the document is rendered. You must run the code manually by clicking the green "Run Current Chunk" triangle in the top right hand corner of the chunk.
 
 ```{r}
 #| label = "packages",
 #| eval = FALSE
+
+## Things we'll use in the course
 course_packages <- c("tidyverse", "babynames", "broom",
     "drat", "gapminder", "here", "janitor", "naniar", 
     "palmerpenguins", "skimr", "slider", "socviz",
-    "usethis", "visdat","reprex")
+    "usethis", "visdat","reprex", "remotes")
 
 install.packages(course_packages, repos = "http://cran.rstudio.com")
 
+## Data we will use
 data_packages <- c("covdata", "congress", "nycdogs", 
                    "ukelection2019", "uscenpops")
 
-drat::addRepo("kjhealy")
-install.packages(data_packages)
+remotes::install_github(paste0("kjhealy/",data_packages))
 ```
 
 

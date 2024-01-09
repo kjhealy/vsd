@@ -1,5 +1,5 @@
 ---
-title: "01 --- Orientation"
+title: "01 --- Welcome"
 format: kjhslides-revealjs
 engine: knitr
 filters:
