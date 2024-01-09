@@ -202,7 +202,7 @@ p + geom_point()
 
 ## The [mechanics]{.fg-yellow} of it
 
-::: {.large}
+::: {.larger}
 - Learning some software and understanding how to tell it what to do
 - Useful, practical, powerful
 - (At times annoying, because computers are stupid)
@@ -210,7 +210,7 @@ p + geom_point()
 
 ## The [reasons]{.fg-lblue} for it
 
-::: {.large}
+::: {.larger}
 - Thinking about how to picture social data
 - Thinking about where social data comes from
 - Thinking about its scope, limits, and meaning
