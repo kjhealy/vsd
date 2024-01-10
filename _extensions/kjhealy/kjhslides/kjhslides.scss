@@ -167,18 +167,50 @@ $presentation-h6-font-size: $presentation-font-size-root * 0.8;
   text-align: left;
 }
 
-// very large text
+// Text size changes
 
 .huge p {
   font-size: 4em;
+  font-weight: bold;
+  text-align: center;
+  line-height: 0.95em;
+  margin-bottom: 0.1em;
+}
+
+.larger p {
+  font-size: 3em;
   font-weight: bold;
   text-align: center;
   line-height: 0.85em;
   margin-bottom: 0.1em;
 }
 
+.large p {
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+  line-height: 0.85em;
+  margin-bottom: 0.1em;
+}
+
+.small p, ul, ol {
+  font-size: 1.2em;
+}
+
+.smallerkh p, ul, ol {
+  font-size: 1em;
+}
+
+.tiny p, ul, ol {
+  font-size: 0.65em;
+}
+
 .code-annotation-anchor {
   color: $my-orange !important;
+}
+
+.reveal ul {
+  list-style-type: none;
 }
 
 .reveal a {
@@ -202,6 +234,13 @@ $presentation-h6-font-size: $presentation-font-size-root * 0.8;
   font-size: 0.6em;
 }
 
+
+// Add a little padding below code blocks
+.cell-output-stdout {
+  margin-bottom: 1em;
+}
+
+
 // Color classes for divider-slide backgrounds,
 // paragraphs and header foregrounds. The !important
 // flag turns out to be, uh, important for this
@@ -223,7 +262,7 @@ $presentation-h6-font-size: $presentation-font-size-root * 0.8;
 }
 
 .inv-title code {
-  color: $my-green !important;
+  // color: $my-green !important;
   background-color: $my-blue;
 }
 
@@ -252,6 +291,13 @@ $presentation-h6-font-size: $presentation-font-size-root * 0.8;
   color: $my-pink;
 }
 
+.fg-offwhite {
+  color: $my-off-white;
+}
+
+.fg-green {
+  color: $my-green;
+}
 
 
 
@@ -327,54 +373,54 @@ $presentation-h6-font-size: $presentation-font-size-root * 0.8;
 }
 
 .bg-blue code {
-  color: $my-green !important;
+  // color: $my-green !important;
 }
 
 
 // Body text: Tenso Slab
 @font-face {
     font-family: 'Tenso Slab';
-    src: url('../../../../html/fonts/03-tenso-slab-regular_42_ik.woff2') format('woff2');
+    src: url('../../../../../html/fonts/03-tenso-slab-regular_42_ik.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'Tenso Slab';
-    src: url('../../../../html/fonts/05_tenso-slab-medium_42_ik.woff2') format('woff2');
+    src: url('../../../../../html/fonts/05_tenso-slab-medium_42_ik.woff2') format('woff2');
     font-weight: bold;
     font-style: normal;
 }
 @font-face {
     font-family: 'Tenso Slab';
-    src: url('../../../../html/fonts/04_tenso_slab_italic_42_ik.woff2') format('woff2');
+    src: url('../../../../../html/fonts/04_tenso_slab_italic_42_ik.woff2') format('woff2');
     font-weight: normal;
     font-style: italic;
 }
 
 @font-face {
     font-family: 'Tenso Slab';
-    src: url('../../../../html/fonts/06_tenso-slab-mediumitalic_42_ik.woff2') format('woff2');
+    src: url('../../../../../html/fonts/06_tenso-slab-mediumitalic_42_ik.woff2') format('woff2');
     font-weight: bold;
     font-style: italic;
 }
 
 @font-face {
   font-family: 'Tenso Slab';
-  src: url('../../../../html/fonts/07_tenso-slab-bold_42_ik.woff2') format('woff2');
+  src: url('../../../../../html/fonts/07_tenso-slab-bold_42_ik.woff2') format('woff2');
   font-weight: 800;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Tenso Slab';
-  src: url('../../../../html/fonts/07_tenso-slab-bold_42_ik.woff2') format('woff2');
+  src: url('../../../../../html/fonts/07_tenso-slab-bold_42_ik.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Tenso Slab';
-  src: url('../../../../html/fonts/08_tenso_slab_bolditalic_42_ik.woff2') format('woff2');
+  src: url('../../../../../html/fonts/08_tenso_slab_bolditalic_42_ik.woff2') format('woff2');
   font-weight: 500;
   font-style: italic;
 }
@@ -384,26 +430,25 @@ $presentation-h6-font-size: $presentation-font-size-root * 0.8;
 
 @font-face {
     font-family: 'BerkeleyMono';
-    src: url('../../../../html/fonts/BerkeleyMono-Regular.woff2') format('woff2');
+    src: url('../../../../../html/fonts/BerkeleyMono-Regular.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'BerkeleyMono';
-    src: url('../../../../html/fonts/BerkeleyMono-Bold.woff2') format('woff2');
+    src: url('../../../../../html/fonts/BerkeleyMono-Bold.woff2') format('woff2');
     font-weight: bold;
     font-style: normal;
 }
 @font-face {
     font-family: 'BerkeleyMono';
-    src: url('../../../../html/fonts/BerkeleyMono-Italic.woff2') format('woff2');
+    src: url('../../../../../html/fonts/BerkeleyMono-Italic.woff2') format('woff2');
     font-weight: normal;
     font-style: italic;
 }
 @font-face {
     font-family: 'BerkeleyMono';
-    src: url('../../../../html/fonts/BerkeleyMono-BoldItalic.woff2') format('woff2');
+    src: url('../../../../../html/fonts/BerkeleyMono-BoldItalic.woff2') format('woff2');
     font-weight: bold;
     font-style: italic;
 }
-
