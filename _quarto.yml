@@ -139,7 +139,7 @@ website:
 format:
   html:
     theme: html/custom.scss
-    highlight-style: html/dracula-kjh.theme
+    highlight-style: html/catppuccin-macchiato.theme
     toc: true
     css: html/tenso-berkeley.css
 

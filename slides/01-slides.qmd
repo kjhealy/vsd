@@ -64,6 +64,41 @@ ___
 
 ---
 
+![](img/01_irrigation_map.jpg)
+
+---
+
+![](img/01_playfair_imports_exports.png)
+
+---
+
+![](img/01_minard_tableau_figuratif_du_mouvement_commercial_du_Canal_du_centre_en_1844.jpg)
+
+---
+
+![](img/01_booth_london_poverty.jpg)
+
+---
+
+![](img/01_hull_house_01.png)
+
+---
+
+![](img/01_dubois_amalgamation.jpg)
+
+---
+
+![](img/01_dubois_conjugal_condition.jpg)
+
+---
+
+![](img/01_dubois_georgia_negro_budget.jpg)
+
+---
+
+
+
+
 ![](img/01_france_blackposter_100-01.png)
 
 ---
@@ -203,7 +238,7 @@ p + geom_point()
 ## The [mechanics]{.fg-yellow} of it
 
 ::: {.large}
-Learning some software and understanding how to tell it what to do.
+Learning some software; understanding how to tell it what to do.
 
 Useful, practical, powerful.
 
