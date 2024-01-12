@@ -1,5 +1,5 @@
 ---
-title: "01 --- Welcome"
+title: "01 --- Sociol 232: Visualizing Social Data"
 format: kjhslides-revealjs
 engine: knitr
 filters:
@@ -41,14 +41,29 @@ kjh_set_slide_theme()
 ```
 
 
+# [What we'll]{.fg-yellow}<br /> [be doing]{.fg-lblue}
 
-# [Visualizing]{.fg-yellow}<br /> [Social Data]{.fg-lblue}
+## The [mechanics]{.fg-yellow} of it
 
----
+::: {.large}
+Learning some software; understanding how to tell it what to do.
 
-:::{.huge}
-[What we'll be Doing]{.fg-lblue}  
+Useful, practical, powerful.
+
+(At times annoying, because computers are stupid.)
 :::
+
+## The [reasons]{.fg-lblue} for it 
+
+::: {.large}
+Thinking about how to picture social data.
+
+Thinking about where social data comes from.
+
+Thinking about its scope, limits, and meaning.
+:::
+
+
 
 ---
 
@@ -117,7 +132,7 @@ ___
 
 ![](img/01_manhattan_heights_po_detail_1.png)
 
----
+# Housekeeping
 
 ## Course Website
 
@@ -125,6 +140,17 @@ ___
 [https://visualizingsociety.com](https://visualizingsociety.com)  
 :::
 
+Syllabus, schedule, slides, assignments, examples, contact information, policies. 
+
+There's also a Canvas site where you'll submit assignments and where some readings will be made available.
+
+## How to think about the course
+
+There's a fair deal on offer
+
+The skills we'll learn are *cumulative*
+
+Come to class and keep up with the work and you should be fine
 
 ## Get up and Running: Install R
 
@@ -232,26 +258,4 @@ p <- ggplot(data = gapminder,
 
 p + geom_point()
 ```
-
-# Two Pieces
-
-## The [mechanics]{.fg-yellow} of it
-
-::: {.large}
-Learning some software; understanding how to tell it what to do.
-
-Useful, practical, powerful.
-
-(At times annoying, because computers are stupid.)
-:::
-
-## The [reasons]{.fg-lblue} for it 
-
-::: {.large}
-Thinking about how to picture social data.
-
-Thinking about where social data comes from.
-
-Thinking about its scope, limits, and meaning.
-:::
 
