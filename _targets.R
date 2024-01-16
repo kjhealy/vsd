@@ -109,7 +109,9 @@ list(
 
 
   ## Class schedule calendar ----
-  tar_target(schedule_file, here_rel("data", "schedule-condensed.xlsx"), format = "file"),
+  ## Always force the schedule file to reload.
+  tarchetypes::tar_force(schedule_file, here_rel("data", "schedule-condensed.xlsx"), force = TRUE, format = "file"),
+#  tar_target(schedule_file, here_rel("data", "schedule-condensed.xlsx"), format = "file"),
   tar_target(schedule_page_data, build_schedule_for_page(schedule_file)),
   tar_target(schedule_ical_data, build_ical(schedule_file, base_url, page_suffix, class_number)),
   tar_target(schedule_ical_file,

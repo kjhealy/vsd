@@ -39,8 +39,8 @@ course_packages <- c("tidyverse", "babynames", "broom",
 
 install.packages(course_packages, repos = "http://cran.rstudio.com")
 
-data_packages <- c("covdata", "congress", "nycdogs", 
-                   "ukelection2019", "uscenpops")
+data_packages <- paste0("kjhealy/", c("covdata", "congress", "nycdogs", 
+                   "ukelection2019", "uscenpops"))
 
 
 remotes::install_github(data_packages)

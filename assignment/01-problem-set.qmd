@@ -29,6 +29,19 @@ project_buttons("/projects/01-problem-set")
 
 Click the button above to download the project. Unzip it, and double-click the file named `01-problem-set.Rproj` to launch a new instance of RStudio. In RStudio, open the file named `analysis.qmd` and render it. Read the `qmd` file and compare it to its output.
 
+WHEN YOU ARE DONE with the problem set, zip up the problem set folder and submit it as the Week 1 assignment on Canvas. 
+
+
+- On Mac OS, in the Finder, select the folder, right click (that is, hold down the Control key and click), and choose "Compress"
+
+```{r project-structure, echo=FALSE, out.width="30%"}
+knitr::include_graphics(here::here("images", "compress-mac-1.png"), error = FALSE)
+```
+
+- On Windows, Locate the file or folder that you want to zip. Press and hold (or right-click) the file or folder, select (or point to) Send to, and then select Compressed (zipped) folder. A new zipped folder with the same name is created in the same location. 
+
+Then upload the zipped file to Canvas.
+
 ## Task 4: Getting familiar with Quarto and RMarkdown
 
 To ensure that the analysis and graphics you make are reproducible, you'll do the majority of your work in this class using **Quarto** documents. Watch this video, maybe more than once:

@@ -11,6 +11,7 @@ output: html_document
 #| message = FALSE
 library(tidyverse)
 
+# This line reads in the gapminder data from the data/ folder
 gapminder <- read_csv("data/gapminder.csv")
 ```
 
@@ -22,14 +23,14 @@ Replace this text with two or three sentences telling me something about yoursel
 
 ## 2. My first plots
 
-Insert a code chunk below. You can insert it one using the menus: Code > Insert Chunk. But the keyboard shortcut is much more convenient: `Command-Option-I`. That means press the `Command`, `Option` and letter `i` keys all at once.   
+Insert a code chunk below. You can insert it one using the menus: Code > Insert Chunk. But the keyboard shortcut is much more convenient. On a Mac it's `Command-Option-I`. That means press the `Command`, `Option` and letter `i` keys all at once. On a Windows PC it's `Ctrl-Alt-I`. 
 
-Inside the chunk, create a scatterplot with the gapminder data. (Hint: like last week, use `geom_point()`.) Put (`pop`) on the x-axis, and (`gdpPercap`) on the y-axis. Color the points by `continent`.
+Inside the chunk, create a scatterplot with the gapminder data. (Hint: like use `geom_point()`.) Put (`pop`) on the x-axis, and (`gdpPercap`) on the y-axis. Color the points by `continent`.
 
 > DELETE THIS LINE AND PUT THE FIRST CHUNK HERE
 
 Create a new chunk below. Try creating a histogram (hint: `geom_histogram()`) of life expectancy,  by putting (`lifeExp`) on the x-axis. Do not include anything on the y-axis. (`geom_histogram()` will do that automatically for you). Experiment with the bin width. 
 
-> DELETE THIS LINE AND PUT THE FIRST CHUNK HERE
+> DELETE THIS LINE AND PUT THE NEXT CHUNKS HERE
 
-
+What happens when you vary the bin width or the number of bins? Does doing that affect your interpretation of the data one way or another? Saw how, if it does.

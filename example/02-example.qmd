@@ -19,7 +19,7 @@ How do we write in R? How do we make it do things?
 
 To start, we can say: in R, everything has a _name_ and everything is an _object_. You do things to named objects with _functions_ (which are themselves objects!). And you create an object by _assigning_ a thing to a name. 
 
-_Assignment_ is the act of attaching a thing to a name. It is represented by `<-` or `=` and you can read it as "gets" or "is". 
+_Assignment_ is the act of attaching a thing to a name. It is represented by `<-` or `=` and you can read it as "gets" or "is". Type it by with the `<` and then the `-` key. Better, there is a shortcut: on Mac OS it is `Option -` or Option and the `-` (minus or hyphen) key together. On Windows it's `Alt -`. 
 
 ## Objects
 

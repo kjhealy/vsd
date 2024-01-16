@@ -52,8 +52,8 @@ website:
           contents:
             - text: "01: Orientation"
               file: content/01-content.qmd
-            # - text: "02: Writing R"
-            #   file: content/02-content.qmd
+            - text: "02: Writing R"
+              file: content/02-content.qmd
             # - text: "03: Ways of Seeing"
             #   file: content/03-content.qmd
             # - text: "04: How ggplot Thinks"
@@ -85,7 +85,7 @@ website:
         - section: "Problem sets"
           contents:
             - assignment/01-problem-set.qmd
-            # - assignment/02-problem-set.qmd
+            - assignment/02-problem-set.qmd
             # - assignment/03-problem-set.qmd
             # - assignment/midterm.qmd
             # - assignment/07-problem-set.qmd
@@ -102,8 +102,8 @@ website:
           contents:
             - text: "01: Get set up"
               file: example/01-example.qmd
-            # - text: "02: First steps in R"
-            #   file: example/02-example.qmd
+            - text: "02: First steps in R"
+              file: example/02-example.qmd
             # - text: "03: Basic Plots"
             #   file: example/03-example.qmd
             # - text: "04: Core ggplot"
