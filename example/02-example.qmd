@@ -39,7 +39,7 @@ Again, in that previous chunk we created an _object_ by _assigning_ something (t
 
 
 ```{r}
-my_numbers 
+my_numbers
 ```
 
 
