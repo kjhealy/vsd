@@ -199,5 +199,65 @@ ggplot(data = mpg,
 
 At this stage, a lot of this may seem obscure. What is a `mapping`? What is this `aes()` thing? Why do we "add" the two things together? Don't worry about it for now. We will go through this soon enough. 
 
+In the mean time, let's keep messing about:
 
+```{r}
+# The gapminder data
+library(gapminder)
+gapminder
+
+```
+
+A few graphs. Look at these and, even if things aren't clear in detail just yet, think about how the code is related to what you see.
+
+#### A
+
+```{r}
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp)) +
+  geom_point()
+```
+
+#### B
+
+```{r}
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp)) +
+  geom_smooth()
+```
+
+#### C
+
+```{r}
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp)) +
+  geom_point() + 
+  geom_smooth()
+```
+
+#### D
+
+```{r}
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp)) +
+  geom_point() + 
+  facet_wrap(~ continent)
+```
+
+#### E
+
+```{r}
+ggplot(data = gapminder, 
+       mapping = aes(x = lifeExp)) +
+  geom_histogram() 
+```
+
+#### F
+
+```{r}
+ggplot(data = gapminder, 
+       mapping = aes(x = lifeExp)) +
+  geom_histogram() +
+  facet_wrap(~ continent)
+```
 

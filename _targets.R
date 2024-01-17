@@ -2,6 +2,9 @@ library(targets)
 library(tarchetypes)
 suppressPackageStartupMessages(library(tidyverse))
 
+## targets::tar_invalidate(targets::tar_objects() |> stringr::str_subset("schedule"))
+## rm _freeze??
+
 ## Parallelize things --- when we build the PDFs
 ## it'll take forever otherwise
 library(crew)

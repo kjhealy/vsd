@@ -743,7 +743,7 @@ library(tidyverse)
 ::::
 
 
-## What R looks like
+# What R looks like
 
 
 Code you can type and run:
@@ -923,102 +923,6 @@ TRUE & as.logical(1)
 
 - You have to make your comparisons explicit.
 
-## Logic and floating point arithmetic
-
-Let's evaluate `0.6 + 0.2 == 0.8`
-
-
-## Logic and floating point arithmetic
-
-Let's evaluate `0.6 + 0.2 == 0.8`
-
-```{r }
-#| label: "02-about-r-18"
-0.6 + 0.2 == 0.8
-```
-
-## Logic and floating point arithmetic
-
-Let's evaluate `0.6 + 0.2 == 0.8`
-
-```{r }
-#| label: "02-about-r-18a"
-0.6 + 0.2 == 0.8
-```
-
-Now let's try `0.6 + 0.3 == 0.9`
-
-## Logic and floating point arithmetic
-
-Let's evaluate `0.6 + 0.2 == 0.8`
-
-```{r }
-#| label: "02-about-r-18b"
-0.6 + 0.2 == 0.8
-```
-
-Now let's try `0.6 + 0.3 == 0.9`
-
-```{r }
-#| label: "02-about-r-19"
-0.6 + 0.3 == 0.9
-```
-
-Er. That's not right.
-
-## Welcome to floating point math!
-
-:::: {.columns}
-::: {.column width="70%"}
-  In Base 10, you can't precisely express fractions like $\frac{1}{3}$ and $\frac{1}{9}$. They come out as repeating decimals: 0.3333... or 0.1111... You _can_ cleanly represent fractions that use a prime factor of the base, which in the case of Base 10 are 2 and 5. 
-:::
-
-::: {.column width="30%" .right}
-  
-:::
-::::
-
-
-## Welcome to floating point math!
-
-:::: {.columns}
-::: {.column width="70%"}
-  In Base 10, you can't precisely express fractions like $\frac{1}{3}$ and $\frac{1}{9}$. They come out as repeating decimals: 0.3333... or 0.1111... You _can_ cleanly represent fractions that use a prime factor of the base, which in the case of Base 10 are 2 and 5. 
-  
-Computers represent numbers as binary (i.e. Base 2) floating-points. In Base 2, the only prime factor is 2. So $\frac{1}{5}$ or $\frac{1}{10}$ in binary would be repeating.  
-:::
-
-::: {.column width="30%" .right}
-  
-:::
-::::
-
-
-## Logic and floating point arithmetic
-
-When you do binary math on repeating numbers and convert back to decimals you get tiny leftovers, and this can mess up _logical_ comparisons of equality. The `all.equal()` function exists for this purpose.
-
-
-```{r }
-#| label: "02-about-r-20"
-print(.1 + .2)
-print(.1 + .2, digits=18)
-
-all.equal(.1 + .2, 0.3)
-```
-
-See e.g. [https://0.30000000000000004.com](https://0.30000000000000004.com) 
-
----
-
-:::{.huge}
-More later on why this might bite you, and how to deal with it  
-:::
-
-::: aside
-For now, "Be very careful about doing logical comparisons on floating-point numbers" is not a bad rule.  
-:::
-
 
 ## 1. [Everything in R has a name]{.fg-yellow}
 
@@ -1123,11 +1027,6 @@ my_numbers
 - I'm going to use [**`<-`**]{.fg-pink} for assignment throughout. 
 - Be consistent either way.
 
-
-
-## Assignment with [**`=`**]{.fg-green}
-
-![](img/02_gordon_assignment.png){width=100% fig-align="center"}
 
 ## 4. [Do things to objects with functions]{.fg-yellow}
 
@@ -1460,483 +1359,101 @@ penguins
 ```
 
 
+# [Let's Go!]{.fg-lblue}
 
-## Grabbing a single function with [`::`]{.fg-yellow}
-
-"Reach in" to an unloaded package and grab a function directly, using `<package>::<function>`
+## Like before
 
 ```{r}
-#| label: "02-about-r-51"
+#| label: "codefig-plot-2"
 #| message: FALSE
-#| echo: FALSE
-gtsummary::theme_gtsummary_journal(journal = "jama")
-#gtsummary::theme_gtsummary_compact()
+#| fig.width: 5.8
+#| fig.height: 5.5
+#| output-location: column
+library(tidyverse)
+library(gapminder)
+
+p <- ggplot(data = gapminder, 
+            mapping = aes(x = gdpPercap, 
+                          y = lifeExp)) 
+
+p + geom_point()
 ```
 
-## Grabbing a single function with [`::`]{.fg-yellow}
+## What we did
 
-```{r }
-#| label: "02-about-r-52"
-## A little glimpse of what we'll do soon
-penguins |> 
-  select(species, body_mass_g, sex) |> 
-  gtsummary::tbl_summary(by = species) #<<
-```
-
-
-## Remember those conflicts?
-
-![](img/02_function-masking.png){with=90%}
-
-- Notice how some functions in different packages have the same names.
-- Related concepts of _namespaces_ and _environments_.
-
-## The scope of names
- 
-```{r }
-#| label: "02-about-r-53"
-x <- c(1:10)
-y <- c(90:100)
-
-x
-
-y
-```
-
-```{.r}
-mean()
-
-## Error in mean.default() : argument "x" is missing, with no default
-```
-
-## The scope of names
-
-```{r }
-#| label: "02-about-r-54"
-mean(x) # argument names are internal to functions
-
-mean(x = x)
-
-mean(x = y)
-
-x
-
-y
-
-```
-
-## 5. Objects come in [types]{.fg-yellow} and [classes]{.fg-yellow}
-
-I'm going to speak somewhat loosely here for now, and gloss over some distinctions between object classes and data structures, as well as kinds of objects and their attributes.
-
-## 5. Objects come in [types]{.fg-yellow} and [classes]{.fg-yellow}
-
-I'm going to speak somewhat loosely here for now, and gloss over some distinctions between object classes and data structures, as well as kinds of objects and their attributes.
-
-The object inspector in RStudio is your friend.
-
-You can ask an object what it is at the console, too:
-
-```{r }
-#| label: "02-about-r-55"
-class(my_numbers)
-typeof(my_numbers)
-```
-
-
-## 5. Objects come in [types]{.fg-yellow} and [classes]{.fg-yellow}
-
-Objects can have more than one (nested) class:
-
-```{r }
-#| label: "02-about-r-56"
-summary(my_numbers)
-
-my_smry <- summary(my_numbers) # remember, outputs can be assigned to a name, creating an object
-
-class(summary(my_numbers)) # functions can be nested, and are evaluated from the inside out
-
-class(my_smry) # equivalent to the previous line
-```
-
-## 5. Objects come in [types]{.fg-yellow} and [classes]{.fg-yellow}
-
-
-```{r }
-#| label: "02-about-r-57"
-typeof(my_smry)
-attributes(my_smry)
-
-## In this case, the functions extract the corresponding attribute
-class(my_smry)
-names(my_smry)
-```
-
-## Kinds of [vector]{.fg-green}
-
-:::: {.columns}
-::: {.column width="40%"}
-![](img/02_summary-tree-atomic.png){width=90%}
-
-::::: aside
-Hadley Wickham, _Advanced R_
-:::::
-
-:::
-
-::: {.column width="60%" .right}
-
-:::
-::::
-
-
-## Kinds of [vector]{.fg-green}
-
-:::: {.columns}
-::: {.column width="40%"}
-![](img/02_summary-tree-atomic.png){width=90%}
-  
-::::: aside
-  Hadley Wickham, _Advanced R_  
-:::::
-
-:::
-
-::: {.column width="60%" .right}
-```{r }
-#| label: "02-about-r-58"
-my_int <- c(1, 3, 5, 6, 10)
-is.integer(my_int)
-is.double(my_int)
-
-my_int <- as.integer(my_int)
-is.integer(my_int)
-
-my_chr <- c("Mary", "had", "a", "little", "lamb")
-is.character(my_chr)
-
-my_lgl <- c(TRUE, FALSE, TRUE)
-is.logical(my_lgl)
-
-```
-
-:::
-::::
-
-## Kinds of [vector]{.fg-green} 
-
-
-:::: {.columns}
-::: {.column width="40%"}
-  ![](img/02_summary-tree-s3.png)
-:::
-
-::: {.column width="60%" .right}
-
-::::: {.smallcode}
-
-```{r }
-#| label: "02-about-r-59"
-## Factors are for storing undordered or ordered categorical variables
-x <- factor(c("Yes", "No", "No", "Maybe", "Yes", "Yes", "Yes", "No"))
-x
-
-summary(x) # Alphabetical order by default
-
-typeof(x)       # Underneath, a factor is a type of integer ...
-attributes(x)   # ... with labels for its numbers, or "levels" 
-levels(x)
-is.ordered(x)
-
-```
-
-:::::
-
-:::
-::::
-
-
-::: {.notes}
-HW: 
-
-Categorical data, where values come from a fixed set of levels recorded in factor vectors.
-
-Dates (with day resolution), which are recorded in Date vectors.
-
-Date-times (with second or sub-second resolution), which are stored in POSIXct vectors.
-
-Durations, which are stored in difftime vectors.
-
-:::
-
-## Vector types can't be heterogenous 
-
-- Objects can be manually or automatically coerced from one class to another. Take care.
-
-```{r }
-#| label: "02-about-r-60"
-class(my_numbers)
-
-my_new_vector <- c(my_numbers, "Apple")
-
-my_new_vector # vectors are homogeneous/atomic
-
-class(my_new_vector)
-```
-
-## Vector types can't be heterogenous 
-
-- Objects can be manually or automatically coerced from one class to another. Take care.
-
-```{r }
-#| label: "02-about-r-61"
-my_dbl <- c(2.1, 4.77, 30.111, 3.14519)
-is.double(my_dbl)
-
-my_dbl <- as.integer(my_dbl)
-
-my_dbl
-
-```
-
-## A table of data is a kind of [list]{.fg-yellow}
-
-```{r }
-#| label: "02-about-r-62"
-gapminder # tibbles and data frames can contain vectors of different types
-
-class(gapminder)
-typeof(gapminder) # hmm
-
-```
-
-## A table of data is a kind of [list]{.fg-yellow}
-
-- Lists _can_ be heterogenous. Underneath, most complex R objects are some kind of list with different components.
-
-- A _data frame_ is a list of vectors of the same length, where the vectors can be of different types (e.g. numeric, character, logical, etc)
-
-- A _tibble_ is an enhanced data frame 
-
-::: {.notes}
-Tibbles have an enhanced print method, never coerce strings to factors, and provide stricter subsetting methods. (HW)
-
-Again the object inspector is helpful here
-
-:::
-
-## Some classes are versions of others
-
-
-:::: {.columns}
-::: {.column width="50%"}
-- Base R's trusty `data.frame`
-
-:::::{.smallcode}
-
-```{r }
-#| label: "02-about-r-63a"
-library(socviz)
-titanic
-class(titanic)
-```
-
-```{r }
-#| label: "02-about-r-64a"
-## The `$` idiom picks out a named column here; 
-## more generally, the named element of a list
-titanic$percent  
-```
-
-:::::
-
-:::
-
-::: {.column width="50%" .right}
-:::
-::::
-
-## Some classes are versions of others
-
-:::: {.columns}
-::: {.column width="50%"}
-- Base R's trusty `data.frame`
-
-:::::{.smallcode}
-
-```{r }
-#| label: "02-about-r-63"
-library(socviz)
-titanic
-class(titanic)
-```
-
-```{r }
-#| label: "02-about-r-64"
-## The `$` idiom picks out a named column here; 
-## more generally, the named element of a list
-titanic$percent  
-```
-:::::
-
-:::
-::: {.column width="50%" .right}
-
-- The Tidyverse's enhanced `tibble`
-
-::::{.smallcode}
-
-```{r }
-#| label: "02-about-r-65"
-## tibbles are build on data frames 
-titanic_tb <- as_tibble(titanic) 
-titanic_tb
-class(titanic_tb)
-```
-::::
-
-:::
-
-::::
-
-- A data frame and a tibble are both fundamentally a list of vectors of the same length, where the vectors can be of different types (e.g. numeric, character, logical, etc)
-
-
-## All of this will be clearer in use
-
-```{r }
-#| label: "02-about-r-66"
-gss_sm
-```
-
-
-
-- Tidyverse tools are generally _type safe_, meaning their functions return the same type of thing every time, or fail if they cannot do this. So it's good to know about the various data types.
-
-
-## 6. [Arithmetic on vectors]{.fg-yellow}
-
-- In R, all numbers are vectors of different sorts. Even single numbers ("scalars") are conceptually vectors of length 1.
-
-- Arithmetic on vectors (and arrays generally) follows a series of _recycling rules_ that favor ease of expression of vectorized, "elementwise" operations.
-
-- See if you can predict what the following operations do: 
-
-## 6. [Arithmetic on vectors]{.fg-yellow}
-
-```{r }
-#| label: "02-about-r-67"
-my_numbers
-
-result1 <- my_numbers + 1
-
-```
-
-## 6. [Arithmetic on vectors]{.fg-yellow}
-
-```{r }
-#| label: "02-about-r-67a"
-my_numbers
-
-result1 <- my_numbers + 1
-
-```
-
-
-```{r }
+```{r}
 #| label: "02-about-r-68"
-result1
+#| message: FALSE
+#| eval: FALSE
+#| echo: TRUE
+library(tidyverse)
+
+library(gapminder)
 ```
 
-## 6. [Arithmetic on vectors]{.fg-yellow}
+- Load the packages we need: `tidyverse` and `gapminder`
 
-```{r }
+## What we did
+
+```{r}
 #| label: "02-about-r-69"
-result2 <- my_numbers + my_numbers
+#| message: FALSE
+#| eval: FALSE
+#| echo: TRUE
 
+p <- ggplot(data = gapminder, 
+            mapping = aes(x = gdpPercap, 
+                          y = lifeExp)) 
 ```
+]
 
-## 6. [Arithmetic on vectors]{.fg-yellow}
+- New object named [**`p`**]{.fg-lblue} [`gets`]{.fg-pink} the output of the [`ggplot()` _function_]{.fg-green}, given these [_arguments_]{.fg-orange}
+- Notice how one of the arguments, [`mapping`]{.fg-orange}, is itself taking the output of a function named [`aes()`]{.fg-green}
 
-```{r }
-#| label: "02-about-r-69a"
-result2 <- my_numbers + my_numbers
-
-```
-
-```{r }
-#| label: "02-about-r-70"
-result2
-```
-
-## 6. [Arithmetic on vectors]{.fg-yellow}
+## What we did
 
 ```{r}
-#| label: "02-about-r-71"
-#| warning: TRUE
-two_nums <- c(5, 10)
+#| label: "02-about-r-70-2"
+#| message: FALSE
+#| eval: FALSE
+#| echo: TRUE
 
-result3 <- my_numbers + two_nums
 
-```
-
-## 6. [Arithmetic on vectors]{.fg-yellow}
-
-```{r}
-#| label: "02-about-r-71a"
-#| warning: TRUE
-two_nums <- c(5, 10)
-
-result3 <- my_numbers + two_nums
+p + geom_point()
 
 ```
 
-
-```{r }
-#| label: "02-about-r-72"
-result3
-```
+- Show me the output of the [**`p`**]{.fg-lblue} object and the [`geom_point()`]{.fg-green} function.
+- The [`+`]{.fg-pink} here acts just like the [`|>`]{.fg-pink} pipe, but for ggplot functions only. (This is an accident of history.)
 
 
-## 6. [Arithmetic on vectors]{.fg-yellow}
+## And what is R doing?
 
-```{r}
-#| label: "02-about-r-73"
-#| warning: TRUE
-three_nums <- c(1, 5, 10)
+R objects are just lists of [stuff to use]{.fg-orange} or [things to do]{.fg-green}
 
-result4 <- my_numbers + three_nums
+## Objects are like Bento Boxes {background-image="img/02_r_object_bento_box.png" background-size="cover"}
 
-```
+---
 
-## 6. [Arithmetic on vectors]{.fg-yellow}
-
-```{r}
-#| label: "02-about-r-73a"
-#| warning: TRUE
-three_nums <- c(1, 5, 10)
-
-result4 <- my_numbers + three_nums
-
-```
+![The `p` object](img/02_r_objects_p_bleep.png)
 
 
-```{r }
-#| label: "02-about-r-74"
-result4
-```
 
-Note that you get a _warning_ here. It'll still do it, though! Don't ignore warnings until you understand what they mean.
+---
+
+![Peek in with the object inspector](img/02_r_object_inspector_panel.png)
 
 
-## 7. R will be [frustrating]{.fg-red}
+---
 
-- The IDE tries its best to help you. Learn to attend to what it is trying to say.
+![Peek in with the object inspector](img/02_r_ide_object_inspector.png)
 
-![](img/02_error_object_length_warning.png){width=50%}
+## We can get more sophisticated quickly
 
-![](img/02_error_missing_comma.png){width=50%}
+Let's try some live examples ...
 
-![](img/02_error_extra_paren.png){width=50%}
+
+
+
 
 
