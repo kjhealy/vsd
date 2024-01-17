@@ -24,4 +24,17 @@ _Note:_ This reading is fully available online at the book's website. Also, whil
 
 ## Slides
 
-[Slides will appear here soon]
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_buttons("/slides/02-slides")
+```
+
+<div>
+```{=html}
+<iframe class="slide-deck" src="/slides/02-slides.html"></iframe>
+```
+</div>
+
+:::{.callout-tip}
+**Tip**: If you type <kbd>?</kbd> (or <kbd>shift</kbd> + <kbd>/</kbd>) while going through the slides, you can see a list of special slide-specific commands.
+:::
+
