@@ -1,6 +1,6 @@
 ---
 title: "3. Ways of Seeing"
-date: "2023-01-25"
+date: "2023-01-24"
 ---
 
 ```{r slides, echo=FALSE, include=FALSE}
@@ -19,7 +19,7 @@ This week we will take a step back from coding and begin to learn more about the
 
 ## Readings
 
-These readings are available in the Resources section of the course's Sakai website. (Duke Login Required.)
+These readings are available on the Canvas website, in the Files section. (Duke Login Required.)
 
 - @berger72:_ways_seein Chapter 1 and Chapter 7. 
 - @tufte83:_visual_displ_quant_infor Chapter 1.
@@ -34,33 +34,17 @@ In addition to reading Berger, I recommend watching the first of the episodes of
 
 ## Slides
 
-The slide deck for this week is available here. It's in two parts. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.
+The slide deck for this week will appear here
 
-Part I: 
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
-slide_buttons("/slides/03-slides")
+#slide_buttons("/slides/03-slides")
 ```
 
 <div>
 ```{=html}
-<iframe class="slide-deck" src="/slides/03-slides.html"></iframe>
+<!--<iframe class="slide-deck" src="/slides/03-slides.html"></iframe>-->
 ```
 </div>
 
 
-Part II:
-
-```{r show-slide-tabs-2, echo=FALSE, results="asis"}
-slide_buttons("/slides/03b-slides")
-```
-
-<div>
-```{=html}
-<iframe class="slide-deck" src="/slides/03b-slides.html"></iframe>
-```
-</div>
-
-:::{.callout-tip}
-**Tip**: If you type <kbd>?</kbd> (or <kbd>shift</kbd> + <kbd>/</kbd>) while going through the slides, you can see a list of special slide-specific commands.
-:::

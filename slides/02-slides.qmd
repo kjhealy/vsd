@@ -1399,11 +1399,31 @@ R objects are just lists of [stuff to use]{.fg-orange} or [things to do]{.fg-gre
 
 ![Peek in with the object inspector](img/02_r_ide_object_inspector.png)
 
-## We can get more sophisticated quickly
+## Core concepts: mappings + geoms
+
+The core idea, which we'll focus on more formally next week, is that we have *data*, arranged in columns, that we want to represent visually on some sort of plot. 
+
+That means we need a _mapping_ --- a link, a connection, a representation --- between things in our table and stuff we can draw. That is what the *mapping* argument is for. 
+
+And we need a _geom_ --- a kind of plot, a particular sort of graph --- that we draw with that. 
+
+## Practical examples
 
 Let's try some live examples ...How might we improve or extend this graph based on the data we have? Or how might we look at it differently?
 
 
+```{r}
+```{r}
+#| label: "02-about-r-70-3"
+#| message: FALSE
+#| eval: TRUE
+#| echo: TRUE
+
+
+p + geom_point()
+
+```
+```
 
 
 

@@ -54,8 +54,8 @@ website:
               file: content/01-content.qmd
             - text: "02: Writing R"
               file: content/02-content.qmd
-            # - text: "03: Ways of Seeing"
-            #   file: content/03-content.qmd
+            - text: "03: Ways of Seeing"
+              file: content/03-content.qmd
             # - text: "04: How ggplot Thinks"
             #   file: content/04-content.qmd
             # - text: "05: Show the Right Numbers"
