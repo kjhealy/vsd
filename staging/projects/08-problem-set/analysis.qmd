@@ -2,7 +2,7 @@
 title: "Problem Set 08"
 author: "<PUT YOUR NAME HERE>"
 date: "`r Sys.Date()`"
-output: html_document
+format: html
 ---
 
 ```{r}

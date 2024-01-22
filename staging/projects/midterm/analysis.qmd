@@ -2,7 +2,7 @@
 title: "Midterm"
 author: "<PUT YOUR NAME HERE>"
 date: "`r Sys.Date()`"
-output: html_document
+format: html
 ---
 
 # Midterm Project

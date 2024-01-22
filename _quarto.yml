@@ -13,6 +13,11 @@ project:
   preview:
     port: 27514
 
+filters:
+  - line-highlight
+  - include-code-files
+
+
 ## Freeze seems to interact badly with the schedule.qmd / schedule.csv relation
 freeze: auto  # Re-render only when source changes
 
