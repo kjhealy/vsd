@@ -1,0 +1,53 @@
+---
+title: "Problem Set 03"
+author: "<PUT YOUR NAME HERE>"
+date: "`r Sys.Date()`"
+format: html
+---
+
+```{r}
+#| label = "load-libraries-data",
+#| warning = FALSE,
+#| message = FALSE
+library(tidyverse)
+
+## Gapminder GDP data
+gapminder <- read_csv("data/gapminder.csv")
+
+## Palmer penguins data
+penguins <- read_csv("data/penguins.csv")
+```
+
+# Task: Experiment with some geoms.
+
+## 1. The `gapminder` data
+
+Insert a code chunk below. You can insert it one using the menus: Code > Insert Chunk. But the keyboard shortcut is much more convenient: `Command-Option-I`. That means press the `Command`, `Option` and letter `i` keys all at once.   
+Inside the chunk, create a scatterplot with the gapminder data. (Hint: like last week, use `geom_point()`.) Put (`gdpPercap`) on the x-axis, and (`lifeExp`) on the y-axis. Represent population by size. Represent continent by color. 
+
+> DELETE THIS LINE AND INSERT THE CHUNK
+
+Next, create a new chunk below. This time, instead of representing continent by color, read the help page for `facet_wrap()` and make a plot  _faceted_ by continent (i.e. with a different panel for each continent)
+
+> DELETE THIS LINE AND PUT THE FIRST CHUNK HERE
+
+### 2. The `penguins` data
+
+```{r}
+penguins
+```
+
+
+- Draw some histograms with `geom_histogram()`. A histogram is a way of summarizing the distribution of a single variable. Which columns in the table does it make sense to summarize with a histogram? Do any give you errors? Can you say why?
+
+
+- Draw some scatterplots with `geom_point()`. A scatterplot is a way of looking at the relationship between two variables, one on the `x` axis and one on the `y` axis. What happens when you put a categorical variable like `species` on one axis and a continuous variable like `body_mass_g` on the other? Does this sort of plot make sense to you, or is it a mistake? 
+
+
+### 3. Explore the `penguins` data a little more
+
+Experiment with these geoms: 
+
+- `geom_boxplot()` draws boxplots of distributions. Try drawing a boxplot of one of the continuous variables (e.g. bill length, flipper length, body mass). Next try drawing it by breaking out that variable by one of the categorical variables (e.g. species, sex).
+
+- `geom_smooth()` can draw smoothed trend lines or fit straight lines to data. (Read the help page to learn how to fit a straight line.) It is often helpful to add a trend line to a scatterplot produced with `geom_point()`. Try it. What relationships does it make sense to use this geom for?
