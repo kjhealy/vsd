@@ -1,0 +1,99 @@
+---
+title: "Example 03: Basic Plots"
+---
+
+This week there is less coding in the lectures because we're thinking about graphs in a more general way. But the problem set wants you to practice some basic plotting, and ideally experiment a little as well. Here are some examples to get you started.
+
+We begin as usual by loading the `tidyverse` package.
+
+
+```{r load-packages, warning=FALSE, message=FALSE}
+library(tidyverse)
+```
+
+
+## Review
+
+Remember, in R, everything has a _name_ and everything is an _object_. You do things to named objects with _functions_ (which are themselves objects!). And you create an object by _assigning_ a thing to a name. 
+
+_Assignment_ is the act of attaching a thing to a name. It is represented by `<-` or `=` and you can read it as "gets" or "is". Type it by with the `<` and then the `-` key. Better, there is a shortcut: on Mac OS it is `Option -` or Option and the `-` (minus or hyphen) key together. On Windows it's `Alt -`. 
+
+You do things with _functions_. Functions usually _take input_, _perform actions_, and then _return output_.  
+
+```{r}
+# Calculate the mean of my_numbers with the mean() function
+my_numbers <- c(1,5,7,2,16,31,3,6,9)
+mean(x = my_numbers)
+```
+
+The instructions you can give a function are its _arguments_. Here, `x` is saying "this is the thing I want you to take the mean of". 
+
+If you provide arguments in the "right" order (the order the function expects), you don't have to name them.
+
+```{r}
+mean(my_numbers)
+```
+
+To draw a graph in ggplot requires two kinds of statements: one saying what the data is and what relationship we want to plot, and the second saying what kind of plot we want. The first one is done by the `ggplot()` function. 
+
+```{r}
+ggplot(data = mpg, 
+       mapping = aes(x = displ, y = hwy))
+```
+
+You can see that by itself it doesn't do anything. 
+
+But if we add a function saying what kind of plot, we get a result:
+
+```{r}
+ggplot(data = mpg, 
+       mapping = aes(x = displ, y = hwy)) +
+  geom_point()
+```
+
+The `data` argument says which table of data to use. The `mapping` argument, which is done using the "aesthetic" function `aes()` tells ggplot which visual elements on the plot will represent which columns or variables in the data.
+
+
+```{r}
+# The gapminder data
+library(gapminder)
+gapminder
+
+```
+
+A histogram is a summary of the distribution of a single variable:
+
+```{r}
+ggplot(data = gapminder, 
+       mapping = aes(x = lifeExp)) +
+  geom_histogram() 
+```
+
+A scatterplot shows how two variables co-vary:
+
+```{r}
+ggplot(data = gapminder, 
+       mapping = aes(x = gdpPercap, y = lifeExp)) +
+  geom_point() 
+```
+
+A boxplot is another way of showing the distribution of a single variable: 
+
+```{r}
+ggplot(data = gapminder, 
+       mapping = aes(y = lifeExp)) +
+  geom_boxplot() 
+```
+
+Boxplots are much more useful if we compare several of them:
+
+
+```{r}
+ggplot(data = gapminder, 
+       mapping = aes(x = continent, y = lifeExp)) +
+  geom_boxplot() 
+```
+
+
+
+
