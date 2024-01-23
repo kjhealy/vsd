@@ -554,7 +554,7 @@ No! What has gone wrong here?
 ```{r }
 #| label: "03a-dplyr-basics-24b"
 rel_by_region <- gss_sm |> 
-  count(bigregion, religion) |> #<< 
+  count(bigregion, religion) |> #<<
   mutate(pct = round((n/sum(n))*100, 1)) 
 ```
 
@@ -588,7 +588,7 @@ rel_by_region |>
 ```{r }
 #| label: "03a-dplyr-basics-24"
 rel_by_region <- gss_sm |> 
-  count(bigregion, religion) |> #<< 
+  count(bigregion, religion) |> #<<
   mutate(pct = round((n/sum(n))*100, 1)) 
 ```
 
@@ -784,7 +784,7 @@ p <-  ggplot(data = gss_sm,
 
 p + geom_point(alpha = 0.2) + 
   geom_smooth() +
-  facet_wrap(~ sex + race) #<< 
+  facet_wrap(~ sex + race) #<<
 
 ```
 
@@ -800,7 +800,7 @@ p <-  ggplot(data = gss_sm,
 
 p + geom_point(alpha = 0.2) + 
   geom_smooth() +
-  facet_wrap(~ sex + race, nrow = 1) #<< 
+  facet_wrap(~ sex + race, nrow = 1) #<<
 
 ```
 
@@ -814,7 +814,7 @@ p + geom_point(alpha = 0.2) +
 #| warning: FALSE
 p + geom_point(alpha = 0.2) + 
   geom_smooth() +
-  facet_grid(sex ~ race) #<< 
+  facet_grid(sex ~ race) #<<
 
 ```
 
@@ -828,7 +828,7 @@ p + geom_point(alpha = 0.2) +
 #| warning: FALSE
 p_out <- p + geom_point(alpha = 0.2) + 
   geom_smooth() +
-  facet_grid(bigregion ~ race + sex) #<< 
+  facet_grid(bigregion ~ race + sex) #<<
 
 ```
 
