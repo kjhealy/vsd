@@ -42,7 +42,93 @@ kjh_set_slide_theme()
 
 
 
-# [Ways of]{.fg-yellow} [Seeing (1)]{.fg-lblue}
+# [Ways of]{.fg-yellow} [Seeing]{.fg-lblue} (1)   
+
+## {background-image="img/03_wos_fall_of_icarus.png" background-size="cover"}
+
+::: {.notes}
+Wikipedia: Landscape with the Fall of Icarus is a painting in oil on canvas measuring 73.5 by 112 centimetres (28.9 in × 44.1 in) now in the Royal Museums of Fine Arts of Belgium in Brussels. It was long thought to be by the leading painter of Dutch and Flemish Renaissance painting, Pieter Bruegel the Elder. However, following technical examinations in 1996 of the painting hanging in the Brussels museum, that attribution is regarded as very doubtful, and the painting, perhaps painted in the 1560s, is now usually seen as a good early copy by an unknown artist of Bruegel's lost original, perhaps from about 1558. According to the museum: "It is doubtful the execution is by Bruegel the Elder, but the composition can be said with certainty to be his",[1][2] although recent technical research has re-opened the question.
+
+Though the world landscape, a type of work with the title subject represented by small figures in the distance, was an established type in Early Netherlandish painting, pioneered by Joachim Patinir, to have a much larger unrelated "genre" figure in the foreground is original and represents something of a blow against the emerging hierarchy of genres. Other landscapes by Bruegel, for example The Hunters in the Snow (1565) and others in that series of paintings showing the seasons, show genre figures in a raised foreground, but not so large relative to the size of the image, nor with a subject from a "higher" class of painting in the background.
+
+However, paintings from the same period by the Antwerp artist Pieter Aertsen had large kitchen or market genre scenes, with large figures in the foreground, and in the distant background a glimpse of a scene from the Life of Christ. Giving more prominence to "low" subject-matter than "high" in the same work is a feature of some Northern Mannerist art, often called "Mannerist inversion". The traditional moral of the Icarus story, warning against excessive ambition, is reinforced by (literally) fore-grounding humbler figures who appear content to fill useful agricultural roles in life.
+:::
+
+## {background-image="img/03_wos_fall_of_icarus_detail.png" background-size="cover"}
+
+## {background-image="img/03_wos_john-berger-past-present.png" background-size="cover"}
+
+
+## {background-image="img/03_wos_john-berger-past-present.png" background-size="cover"}
+
+::: {.larger .fg-white}
+“The process of seeing paintings, or seeing anything else, is less spontaneous and natural than we tend to believe.”
+:::
+
+## {background-image="img/03_wos_virgin_of_the_rocks.png" background-size="contain"}
+
+::: {.notes}
+Wikipedia: The subject of the two paintings is the adoration of the Christ child by the infant John the Baptist. This subject relates to a non-Biblical event which became part of the medieval tradition of the holy family’s journey into Egypt. The Gospel of Matthew relates that Joseph, the husband of Mary, was warned in a dream that King Herod would attempt to kill the child Jesus, and that he was to take the child and his mother and flee to safety.[19] There are a series of non-Biblical narratives that relate to the journey to Egypt. One of these concerns Jesus’ cousin, John the Baptist, whose family, like that of Jesus, resided in the town of Bethlehem where the Massacre of the Innocents was to take place. According to legend, John was escorted to Egypt by the Archangel Uriel, and met the holy family on the road.[20] The Louvre website refers to the angel in the painting as "Gabriel" (but the description of the painting in the Louvre still refers to Uriel). This accords with the Apocryphal gospel of John the Baptist, which describes his removal from Bethlehem as by Gabriel rather than Uriel and does not mention the meeting on the road to Egypt.[1] The subject of the Virgin Mary with the Christ child being adored by John the Baptist was common in the art of Renaissance Florence. John the Baptist is the patron saint of Florence and has often been depicted in the art of that city.[21] Those who painted and sculpted the subject of the Mary and child with St John include Fra Filippo Lippi, Raphael, and Michelangelo.[22][23][24] In both paintings the scene is depicted taking place against a background of rock formations. While scenes of the Nativity were sometimes depicted as taking place in a cave, and Kenneth Clark points to the existence of an earlier rocky landscape in an adoration painted for the Medici family by Fra Filippo Lippi,[25] the setting was unprecedented[1] and gave to the paintings their usual name of the Virgin of the Rocks. Both paintings show a grouping of four figures, the Virgin Mary, the Christ child, the infant John the Baptist and an angel arranged into a triangular composition within the painting and set against a background of rocks, and a distant landscape of mountains and water. In both paintings, Mary makes the apex of the pyramidal figure group, stretching one hand to include John and raising the other above the head of the Christ child in a blessing. John kneels, gazing towards the Christ child with his hands together in an attitude of prayer. The Christ child sits towards the front of the painting, supported by the angel, and raising his right hand in a sign of Benediction towards the kneeling John.
+:::
+
+## {background-image="img/03_wos_virgin_of_the_rocks_search_image.png" background-size="contain"}
+
+---
+
+:::: {.columns}
+::: {.column width="50%"}
+
+  ![](img/03_wos_walter_benjamin.png)
+:::
+
+::: {.column width="50%" .right}
+
+  ![](img/03_wos_benjamin_cover.png)
+
+:::
+::::
+
+
+## {background-image="img/03_wos_mona_lisa.png" background-size="contain"}
+
+
+## {background-image="img/03_wos_mona_lisa_louvre_photographers.png" background-size="contain"}
+
+
+## {background-image="img/03_wos_mona_lisa_with_mask.png" background-size="contain"}
+
+
+## {background-image="img/03_wos_mona_lisa_corona_virus_covid19_cloth_face_mask.png" background-size="contain"}
+
+
+## {background-image="img/03_wos_botticelli_venus_mars.png" background-size="contain"}
+
+::: {.notes}
+
+Wikipedia: Venus watches Mars sleep while two infant satyrs play,[9] carrying his helmet (a sallet) and lance as another rests inside his breastplate under his arm. A fourth blows a small conch shell in his ear in an effort, so far unsuccessful, to wake him. The clear implication is that the couple have been making love, and the male habit of falling asleep after sex was a regular subject for ribald jokes in the context of weddings in Renaissance Italy.[10] The lance and conch can be read as sexual symbols.[11]
+The scene is set in a grove of myrtle, traditionally associated with Venus and marriage, or possibly laurel, associated with Lorenzo de' Medici (il Magnifico), or perhaps both plants.[12] There is a limited view of the meadow beyond, leading to a distant walled city
+
+:::
+
+## {background-image="img/03_wos_botticelli_venus_mars_detail.png" background-size="contain"}
+
+
+## {background-image="img/03_wos_von_achen_bacchus_ceres_cupid.png" background-size="contain"}
+
+::: {.notes}
+Hans von Aachen, “Bacchus, Ceres, and Cupid” (c.1600)
+
+Concept of the “male gaze”—"Visual Pleasure and Narrative Cinema", Laura Mulvey 
+:::
+
+## {background-image="img/03_wos_avon_instinct.png" background-size="contain"}
+
+::: {.notes}
+
+Berger: "A woman must continually watch herself. She is almost continually accompanied by her own image of herself. Whilst she is walking across a room or whilst she is weeping at the death of her father, she can scarcely avoid envisaging herself walking or weeping. From earliest childhood she has been taught and persuaded to survey herself continually. And so she comes to consider the surveyor and the surveyed within her as the two constituent yet always distinct elements of her identity as a woman. She has to survey everything she is and everything she does because how she appears to men, is of crucial importance for what is normally thought of as the success of her life. Her own sense of being in herself is supplanted by a sense of being appreciated as herself by another....One might simplify this by saying: men act and women appear. Men look at women. Women watch themselves being looked at. This determines not only most relations between men and women but also the relation of women to themselves. The surveyor of woman in herself is male: the surveyed female. Thus she turns herself into an object -- and most particularly an object of vision: a sight."
+
+:::
+
 
 # You should [look at]{.fg-lblue} your data
 
