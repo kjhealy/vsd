@@ -70,6 +70,24 @@ library(gapminder) # some data
 - ⬜ Make a plot with it
 
 
+## Reviewing the Problem Sets
+
+### Windows and Zip Files
+
+### Rendering a Project and watching it update
+
+### Strategies for debugging your code: a chunk at a time, a step at a time
+
+## In the background
+
+### Things the columns in our table can be:
+
+- Words naming _unordered_ categories: e.g. [Asia, Europe, America]{.fg-lblue}
+- Words naming _ordered_ categories: e.g. [Elementary, High School, College]{.fg-lblue}; _or_ [Strongly Agree, Agree, Neutral, Disagree, Strongly Disagree]{.fg-lblue}; etc. 
+- Numbers that can take on just a quite limited range of (integer) values: e.g. [number of children]{.fg-lblue}; [years of schooling]{.fg-lblue}; [number of people in the household]{.fg-lblue}. These are very close to categorical variables as well, but are more often counts. 
+- Numbers that can take on many values in some range, depending on how precisely we measure them: e.g. [distance traveled]{.fg-lblue} to work; [height]{.fg-lblue} in centimeters; number of [computers sold per quarter]{.fg-lblue}; [population]{.fg-lblue} size
+- Truly "continuous" measures are comparatively rare in social science; most often encountered with aggregate quantities rather than individual ones. (Even things like "income" end up being measured with e.g. 10 categories.)
+
 ## Feed ggplot [tidy]{.fg-pink} data {background-image="img/03_feed_me_seymour.png" background-size="cover"}
 
 ## What is [tidy data]{.fg-orange}?
@@ -136,6 +154,20 @@ penguins |>
   pivot_wider(names_from = year, values_from = bill) |> 
   knitr::kable()
 ```
+
+## Untidy data exists for good reasons
+
+A wide format is _easier_ and _more efficient_ to read in print:
+
+```{r }
+#| label: "03-make-a-graph-2a"
+penguins |> 
+  group_by(species, year, island) |> 
+  summarize(bill = round(mean(bill_length_mm, na.rm = TRUE), 2)) |> 
+  pivot_wider(names_from = island, values_from = bill) |> 
+  knitr::kable()
+```
+
 
 ## But also for [less]{.fg-orange} good reasons
 
@@ -243,7 +275,8 @@ fs::dir_tree(here(), recurse = 0)
 ```
 :::
 
-I want to load files from the `data` folder, but I also want _you_ to be able to load them. I'm writing this from somewhere deep in the `slides` folder, but you won't be there. Also, I'm on a Mac, but you may not be.
+I want to load files from the `data` folder, but I also want _you_ to be able to load them. I'm writing this from somewhere deep in the `slides` folder, but you won't be there.
+
 
 ## Where's the data? Using [`here()`]{.fg-green}
 
@@ -568,7 +601,6 @@ p + geom_point() +
 ```{r}
 #| label: "codefig-logtranslab"
 #| message: FALSE
-#| fig.show: "hide"
 #| fig.width: 5
 #| fig.height: 4.5
 #| output-location: column
@@ -739,14 +771,14 @@ p + geom_point(mapping = aes(color = continent)) +
 ## Guides and scales reflect [`aes()`]{.fg-green} mappings
 
 :::: {.columns}
-::: {.column width="50%"}
+::: {.column width="40%"}
 - `mapping = aes(color = continent, fill = continent)`
 
 ![](img/03_guides_1_classic.png){width=50%}
 
 :::
 
-::: {.column width="50%" .right}
+::: {.column width="40%" .right}
 
 :::
 ::::
@@ -809,32 +841,27 @@ ggsave(here("figures", "lifexp_vs_gdp_gradient.png"),
 
 Set options in any chunk:
 
-### RMarkdown Style
-
-`{r, fig.height=8, fig.width=5, fig.show = "hold", fig.cap="A caption"}`  
-
-### Quarto Style
-
 ```{.r}
-#| fig.height=8 
-#| fig.width=5
-#| fig.show: "hold" 
-#| fig.cap="A caption"
+#| fig-height: 8 
+#| fig-width: 5
+#| fig-show: "hold" 
+#| fig-cap: "A caption"
 ```
 
 
 ## Or for the whole document:
 
-```{r}
-#| label: "03-make-a-graph-30"
-#| eval: FALSE
-#| echo: TRUE
-knitr::opts_chunk$set(warning = TRUE,
-                        message = TRUE,
-                        fig.retina = 3,
-                        fig.align = "center",
-                        fig.asp = 0.7,
-                        dev = c("png", "pdf"))
+```{.yaml}
+---
+title: "My Document"
+format: 
+  html:
+    fig-width: 8
+    fig-height: 6
+  pdf:
+    fig-width: 7
+    fig-height: 5
+---
 ```
 
 
@@ -903,14 +930,17 @@ gapminder |>
 
 ## Faceting 
 
-- A facet is not a geom; it's a way of arranging repeated geoms by some additional variable
-- Facets use R's "formula" syntax: [`facet_wrap(~ continent)`]{.fg-green} 
-- Read the [**`~`**]{.fg-pink} as "on" or "by"
+A facet is not a geom; it's a way of arranging repeated geoms by some additional variable
+
+Facets use R's "formula" syntax: [`facet_wrap(~ continent)`]{.fg-green} 
+
+Read the [**`~`**]{.fg-pink} as "on" or "by"
 
 ## Faceting 
 
-- You can also use this syntax: [`facet_wrap(vars(continent))`]{.fg-green}
-- This is newer, and consistent with other ways of referring to variables within tidyverse functions.
+You can also use this syntax: [`facet_wrap(vars(continent))`]{.fg-green}
+
+This is newer, and consistent with other ways of referring to variables within tidyverse functions.
 
 
 ## Facets in action
