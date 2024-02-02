@@ -92,6 +92,7 @@ website:
             - assignment/01-problem-set.qmd
             - assignment/02-problem-set.qmd
             - assignment/03-problem-set.qmd
+            - assignment/04-problem-set.qmd
             # - assignment/midterm.qmd
             # - assignment/07-problem-set.qmd
             # - assignment/08-problem-set.qmd

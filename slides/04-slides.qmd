@@ -90,6 +90,8 @@ library(gapminder) # some data
 
 ## Feed ggplot [tidy]{.fg-pink} data {background-image="img/03_feed_me_seymour.png" background-size="cover"}
 
+# Tidy Data
+
 ## What is [tidy data]{.fg-orange}?
 
 ![Tidy data](img/03_ggplot_tidy_data_only.png)

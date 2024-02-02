@@ -33,7 +33,7 @@ The slide deck for this week will appear here.
 
 <div>
 ```{=html}
-<!--<iframe class="slide-deck" src="/slides/04-slides.html"></iframe>-->
+<iframe class="slide-deck" src="/slides/04-slides.html"></iframe>
 ```
 </div>
 

@@ -1,0 +1,73 @@
+---
+title: "Problem Set 04"
+author: "<PUT YOUR NAME HERE>"
+date: "`r Sys.Date()`"
+format: html
+---
+
+```{r}
+#| label = "load-libraries-data",
+#| warning = FALSE,
+#| message = FALSE
+library(tidyverse)
+
+## US Weekly Mortality data 2015-2020
+df <- read_csv("data/weekly_mortality.csv")
+```
+
+# Mortality data for the US
+
+This data comes from the Centers for Disease Control and the National Center for Health Statistics. 
+
+```{r}
+df
+```
+
+The data are structured like this: each _row_ contains data on the number of deaths for a particular _jurisdiction_ during each _week_ in the years 2015 to 2020. The _n_ column is the number of deaths in a particular week in a particular year in a particular jurisdiction. So, in the first row of the data we have `n` = 1139 deaths in Alambama in week 1 of 2015. The `average_wk_deaths` column shows the average number of deaths for that place and week, averaged over 2015-2019. The `n_diff` column is `n` minus `average_wk_deaths`. The `pct_diff` column is the same difference expressed as a percentage. So again, in row 1, Week 1 of 2015 had 20.4 more deaths than average, or 1.79% more than the 2015-2019 average Alabama in that week. Finally the `era` column is `FALSE` for the years 2015-2019 and `TRUE` for 2020. 
+
+# Tasks
+
+Get some initial views of the trends in this data.
+
+## Make a graph showing all the trend lines in mortality counts for every jurisdiction
+
+- Does this seem like a sensible graph? Why or why not?
+
+## Make a trend graph for one state only
+
+- To select a single state, use `filter()`:
+
+```{r}
+df |> 
+  filter(jurisdiction == "North Carolina")
+```
+
+## Make a trend graph for up to five states
+
+- To select several states, use `filter()` again, with  `%in%` and `c()`:
+
+```{r}
+df |> 
+  filter(jurisdiction %in% c("North Carolina", "Connecticut", "Alabama"))
+```
+
+
+- What sort of differences are there across the states you chose? 
+
+## Make a graph comparing the average deaths to the 2020 deaths
+
+Hint 1: You can summarize your data by "era" like this:
+
+```{r}
+df |> 
+  group_by(week, era) |> 
+  summarize(n = mean(n, na.rm = TRUE))
+```
+
+
+Hint 2: Now use `color` in your `aes()` call to draw lines picking out the Covid era (2020) vs non-Covid. 
+
+
+
+
+
