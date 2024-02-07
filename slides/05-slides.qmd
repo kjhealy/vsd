@@ -679,7 +679,7 @@ rel_by_region |>
 ---
 
 :::{.huge}
-[Use `dplyr` to summarize tables.]{.fg-orange}<br />[Then send them to `ggplot`.]{.fg-lblue}
+[Use `dplyr` to make your summary table.]{.fg-orange}<br />[Then send it to `ggplot`.]{.fg-lblue}
 :::
 
 
@@ -1186,8 +1186,8 @@ head(by_country)
   by_country <- organdata |> 
     group_by(consent_law, country) |>
       summarize(across(where(is.numeric),#<<
-                       list(mean = ~ mean(.x, na.rm = TRUE), 
-                            sd = ~ sd(.x, na.rm = TRUE))))
+                       list(mean = \(x) mean(x, na.rm = TRUE), #<<
+                            sd = \(x) sd(x, na.rm = TRUE)))) #<<
 head(by_country)              
               
 ```
@@ -1199,8 +1199,8 @@ head(by_country)
 by_country <- organdata |> 
   group_by(consent_law, country) |>
     summarize(across(where(is.numeric),#<<
-                       list(mean = ~ mean(.x, na.rm = TRUE), 
-                            sd = ~ sd(.x, na.rm = TRUE))), 
+                       list(mean = \(x) mean(x, na.rm = TRUE), 
+                            sd = \(x) sd(x, na.rm = TRUE))), 
               .groups = "drop") #<<
 head(by_country)              
               
@@ -1304,8 +1304,6 @@ by_country |>
 
 ## Again, these methods are general
 
-:::: {.columns}
-::: {.column width="50%"}
 ```{r}
 #| label: "codefig-consent4"
 #| message: FALSE
@@ -1328,8 +1326,6 @@ by_country |>
        y = NULL, 
        color = "Consent Law")
 ```
-
-
 
 
 ```{r}
@@ -1368,8 +1364,8 @@ gss_sm |>
   group_by(padeg, madeg) |>
   summarize(across(where(is.numeric),
                      list(
-                       mean = ~ mean(.x, na.rm = TRUE), 
-                       sd = ~ sd(.x, na.rm = TRUE)
+                       mean = \(x) mean(x, na.rm = TRUE), 
+                       sd = \(x) sd(x, na.rm = TRUE)
                        ))) |> 
   drop_na() |> 
   ggplot(mapping = aes(x = childs_mean,
