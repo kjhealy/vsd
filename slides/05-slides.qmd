@@ -146,7 +146,7 @@ Not all of these are attached when we do `library(tidyverse)`
 
 # Crosstabulation [and beyond]{.fg-lblue}
 
-## U.S. General Social Survey data: [`gss_sm`]{.fg-pink}
+## U.S. General Social Survey data
 
 ```{r }
 #| label: "05-work-with-dplyr-and-geoms-2"
@@ -207,8 +207,9 @@ gss_sm |>
 
 
 ::::: {.fragment fragment-index=1}
-- Remember, tibbles are tables of data where the columns can be of different types, such as numeric, logical, character, factor, etc.
-- We'll use dplyr to _transform_ and _summarize_ our data.
+Remember, tibbles are tables of data where the columns can be of different types, such as integer, double, logical, character, factor, etc.
+
+We'll use dplyr to _transform_ and _summarize_ our data.
 
 :::::
 
@@ -232,23 +233,27 @@ gss_sm |>
 ## Some [actions]{.fg-orange} to take on a single table 
 
 ::: {.incremental}
-- [**Group**]{.fg-orange} the data at the level we want, such as “_Religion by Region_” or “_Children by School_”.
 
-- [**Subset**]{.fg-orange} either the rows or columns of or table—i.e. remove them before doing anything.
+[**Group**]{.fg-orange} the data at the level we want, such as “_Religion by Region_” or “_Children by School_”.
 
-- [**Mutate**]{.fg-orange} the data. That is, change something at the _current_ level of grouping.  Mutating adds new columns to the table, or changes the content of an existing column. It never changes the number of rows.
+[**Subset**]{.fg-orange} either the rows or columns of or table—i.e. remove them before doing anything.
 
-- [**Summarize**]{.fg-orange} or aggregate the data. That is, make something new at a _higher_ level of grouping. E.g., calculate means or counts by some grouping variable. This will generally result in a smaller, _summary_ table. Usually this will have the same number of _rows_ as there are _groups_ being summarized.
+[**Mutate**]{.fg-orange} the data. That is, change something at the _current_ level of grouping.  Mutating adds new columns to the table, or changes the content of an existing column. It never changes the number of rows.
+
+[**Summarize**]{.fg-orange} or aggregate the data. That is, make something new at a _higher_ level of grouping. E.g., calculate means or counts by some grouping variable. This will generally result in a smaller, _summary_ table. Usually this will have the same number of _rows_ as there are _groups_ being summarized.
 :::
 
 
 ## For each [action]{.fg-orange} there's a [function]{.fg-green} 
 
 ::: {.incremental}
-- [**Group**]{.fg-orange} using  **`group_by()`**.
-- [**Subset**]{.fg-orange} has one action for rows and one for columns. We **`filter()`** rows and **`select()`** columns.
-- [**Mutate**]{.fg-orange} tables (i.e. add new columns, or re-make existing ones) using **`mutate()`**.
-- [**Summarize**]{.fg-orange} tables (i.e. perform aggregating calculations) using **`summarize()`**.
+[**Group**]{.fg-orange} using  **`group_by()`**.
+
+[**Subset**]{.fg-orange} has one action for rows and one for columns. We **`filter()`** rows and **`select()`** columns.
+
+[**Mutate**]{.fg-orange} tables (i.e. add new columns, or re-make existing ones) using **`mutate()`**.
+
+[**Summarize**]{.fg-orange} tables (i.e. perform aggregating calculations) using **`summarize()`**.
 :::
 
 # Group and Summarize
@@ -306,9 +311,14 @@ gss_sm |>
 ```
 
 ::: {.incremental}
-- The function [**`n()`**]{.fg-green} counts up the rows within each group.    
-- All the other columns are dropped in the summary operation
-- Your original [`gss_sm`]{.fg-pink} table is untouched
+
+The function [**`n()`**]{.fg-green} counts up the rows within each group.    
+
+You get as many rows back as there were groups.
+
+All the other columns are dropped in the summary operation
+
+Your original [`gss_sm`]{.fg-pink} table is untouched
 :::
 
 
@@ -326,7 +336,13 @@ gss_sm |>
 ```
 
 ::: {.incremental}
-- The function [**`n()`**]{.fg-green} counts up the rows within the _innermost_ (i.e. the rightmost) group.
+
+The function [**`n()`**]{.fg-green} counts up the rows within the groups.
+
+Again, there are as many rows as there were groups. So the "_innermost_" (i.e. the rightmost) group "disappears" or is "rolled up". 
+
+In this case the tibble out the other side is still grouped at the next level of grouping, here `bigregion`. 
+
 :::
 
 
@@ -346,9 +362,12 @@ gss_sm |>
 
 
 ::: {.incremental}
-- The function [**`n()`**]{.fg-green} counts up the rows 
-- Which rows? The ones fed down the pipeline
-- The _innermost_ (i.e. the rightmost) group.
+
+The function [**`n()`**]{.fg-green} counts up the rows 
+
+Which rows? The ones fed down the pipeline
+
+Summing over the _innermost_ (i.e. the rightmost) group.
 :::
 
 ## Pipelines carry assumptions forward
@@ -363,8 +382,9 @@ gss_sm |>
 ```
 
 :::{.small}
-- Groups are carried forward till summarized or explicitly ungrouped
-- Summary calculations are done on the innermost group, which then "disappears".
+Groups are carried forward till summarized or explicitly ungrouped
+
+Summary calculations are done on the innermost group, which then "disappears".
 :::
 
 
@@ -659,7 +679,7 @@ rel_by_region |>
 ---
 
 :::{.huge}
-[Use `dplyr` to make summary tables.]{.fg-orange}<br />[Then send your clean tables to `ggplot`.]{.fg-lblue}
+[Use `dplyr` to summarize tables.]{.fg-orange}<br />[Then send them to `ggplot`.]{.fg-lblue}
 :::
 
 
@@ -742,17 +762,29 @@ This is true of Tidyverse pipelines in general. Let's look at the help for `summ
 
 # Working with `dplyr`
 
-## The `nycdogs` dataset
+## Dogs of New York
 
-Licensed dogs in New York.
+:::: {.columns}
+::: {.column width="60%"}
 
-```{r}
-# remotes::install_github("kjhealy/nycdogs")
+::::: {.smallcode}
+```{r }
+#| label: "07-make-maps-51"
 library(nycdogs)
 nyc_license
 ```
+:::::
 
-## The `nycdogs` dataset
+:::
+
+::: {.column width="40%" .right}
+![](img/07_nycdogs_hex.png)
+:::
+::::
+
+All licensed dogs in New York City.
+
+## Dogs of New York
 
 ```{r}
 nyc_license |> 
@@ -760,49 +792,47 @@ nyc_license |>
 ```
 
 
-## The `nycdogs` dataset
+## Dogs of New York
 
 ```{r}
 nyc_license |> 
-  summarize(.by = extract_year)
+  group_by(extract_year) |> 
+  summarize(total = n())
 ```
 
-## The `nycdogs` dataset
+## Dogs of New York
 
 ```{r}
 nyc_license |> 
-  summarize(total = n(), .by = extract_year)
-```
-
-
-## The `nycdogs` dataset
-
-```{r}
-nyc_license |> 
-  summarize(total = n(), .by = borough)
-```
-
-## The `nycdogs` dataset
-
-```{r}
-nyc_license |> 
-  summarize(.by = c(borough, extract_year))
+  group_by(extract_year) |> 
+  tally()
 ```
 
 
-## The `nycdogs` dataset
+## Dogs of New York
 
 ```{r}
 nyc_license |> 
-  summarize(total = n(), .by = c(borough, extract_year))
+  group_by(borough) |> 
+  summarize(total = n())
 ```
 
-## The `nycdogs` dataset
+## Dogs of New York
 
 ```{r}
 nyc_license |> 
-  summarize(total = n(), .by = c(borough, extract_year)) |> 
-  pivot_wider(names_from = extract_year, values_from = total) |> 
+  group_by(borough, extract_year) |> 
+  tally()
+```
+
+
+## Dogs of New York
+
+```{r}
+nyc_license |> 
+  group_by(borough, extract_year) |> 
+  tally() |> 
+  pivot_wider(names_from = extract_year, values_from = n) |> 
   knitr::kable()
 ```
 
@@ -811,7 +841,8 @@ nyc_license |>
 ```{r}
 nyc_license |> 
   filter(extract_year == 2018) |> 
-  summarize(total = n(), .by = c(animal_name)) |> 
+  group_by(animal_name) |> 
+  summarize(total = n()) |> 
   slice_max(total, n = 10)
 ```
 
@@ -1350,29 +1381,8 @@ gss_sm |>
 ```
 
 
-## The [`nycdogs`]{.fg-lblue} package
 
-
-:::: {.columns}
-::: {.column width="60%"}
-
-::::: {.smallcode}
-```{r }
-#| label: "07-make-maps-51"
-library(nycdogs)
-nyc_license
-```
-:::::
-
-:::
-
-::: {.column width="40%" .right}
-![](img/07_nycdogs_hex.png)
-:::
-::::
-
-
-## Dogs of New York
+## Dogs of New York again
 
 ```{r}
 nyc_license
