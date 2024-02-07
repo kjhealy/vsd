@@ -137,7 +137,7 @@ rel_by_region
 
 ```
 
-## Summarize (usually) returns one tibble row per group
+## Summarize returns one tibble row per group
 
 ```{r}
 gss_sm |> 
@@ -179,11 +179,11 @@ Better:
 organdata |> 
     group_by(consent_law, country) |>
       summarize(across(where(is.numeric),
-                       list(mean = ~ mean(.x, na.rm = TRUE), 
-                            sd = ~ sd(.x, na.rm = TRUE))))
+                       list(mean = \(x) mean(x, na.rm = TRUE), 
+                            sd = \(x) sd(x, na.rm = TRUE))))
 ```
 
-Think of `.x` as a _pronoun_. It means "the thing" or "the thing we're doing something to right now".  
+The `\(x)` introduces an _anonymous function_ or _lambda_. The `x` means "the thing" or "the thing we're doing something to right now", and what follows it is some operation we perform on the thing.  
 
 Optionally drop any remaning groups:
 
@@ -191,12 +191,10 @@ Optionally drop any remaning groups:
 organdata |> 
     group_by(consent_law, country) |>
       summarize(across(where(is.numeric),
-                       list(mean = ~ mean(.x, na.rm = TRUE), 
-                            sd = ~ sd(.x, na.rm = TRUE))),
+                       list(mean = \(x) mean(x, na.rm = TRUE), 
+                            sd = \(x) sd(x, na.rm = TRUE))),
                 .groups = "drop")
 ```
-
-- Tidyverse functions use this dot prefix in names like `.x` and `.groups` for internal function arguments that should not be confused with trying to directly name or talk about columns in the data. 
 
 - The `across()` function is used _inside_ `summarize()` and `mutate()` to do something across some subset of columns. 
 
@@ -222,7 +220,7 @@ The function can be a named one, or you can write something yourself:
 ```{r}
 organdata |>
   mutate(across(starts_with("pop"), 
-         ~ .x / 100))
+         \(x) x / 100))
 ```
 
 You can use `where()` with `select()` as well, when you are just subsetting by column but not yet doing anything across the columns:

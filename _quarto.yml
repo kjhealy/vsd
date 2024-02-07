@@ -63,8 +63,8 @@ website:
               file: content/03-content.qmd
             - text: "04: How ggplot Thinks"
               file: content/04-content.qmd
-            # - text: "05: Show the Right Numbers"
-            #   file: content/05-content.qmd
+            - text: "05: Show the Right Numbers"
+              file: content/05-content.qmd
             # - text: "06: Expand your Vocabulary"
             #   file: content/06-content.qmd
         - section: "Applications"
@@ -112,10 +112,10 @@ website:
               file: example/02-example.qmd
             - text: "03: Basic Plots"
               file: example/03-example.qmd
-            # - text: "04: Core ggplot"
-            #   file: example/04-example.qmd
-            # - text: "05: Core dplyr"
-            #   file: example/05-example.qmd
+            - text: "04: Core ggplot"
+              file: example/04-example.qmd
+            - text: "05: Core dplyr"
+              file: example/05-example.qmd
             # - text: "06: More Vocabulary"
             #   file: example/06-example.qmd
         - section: "Applications"
