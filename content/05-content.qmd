@@ -1,6 +1,6 @@
 ---
 title: "5. Show the Right Numbers"
-date: "2024-02-08"
+date: "2024-02-07"
 ---
 
 ```{r slides, echo=FALSE, include=FALSE}
