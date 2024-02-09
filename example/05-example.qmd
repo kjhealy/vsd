@@ -241,8 +241,17 @@ organdata |>
 ```
 
 
+## Reminder: the `%in%` operator
 
-## This applies to `mutate()` as well
+This is a useful way to restrict selections of either columns, with `select()`, or especially rows, with (`filter`):
+
+```{r}
+organdata |> 
+  filter(country %in% c("Ireland", "Italy", "Spain"))
+```
+
+
+## All this applies to `mutate()` as well
 
 If you use a function like `mean()` or `sd()` or `n()` with `mutate()` instead of `summarize()` it will work too. The difference is that a column will be added with the value repeated for all group members. This can be useful when you want e.g. to make a denominator for some calculation later. Remember, `mutate()` adds or changes columns but never changes the number of rows in the table, whereas `summarize()` will usually output a table with fewer rows than the one you give it.
 

@@ -65,8 +65,8 @@ website:
               file: content/04-content.qmd
             - text: "05: Show the Right Numbers"
               file: content/05-content.qmd
-            # - text: "06: Expand your Vocabulary"
-            #   file: content/06-content.qmd
+            - text: "06: Expand your Vocabulary"
+              file: content/06-content.qmd
         - section: "Applications"
           contents:
             # - text: "07: Social Data and the State"
