@@ -377,8 +377,8 @@ organdata |>
 by_country <- organdata |> 
   group_by(consent_law, country) |>
     summarize(across(where(is.numeric),
-                     list(mean = ~ mean(.x, na.rm = TRUE), 
-                          sd = ~ sd(.x, na.rm = TRUE))), 
+                     list(mean = \(x) mean(x, na.rm = TRUE), 
+                          sd = \(x) sd(x, na.rm = TRUE))), 
               .groups = "drop") #<<
 head(by_country)              
               
@@ -503,6 +503,38 @@ by_country |>
        y = NULL, 
        color = "Consent Law")
 ```
+
+
+# Your turn
+
+## Load this data
+
+```{r}
+movies <- read_csv("https://kjhealy.co/movies.csv")
+
+movies
+```
+
+::: aside
+  Data courtesty of Aaron Gullickson
+:::
+
+## Overview
+
+English-language movies produced in the US; at least 80 minutes long and no longer than 3.5 hours; received at least 500 votes on the Internet Movie Database; MPAA rating between G and R; made at least $100,000 domestically
+
+## Overview
+
+* **year**: The calendar year of the film’s release.
+* **runtime**: The length of the movie in minutes.
+* **maturity_rating**: The movie’s [MPA maturity rating](https://en.wikipedia.org/wiki/Motion_Picture_Association_film_rating_system) (G, PG, PG-13, or R).
+* **genre**: The genre of the film (one only).
+* **box_office**: Gross domestic (US only) box office returns for the movie in millions of US dollars. Not adjusted for inflation.
+* **rating_imdb**: This is average score (between 1 and 10) for a movie provided by IMDB users. 
+* **metascore**: The movie's [metascore](https://www.metacritic.com/about-metascores) rating from [metacritic](https://www.metacritic.com/). The metascore is a curated weighted average of reviewer scores from a variety of sources.
+* **awards**: The number of Oscar awards that this movie received.
+
+# What can we learn from visualizing this data?
 
 # [Plot text directly]{.fg-yellow}
 
