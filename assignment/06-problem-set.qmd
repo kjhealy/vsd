@@ -1,0 +1,12 @@
+---
+title: "Problem set 06"
+date: "2024-02-21"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.align = "center")
+source(here::here("R", "slide-things.R"))
+```
+
+There is no separate problem set this week. Instead we have a [Midterm](assignment/midterm.qmd). 
+

@@ -1,0 +1,133 @@
+---
+title: "Midterm"
+author: "<PUT YOUR NAME HERE>"
+date: "`r Sys.Date()`"
+format: html
+---
+
+# Midterm Project
+
+You will explore the movie data. It is in the `data/` folder of this project in a CSV file called `movies.csv`
+
+## Set up your work environment
+
+First, load the `tidyverse` package and the `here` package.
+
+```{r}
+
+```
+
+
+
+## Read in the data
+
+Next, read in the movie data file, putting in in an object called `movies`
+
+```{r}
+
+```
+
+
+## Display the first few rows of the data
+
+```{r}
+
+```
+
+
+## Display a random sample of ten rows from the data
+
+Use the `dplyr` function `slice_sample()` to do this. 
+
+```{r}
+
+```
+
+
+## About the data
+
+The dataset was assembled and cleaned by Aaron Gullickson. It contains information on English-language movies produced in the US between 2000 and 2021; that are at least 80 minutes long and no longer than 3.5 hours long; that received at least 500 votes on the Internet Movie Database; that have an MPAA rating between G and R; and that made at least $100,000 domestically. 
+
+The _unit of observation_ is an individual movie. That is, each row is a film. 
+
+The columns or variables are:
+
+- **year**: The calendar year of the film’s release.
+- **runtime**: The length of the movie in minutes.
+- **maturity_rating**: The movie’s [MPA maturity rating](https://en.wikipedia.org/wiki/Motion_Picture_Association_film_rating_system) (G, PG, PG-13, or R).
+- **genre**: The genre of the film (one only).
+- **box_office**: Gross domestic (US only) box office returns for the movie in millions of US dollars. Not adjusted for inflation.
+- **rating_imdb**: This is average score (between 1 and 10) for a movie provided by IMDB users. 
+- **metascore**: The movie's [metascore](https://www.metacritic.com/about-metascores) rating from [metacritic](https://www.metacritic.com/). The metascore is a curated weighted average of reviewer scores from a variety of sources.
+- **awards**: The number of Oscar awards that this movie received.
+
+## Questions
+
+## 1. Draw a histogram of the distibution of movie run-time. 
+
+```{r}
+
+```
+
+Say in a sentence or two what the distribution suggests to you. 
+
+## 2. Draw a histogram of the distribution of box office receipts
+
+```{r}
+
+```
+
+
+Say in a sentence or two what the distribution suggests to you. 
+
+## 3. Is there a relationship between run-time and box office?
+
+Use `geom_point()` and `geom_smooth()` to answer this question. Say in a sentence what you think the relationship is, and how strong you think it is.
+
+```{r}
+
+```
+
+## 4. What do the distributions of IMDB rating and Metascore look like individually? 
+
+```{r}
+
+```
+
+
+## 5. Is there a relationship between IMDB rating and Metascore? What sort?
+
+```{r}
+
+```
+
+## 6. Draw a graph to show the distribution of box office returns by genre. Are some genres more likely than others to do well at the box office? Which ones?
+
+```{r}
+
+```
+
+## 8. Draw a graph to show the number of movies made within each genre. 
+
+```{r}
+
+```
+
+## 9. Draw a graph to show the number of awards received within each genre. 
+
+```{r}
+
+```
+
+## 10. How is the number of awards received by a genre related to the number of movies made in that genre? Draw a graph showing the relationship. Label the genres on the graph. 
+
+```{r}
+
+```
+
+## 11. Finally, some movies obviously do much better than others in terms of rating and box office. Draw a scatterplot of the relationship between metascore rating and box office for all movies, with labels showing the titles of the movies that score highly on both box office and metascore.
+
+```{r}
+
+```
+

@@ -25,12 +25,12 @@ This week we complete our initial tour of ggplot's capabilities by introducing o
 The slide deck for this week will appear here. 
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
-#slide_buttons("/slides/06-slides")
+slide_buttons("/slides/06-slides")
 ```
 
 <div>
 ```{=html}
-<!--iframe class="slide-deck" src="/slides/06-slides.html"></iframe-->
+<iframe class="slide-deck" src="/slides/06-slides.html"></iframe>
 ```
 </div>
 
