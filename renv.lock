@@ -797,9 +797,14 @@
     },
     "flipbookr": {
       "Package": "flipbookr",
-      "Version": "0.1.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
+      "Version": "0.2.1",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "flipbookr",
+      "RemoteUsername": "kjhealy",
+      "RemoteRef": "quarto",
+      "RemoteSha": "078523610e44afdf5d3b0d705b8e0b6753920636",
       "Requirements": [
         "dplyr",
         "glue",
@@ -812,7 +817,7 @@
         "tibble",
         "tidyr"
       ],
-      "Hash": "0350532ce9989f9b93df5d4a1903200b"
+      "Hash": "871bfb11ea67d81a30d54a44def725b8"
     },
     "fontawesome": {
       "Package": "fontawesome",
