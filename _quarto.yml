@@ -67,10 +67,11 @@ website:
               file: content/05-content.qmd
             - text: "06: Expand your Vocabulary"
               file: content/06-content.qmd
+
         - section: "Applications"
           contents:
-            # - text: "07: Social Data and the State"
-            #   file: content/07-content.qmd
+            - text: "07: Social Data, Social Categories, and the State"
+              file: content/07-content.qmd
             # - text: "08: Trends and Time Series"
             #   file: content/08-content.qmd
             # - text: "09: Maps and Spatial Data"
@@ -95,7 +96,7 @@ website:
             - assignment/04-problem-set.qmd
             - assignment/05-problem-set.qmd
             - assignment/midterm.qmd
-            # - assignment/07-problem-set.qmd
+            - assignment/07-problem-set.qmd
             # - assignment/08-problem-set.qmd
             # - assignment/12-problem-set.qmd
             # - assignment/final-project.qmd

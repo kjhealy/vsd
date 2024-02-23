@@ -1,5 +1,5 @@
 ---
-title: "07 --- Data and the State"
+title: "07 --- Social Data, Social Categories, and the State"
 format: kjhslides-revealjs
 engine: knitr
 filters:
@@ -57,6 +57,137 @@ library(tidyverse)  # your friend and mine
 library(tidycensus) # Tidily interact with the US Census
 ```
 
+
+# Problem Set review
+
+## Grouping
+
+```{r}
+library(palmerpenguins)
+penguins
+```
+
+## Grouping
+
+- Always ask the question "What is a row in this table?"
+- Always ask the question "What do I want a row to be in the table I make"
+
+## Grouping
+
+- Always ask the question "What is a row in this table?"
+- Always ask the question "What do I want a row to be in the table I make"
+
+
+```{r}
+penguins |> 
+  group_by(island) |> 
+  summarize(mean_bl_by_island = mean(bill_length_mm, na.rm = TRUE))
+
+
+```
+
+
+## Grouping
+
+- Always ask the question "What is a row in this table?"
+- Always ask the question "What do I want a row to be in the table I make"
+
+```{r}
+penguins |> 
+  group_by(species) |> 
+  summarize(mean_bl_by_species = mean(bill_length_mm, na.rm = TRUE))
+
+
+```
+
+## Grouping
+
+- Always ask the question "What is a row in this table?"
+- Always ask the question "What do I want a row to be in the table I make"
+
+
+```{r}
+penguins |> 
+  group_by(island) |> 
+  mutate(mean_bl_by_island = mean(bill_length_mm, na.rm = TRUE)) 
+
+
+```
+
+
+
+## Grouping and ranking
+
+- Always ask the question "What is a row in this table?"
+- Always ask the question "What do I want a row to be in the table I make"
+
+```{r}
+library(nycdogs)
+nyc_license |> 
+  group_by(borough, animal_name) |> 
+  summarize(n_dogs = n()) |> 
+  slice_max(n_dogs, n = 5)
+
+```
+
+
+## Groups and relationships
+
+::: {.smallcode}
+
+```{r}
+penguins |> 
+  ggplot(mapping = aes(x = bill_length_mm, y = bill_depth_mm)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", color = "black", se = FALSE)
+```
+
+:::
+
+## Groups and relationships
+
+::: {.smallcode}
+
+```{r}
+penguins |> 
+  ggplot(mapping = aes(x = bill_length_mm, y = bill_depth_mm)) + 
+  geom_point(mapping = aes(color = species)) + 
+  geom_smooth(method = "lm", color = "black", se = FALSE)
+```
+
+:::
+
+## Groups and relationships
+
+::: {.smallcode}
+
+```{r}
+penguins |> 
+  ggplot(mapping = aes(x = bill_length_mm, y = bill_depth_mm)) + 
+  geom_point(mapping = aes(color = species)) + 
+  geom_smooth(method = "lm", color = "black", se = FALSE) 
+```
+
+:::
+
+## Groups and relationships
+
+::: {.smallcode}
+```{r}
+penguins |> 
+  ggplot(mapping = aes(x = bill_length_mm, y = bill_depth_mm)) + 
+  geom_point(mapping = aes(color = species)) + 
+  geom_smooth(method = "lm", color = "black", se = FALSE) + 
+  geom_smooth(mapping = aes(color = species, fill = species), 
+              method = "lm")
+```
+:::
+
+## Simpson's Paradox
+
+- Aggregate trends or relationships between two variables, appear to reverse when broken out by category
+
+- Alternatively, a trend visible in various groups disappears or reverses when the groups are aggregated
 
 
 # What is data?

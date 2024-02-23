@@ -104,6 +104,8 @@ age10
 
 ## Some County Data for North Carolina
 
+::: {.smallcode}
+
 ```{r}
 # Census variable names
 popvars <- c("P005003", "P005004", "P005006", "P004003")
@@ -120,6 +122,7 @@ nc <- get_decennial(geography = "county",
 
 nc
 ```
+:::
 
 
 ## We can do this a little more elegantly
@@ -268,6 +271,8 @@ nc_wide |>
 
 We can ask the Census for its estimates of the age breakdown of the population, using the `get_estimates()` function. 
 
+::: {.smallcode}
+
 ```{r}
 usa <- get_estimates(
     geography = "us",
@@ -280,7 +285,11 @@ usa <- get_estimates(
 usa
 ```
 
+:::
+
 ## Population Pyramids
+
+::: {.smallcode}
 
 ```{r}
 # For the %nin% operator make sure you have 
@@ -294,8 +303,11 @@ usa_pyr <- usa |>
 usa_pyr
 ```
 
+:::
 
 ## Population Pyramids
+
+::: {.smallcode}
 
 ```{r}
 #| label: "codefig-usapyrbasic"
@@ -313,9 +325,11 @@ usa_pyr |>
        title= "US Population Pyramid") 
 ```
 
-
+:::
 
 ## Population Pyramids
+
+::: {.smallcode}
 
 ```{r}
 #| label: "codefig-usapyr"
@@ -341,4 +355,5 @@ usa_pyr |>
   theme(legend.position = "bottom")
 ```
 
+:::
 
