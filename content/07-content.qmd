@@ -1,0 +1,50 @@
+---
+title: "7. Counting People"
+date: "2024-02-21"
+---
+
+```{r slides, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+
+slide_details <- tibble::tribble(
+  ~youtube_id,   ~title, ~slide, ~active,
+  "", "", "1", TRUE)
+
+```
+
+## Summary
+
+This week we think about the nature and origins of data, using the US Census as an example.
+
+## Reading
+
+- @cegłowski10:_scott_scurv
+- @starr92:_social_categ_claim_liber_state
+- @mora14:_cross_field_effec_ethnic_class
+
+## Slides
+
+The slide decks for this week (there are two again) are available here. 
+
+```{r show-slide-tabs, echo=FALSE, results="asis"}
+slide_buttons("/slides/07-slides")
+```
+
+<div>
+```{=html}
+<iframe class="slide-deck" src="/slides/07-slides.html"></iframe>
+```
+</div>
+
+
+```{r show-slide-tabs-2, echo=FALSE, results="asis"}
+slide_buttons("/slides/07b-slides")
+```
+
+<div>
+```{=html}
+<iframe class="slide-deck" src="/slides/07b-slides.html"></iframe>
+```
+</div>
+
+

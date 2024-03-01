@@ -2,7 +2,7 @@
 title: "About this website"
 ---
 
-Course materials and website for [Visualizing Social Data](https://visualizingsociety.com), which [I](https://kieranhealy.org/about) am teaching at Duke University in the Spring of 2023. 
+Course materials and website for [Visualizing Social Data](https://visualizingsociety.com), which [I](https://kieranhealy.org/about) am teaching at Duke University in the Spring of 2024. 
 
 ### Acknowledgements
 
@@ -10,7 +10,7 @@ Many thanks to the frighteningly energetic and exceedingly helpful [Andrew Heiss
 
 ### Tools
 
-Previously I built this and similar sites using a combination of RMarkdown, [hugo](https://gohugo.io), a [Makefile](https://www.gnu.org/software/make/), and various pieces of string. This time around I'm experimenting with [Quarto](https://quarto.org) to produce the website (instead of `hugo`), alongside the  [`targets`](https://docs.ropensci.org/targets/) package to manage the build pipeline (instead of `make`), and the [`renv`](https://rstudio.github.io/renv/) package to control the build environment (instead of, uh, `nothing`). I suppose I should really be using Quarto to make all the slides as well. But I have a lot of pre-existing plain-text slides that I am not going to redo from scratch right now. So the slides are still made using [`xaringan`](https://github.com/yihui/xaringan), with assistance from [`xaringanExtra`](https://pkg.garrickadenbuie.com/xaringanExtra/#/) and my own convenience [`kjhslides`](https://kjhealy.github.io/kjhslides) package.
+Previously I built this and similar sites using a combination of RMarkdown, [hugo](https://gohugo.io), a [Makefile](https://www.gnu.org/software/make/), and various pieces of string. This time everything is done with [Quarto](https://quarto.org) for the documents,  [`targets`](https://docs.ropensci.org/targets/) to manage the build pipeline (instead of `make`), [`renv`](https://rstudio.github.io/renv/) to control the build environment (instead of, uh, `nothing`). The slides are made with assistance from my own convenience [`kjhslides`](https://kjhealy.github.io/kjhslides) package, which I do not recommend you use because it's janky and poorly documented.
 
 The idea is that you can build the whole thing—site, slides, and all—in a controlled way with a recent version of [R](https://r-project.org) and [RStudio](https://posit.co). 
 
