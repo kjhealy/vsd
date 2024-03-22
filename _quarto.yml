@@ -74,10 +74,10 @@ website:
               file: content/07-content.qmd
             - text: "08: Trends and Time Series"
               file: content/08-content.qmd
-            # - text: "09: Maps and Spatial Data"
-            #   file: content/09-content.qmd
-            # - text: "10: Iteration and Missingness"
-            #   file: content/10-content.qmd
+            - text: "09: Maps and Spatial Data"
+              file: content/09-content.qmd
+            - text: "10: Maps and Spatial Data II"
+              file: content/10-content.qmd
             # - text: "11: Text as Data"
             #   file: content/11-content.qmd
             # - text: "12: Network Data"
@@ -98,6 +98,7 @@ website:
             - assignment/midterm.qmd
             - assignment/07-problem-set.qmd
             - assignment/08-problem-set.qmd
+            - assignment/10-problem-set.qmd
             # - assignment/12-problem-set.qmd
             # - assignment/final-project.qmd
 
@@ -126,8 +127,8 @@ website:
             #   file: example/07-example.qmd
             - text: "08: Trends and Time"
               file: example/08-example.qmd
-            # - text: "09: Maps and Spatial Data"
-            #   file: example/09-example.qmd
+            - text: "09: Maps and Spatial Data"
+              file: example/09-example.qmd
             # - text: "12: Network Data"
             #   file: example/12-example.qmd
         - section: "Final Project"

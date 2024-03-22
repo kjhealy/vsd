@@ -1,0 +1,37 @@
+---
+title: "10. Maps and Spatial Data II"
+date: "2024-03-20"
+---
+
+```{r slides, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+
+slide_details <- tibble::tribble(
+  ~youtube_id,   ~title, ~slide, ~active,
+  "", "", "1", TRUE)
+
+```
+
+## Summary
+
+More on maps and spatial data.
+
+## Reading
+
+- @wilke:2019 [Chapter 15](https://clauswilke.com/dataviz/geospatial-data.html)
+
+## Slides
+
+The slide deck for this week is available here. 
+
+```{r show-slide-tabs-3, echo=FALSE, results="asis"}
+slide_buttons("/slides/10-slides")
+```
+
+<div>
+```{=html}
+<iframe class="slide-deck" src="/slides/10-slides.html"></iframe>
+```
+</div>
+
+

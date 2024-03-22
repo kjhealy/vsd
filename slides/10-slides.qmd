@@ -1,0 +1,1110 @@
+---
+title: "10 --- Maps and Spatial Data II"
+format: kjhslides-revealjs
+engine: knitr
+filters:
+  - invert-h1
+  - line-highlight
+  - include-code-files
+author:
+  - name: Kieran Healy
+date: last-modified
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| label: "packages"
+#| include: FALSE
+library(flipbookr)
+library(here)
+library(tidyverse)
+library(kjhslides)
+```
+
+
+```{r}
+#| label: "setup"
+#| include: FALSE
+
+kjh_register_tenso()
+kjh_set_knitr_opts()
+kjh_set_slide_theme()
+
+
+
+
+
+
+
+# Safe
+```
+
+
+
+# [Maps and]{.fg-yellow}<br /> [Spatial Data]{.fg-lblue} (2)
+
+## Load our libraries
+
+
+```{r}
+#| label: "05-work-with-dplyr-and-geoms-1"
+#| message: TRUE
+library(here)       # manage file paths
+library(socviz)     # data and some useful functions
+library(tidyverse)  # your friend and mine
+library(tidycensus) # Tidily interact with the US Census
+library(maps)       # Some basic maps
+library(sf)         # Make maps in ggplot
+library(tigris)     # Talk to the Census's TIGER data
+library(ggforce)    # Useful enhancements to ggplot
+```
+
+# Proper Maps with [Simple Features]{.fg-lblue}
+
+## [`geom_polygon()`]{.fg-green} is limiting
+
+It's very useful to have the intuition that, when drawing maps, [we're just working with tables]{.fg-orange} of `x` and `y` coordinates, and [shapes represent quantities in our data]{.fg-orange}, in a way that's essentially the same as any other geom. This makes it worth getting comfortable with what  [`geom_polygon()`]{.fg-green} and [`coord_map()`]{.fg-green} are doing. But the business of having very large map tables and manually specifying projections is inefficient. 
+
+In addition, sometimes our data _really is_ properly spatial, at which point we need a more rigorous and consistent way of specifying those elements. There's a whole world of Geodesic standards and methods devoted to specifying these things for GIS applications. R is not a dedicated GIS, but we can take advantage of these tools.
+
+::: {.incremental}
+Enter [simple features]{.fg-pink}, the [`sf`]{.fg-lblue} package, and [`geom_sf()`]{.fg-green}
+:::
+
+
+
+## The Simple Features package
+
+```{r}
+#| label: "07-make-maps-49"
+#| echo: FALSE
+detach(package:sf)
+```
+
+When we load [`sf`]{.fg-lblue} it creates a way to use several standard GIS concepts and tools, such as the [GEOS]{.fg-lblue} library for computational geometry, the [PROJ]{.fg-lblue} software that transforms spatial coordinates from one reference system to another, as in map projections, and the Simple Features standard for specifying the elements of spatial attributes. 
+
+```{r}
+#| label: "07-make-maps-50"
+#| message: TRUE
+library(sf)
+```
+
+Let's see the main upshot for us. 
+
+## What's a Feature?
+
+A feature is a thing or object in the real world: a building, a tree, a field, a county. 
+
+Like real objects, features are often made of other objects. 
+
+"A set of features can form a single feature: A forest stand can be a feature, a forest can be a feature, a city can be a feature. A satellite image pixel can be a feature, a complete image can be a feature too." 
+
+Features have a _geometry_ describing _where_ on Earth the feature is located, and they have attributes, which describe other properties.
+
+## Features have Dimensions
+
+All geometries are composed of points. Points are coordinates in a
+2-, 3- or 4-dimensional space.  All points in a geometry have the
+same dimensionality. In addition to X and Y coordinates, there are
+two optional additional dimensions:
+
+* a Z coordinate, denoting altitude
+* an M coordinate (rarely used), denoting some _measure_ that is associated with the point, rather than with the feature as a whole (in which case it would be a feature attribute); examples could be time of measurement, or measurement error of the coordinates
+
+## Features have Dimensions
+
+T. Two-dimensional points refer to x and y, easting and northing, or longitude and latitude, we refer to them as `XY`
+2. Three-dimensional points as `XYZ`
+3. Three-dimensional points as `XYM`
+4. Four-dimensional points as `XYZM` (the third axis is Z, fourth M)
+
+## The most common kinds
+
+| type | description                                        |
+| ---- | -------------------------------------------------- |
+| `POINT` | zero-dimensional geometry containing a single point |
+| `LINESTRING` | sequence of points connected by straight, non-self intersecting line pieces; one-dimensional geometry |
+| `POLYGON` | geometry with a positive area (two-dimensional); sequence of points form a closed, non-self intersecting ring; the first ring denotes the exterior ring, zero or more subsequent rings denote holes in this exterior ring |
+| `MULTIPOINT` | set of points; a MULTIPOINT is simple if no two Points in the MULTIPOINT are equal |
+| `MULTILINESTRING` | set of linestrings |
+| `MULTIPOLYGON` | set of polygons |
+| `GEOMETRYCOLLECTION` | set of geometries of any type except GEOMETRYCOLLECTION |
+
+
+## What they look like
+
+```{r}
+#| echo: false
+#| include: false
+p <- rbind(c(3.2,4), c(3,4.6), c(3.8,4.4), c(3.5,3.8), c(3.4,3.6), c(3.9,4.5))
+(mp <- st_multipoint(p))
+s1 <- rbind(c(0,3),c(0,4),c(1,5),c(2,5))
+(ls <- st_linestring(s1))
+s2 <- rbind(c(0.2,3), c(0.2,4), c(1,4.8), c(2,4.8))
+s3 <- rbind(c(0,4.4), c(0.6,5))
+(mls <- st_multilinestring(list(s1,s2,s3)))
+p1 <- rbind(c(0,0), c(1,0), c(3,2), c(2,4), c(1,4), c(0,0))
+p2 <- rbind(c(1,1), c(1,2), c(2,2), c(1,1))
+pol <-st_polygon(list(p1,p2))
+p3 <- rbind(c(3,0), c(4,0), c(4,1), c(3,1), c(3,0))
+p4 <- rbind(c(3.3,0.3), c(3.8,0.3), c(3.8,0.8), c(3.3,0.8), c(3.3,0.3))[5:1,]
+p5 <- rbind(c(3,3), c(4,2), c(4,3), c(3,3))
+(mpol <- st_multipolygon(list(list(p1,p2), list(p3,p4), list(p5))))
+(gc <- st_geometrycollection(list(mp, mpol, ls)))
+par(mar = c(0.1, 0.1, 1.3, 0.1), mfrow = c(2, 3))
+plot(mp, col = 'red')
+box()
+title("MULTIPOINT")
+
+plot(ls, col = 'red')
+box()
+title("LINESTRING")
+
+plot(mls, col = 'red')
+box()
+title("MULTILINESTRING")
+
+plot(pol, border = 'red', col = 'grey', xlim = c(0,4))
+box()
+title("POLYGON")
+
+plot(mpol, border = 'red', col = 'grey')
+box()
+title("MULTIPOLYGON")
+
+plot(gc, border = 'grey', col = 'grey')
+box()
+title("GEOMETRYCOLLECTION")
+par(mfrow = c(1, 1))
+```
+
+
+## Coordinate reference system
+
+Coordinates can only be placed on the Earth's surface when their coordinate
+reference system (CRS) is known; this may be a spheroid CRS such
+as [WGS84](https://en.wikipedia.org/wiki/World_Geodetic_System), a
+projected, two-dimensional (Cartesian) CRS such as a UTM zone or Web
+Mercator, or a CRS in three-dimensions, or including time.
+
+
+## Example: North Carolina
+
+Conveniently, the example in the SF package is our beloved state.
+
+::: {.smallcode}
+```{r}
+nc <- st_read(system.file("shape/nc.shp", package="sf"))
+nc
+```
+:::
+
+## Example: North Carolina
+
+```{r}
+nc |> 
+  ggplot() + 
+  geom_sf()
+```
+
+## Example: North Carolina
+
+```{r}
+
+nc |> 
+  ggplot() + 
+  geom_sf(mapping = aes(fill = NAME)) + 
+  guides(fill = "none")
+
+```
+
+
+## Example: North Carolina
+
+```{r}
+
+nc |> 
+  ggplot() + 
+  geom_sf(mapping = aes(fill = NAME)) + 
+  guides(fill = "none")
+
+```
+
+```{r}
+nc  |>  
+  select(SID74, SID79, geometry) |>  
+  pivot_longer(SID74:SID79) |> 
+  ggplot() +
+  geom_sf(aes(fill = value)) + 
+  facet_wrap(~ name, ncol = 1) +
+  scale_y_continuous(breaks = 34:36) 
+```
+
+## What Simple Features buy us
+
+We can perform spatial operations much, much more easily. They're just like any other calculationg or grouping action.
+
+## What Simple Features buy us
+
+```{r}
+## Make a variable picking out five counties near where I live
+nc <- nc |> 
+  mutate(near_me = case_when(NAME %in% c("Orange", "Durham", 
+                                         "Wake", "Chatham", 
+                                         "Alamance") ~ "Near Me", 
+                             TRUE ~ "Far Away"))
+
+## What we just did
+nc |> 
+  count(near_me)
+
+```
+
+## What Simple Features buy us
+
+```{r}
+nc |> 
+  ggplot() +
+  geom_sf(mapping = aes(fill = near_me)) +
+  scale_fill_viridis_d() +
+  theme(legend.position = "bottom") +
+  labs(fill = "Near or Far?")
+
+```
+
+## What Simple Features buy us
+
+```{r}
+## These are all still county polygons. But now ...
+nc_merged <- nc |> 
+  group_by(near_me) |> 
+  summarize(mean_b = mean(BIR74), 
+            sum_sid = sum(SID74))
+
+nc_merged
+
+```
+
+
+## What Simple Features buy us
+
+```{r}
+## Now we only have two polygons
+nc_merged |> 
+  ggplot() +
+  geom_sf(mapping = aes(fill = near_me)) +
+  scale_fill_viridis_d() +
+  theme(legend.position = "bottom") +
+  labs(fill = "Near or Far?")
+```
+
+
+## More `sf` goodies
+
+Tree data
+
+```{r}
+#| echo: false
+#| include: false
+
+load(here::here("files", "data", "nytrees_example.Rdata"))
+load(here::here("files", "data", "nta20_example.Rdata"))
+```
+
+```{r}
+nytrees_example
+```
+
+## More `sf` goodies
+
+Tree data
+
+```{r}
+nta20_example
+```
+
+---
+
+```{r}
+nta20_example |> 
+  ggplot() + 
+  geom_sf()
+```
+
+## Problem
+
+How to get the new NTA boundaries merged with the tree dataset, which doesn't have them?
+
+```{r}
+nytrees_example
+```
+
+
+## Answer
+
+```{r}
+treepoints_sf <- nytrees_example |> 
+  select(nta_code, nta_name, latitude, longitude) |> 
+  st_as_sf(coords = c("longitude", "latitude"), crs = st_crs(nta20_example))
+
+treepoints_sf
+```
+
+## Answer
+
+```{r}
+treepoints2020 <- treepoints_sf |> 
+  mutate(
+    intersection = as.integer(st_intersects(geometry, nta20_example)), 
+    nta_code20 = if_else(is.na(intersection), '', nta20_example$nta_code20[intersection]), 
+    nta_name20 = if_else(is.na(intersection), '', nta20_example$nta_name20[intersection])) |> 
+  relocate(geometry, .after = everything())
+
+treepoints2020 <- treepoints2020 |> 
+  st_drop_geometry() |> 
+  select(-nta_name, -nta_code) |> 
+  distinct()
+
+treepoints2020
+
+```
+
+## Answer
+
+Now merge back in:
+
+
+```{r}
+df2020 <- nytrees_example |> 
+  left_join(treepoints2020, by = c("longitude", "latitude")) |> 
+  relocate(nta_code20, nta_name20, .after = nta_code)
+df2020
+```
+
+
+
+# Example 2: `nycdogs` again
+
+## The [`nycdogs`]{.fg-lblue} package
+::::: {.smallcode}
+:::: {.columns}
+::: {.column width="70%"}
+```{r }
+#| label: "07-make-maps-51"
+library(nycdogs)
+nyc_license
+```
+
+:::
+
+::: {.column width="30%" .right}
+![](img/09_nycdogs_hex.png)
+:::
+::::
+:::::
+
+## The [`nycdogs`]{.fg-lblue} package
+
+The metadata tells you this is not a regular tibble.
+
+```{r }
+#| label: "07-make-maps-52"
+nyc_zips
+```
+
+## The [`nycdogs`]{.fg-lblue} package
+
+```{r }
+#| label: "07-make-maps-53"
+nyc_zips |> 
+  select(objectid:borough)
+```
+
+- The [`polygon`]{.fg-orange} column is a list of lat/lon points that, when joined, draw the outline of the zip code area. This is _much_ more compact than a big table where every row is a single point.
+
+
+`r chunq_reveal("reveal-nycfrench", lcolw="50", rcolw="50", title = "Let's make a summary table")`
+
+```{r}
+#| label: "reveal-nycfrench"
+#| include: FALSE
+nyc_license  |> 
+  filter(extract_year == 2018) |> 
+  group_by(breed_rc, zip_code) |> 
+  tally() |> 
+  mutate(freq = n / sum(n)) |> 
+  filter(breed_rc == "French Bulldog") ->
+  nyc_fb
+
+```
+
+```{r}
+#| label: "make_nyc_fb"
+#| echo: FALSE
+nyc_license  |> 
+  filter(extract_year == 2018) |> 
+  group_by(breed_rc, zip_code) |> 
+  tally() |> 
+  mutate(freq = n / sum(n)) |> 
+  filter(breed_rc == "French Bulldog") ->
+  nyc_fb
+```
+
+```{r}
+#| label: "save_nyc_fb"
+#| echo: FALSE
+save(nyc_fb, file = "nyc_fb.Rdata")
+```
+
+
+## Now we have two tables again
+
+::::: {.smallcode}
+
+:::: {.columns}
+::: {.column width="70%"}
+```{r }
+#| label: "07-make-maps-54"
+nyc_zips |> select(objectid:st_fips)
+```
+
+:::
+
+::: {.column width="30%" .right}
+```{r }
+#| label: "07-make-maps-55"
+nyc_fb |> select(breed_rc:n)
+```
+
+:::
+::::
+
+:::::
+
+- Join them:
+
+```{r }
+#| label: "07-make-maps-56"
+fb_map <- left_join(nyc_zips, nyc_fb, by = "zip_code")
+```
+
+## Ready to map
+
+```{r }
+#| label: "07-make-maps-57"
+fb_map |> select(zip_code, po_name, borough, breed_rc:freq, geometry)
+```
+
+```{r}
+#| label: "save_fb_map"
+#| echo: FALSE
+#| message: FALSE
+save(fb_map, file = "fb_map.Rdata")
+```
+
+
+## A NYC map theme
+
+- Just moving the legend, really.
+
+```{r }
+#| label: "07-make-maps-58"
+theme_nymap <- function(base_size=9, base_family="") {
+    require(grid)
+    theme_bw(base_size=base_size, base_family=base_family) %+replace%
+        theme(axis.line=element_blank(),
+              axis.text=element_blank(),
+              axis.ticks=element_blank(),
+              axis.title=element_blank(),
+              panel.background=element_blank(),
+              panel.border=element_blank(),
+              panel.grid=element_blank(),
+              panel.spacing=unit(0, "lines"),
+              plot.background=element_blank(),
+              legend.justification = c(0,0),
+              legend.position = c(0.05, 0.58), 
+              legend.direction = "horizontal"
+        )
+}
+
+```
+
+## First cut at a map
+
+```{r}
+#| label: bulldog-map-manual-1
+#| output-location: column
+
+fb_map |> 
+  ggplot(mapping = aes(fill = freq)) +
+  geom_sf(color = "gray30", size = 0.1)
+
+```
+
+## First cut at a map
+
+```{r}
+#| label: bulldog-map-manual-2
+#| output-location: column
+
+fb_map |> 
+  ggplot(mapping = aes(fill = freq)) +
+  geom_sf(color = "gray30", size = 0.1) + #<<
+  scale_fill_viridis_c(option = "A") +
+  labs(fill = "Percent of All French Bulldogs") 
+```
+
+## First cut at a map
+
+```{r}
+#| label: bulldog-map-manual-3
+#| output-location: column
+
+fb_map |> 
+  ggplot(mapping = aes(fill = freq)) +
+  geom_sf(color = "gray30", size = 0.1) + #<<
+  scale_fill_viridis_c(option = "A") +
+  labs(fill = "Percent of All French Bulldogs") +
+  annotate(geom = "text", 
+             x = -74.145 + 0.029, 
+             y = 40.82-0.012, 
+           label = "New York City's French Bulldogs", 
+           size = 6) + 
+    annotate(geom = "text", 
+             x = -74.1468 + 0.029, 
+             y = 40.8075-0.012, 
+           label = "By Zip Code. Based on Licensing Data", 
+           size = 5) 
+
+```
+
+## First cut at a map
+
+```{r}
+#| label: bulldog-map-manual-4
+#| output-location: column
+
+fb_map |> 
+  ggplot(mapping = aes(fill = freq)) +
+  geom_sf(color = "gray30", size = 0.1) + #<<
+  scale_fill_viridis_c(option = "A") +
+  labs(fill = "Percent of All French Bulldogs") +
+  annotate(geom = "text", 
+             x = -74.145 + 0.029, 
+             y = 40.82-0.012, 
+           label = "New York City's French Bulldogs", 
+           size = 6) + 
+  annotate(geom = "text", 
+             x = -74.1468 + 0.029, 
+             y = 40.8075-0.012, 
+           label = "By Zip Code. Based on Licensing Data", 
+           size = 5) + 
+  kjhslides::kjh_theme_nymap() + 
+  guides(fill = 
+           guide_legend(title.position = "top", 
+                label.position = "bottom",
+                keywidth = 1, 
+                nrow = 1))  
+
+```
+
+---
+
+```{r}
+#| label: "reveal-bulldogmap-slide"
+#| echo: false
+#| fig.width: 12
+#| fig.height: 8
+
+load("fb_map.Rdata")
+fb_map |> 
+    ggplot(mapping = aes(fill = freq)) +
+    geom_sf(color = "gray30", size = 0.1) + #<<
+    scale_fill_viridis_c(option = "A") +
+    labs(fill = "Percent of All French Bulldogs") +
+    annotate(geom = "text", 
+             x = -74.145 + 0.029, 
+             y = 40.82-0.012, 
+           label = "New York City's French Bulldogs", 
+           size = 6) + 
+    annotate(geom = "text", 
+             x = -74.1468 + 0.029, 
+             y = 40.8075-0.012, 
+           label = "By Zip Code. Based on Licensing Data", 
+           size = 5) + 
+    kjhslides::kjh_theme_nymap() + 
+   guides(fill = 
+           guide_legend(title.position = "top", 
+                label.position = "bottom",
+                keywidth = 1, 
+                nrow = 1))  
+ 
+```
+
+## Use a different palette
+
+```{r}
+#| label: "reveal-bulldogmap2-1"
+#| output-location: column
+library(colorspace)
+
+fb_map |> 
+  ggplot(mapping = aes(fill = freq)) + 
+  geom_sf(color = "gray30", size = 0.1) +
+  scale_fill_continuous_sequential(
+    palette = "Oranges",
+    labels = scales::label_percent()) +
+  labs(fill = "Percent of all French Bulldogs") 
+```
+
+## Use a different palette
+
+```{r}
+#| label: "reveal-bulldogmap2-2"
+#| output-location: column
+
+fb_map |> 
+  ggplot(mapping = aes(fill = freq)) + 
+  geom_sf(color = "gray30", size = 0.1) +
+  scale_fill_continuous_sequential(
+    palette = "Oranges",
+    labels = scales::label_percent()) +
+  labs(fill = "Percent of all French Bulldogs") +
+  annotate(geom = "text", 
+           x = -74.145 + 0.029, 
+           y = 40.82-0.012, 
+           label = "New York City's French Bulldogs", 
+           size = 6) + 
+  annotate(geom = "text", 
+           x = -74.1468 + 0.029, 
+           y = 40.7955, 
+           label = "By Zip Code. Based on Licensing Data", 
+           size = 5) + 
+  kjhslides::kjh_theme_nymap() + 
+  guides(fill = 
+           guide_legend(title.position = "top", 
+                label.position = "bottom",
+                keywidth = 1, 
+                nrow = 1))  
+
+```
+
+
+---
+
+
+```{r}
+#| label: "07-make-maps-59"
+#| echo: FALSE
+#| fig.width: 12
+#| fig.height: 8
+
+fb_map |> 
+  ggplot(mapping = aes(fill = freq)) + 
+  geom_sf(color = "gray30", size = 0.1) +
+  scale_fill_continuous_sequential(
+    palette = "Oranges",
+    labels = scales::label_percent()) +
+  labs(fill = "Percent of all French Bulldogs") +
+  annotate(geom = "text", 
+           x = -74.145 + 0.029, 
+           y = 40.82-0.012, 
+           label = "New York City's French Bulldogs", 
+           size = 6) + 
+  annotate(geom = "text", 
+           x = -74.1468 + 0.029, 
+           y = 40.7955, 
+           label = "By Zip Code. Based on Licensing Data", 
+           size = 5) + 
+  kjhslides::kjh_theme_nymap() + 
+  guides(fill = 
+           guide_legend(title.position = "top", 
+                label.position = "bottom",
+                keywidth = 1, 
+                nrow = 1))  
+
+```
+
+::: aside
+NYC Dogs Map mark 2  
+:::
+
+## Keep the Zero-count Zips
+
+```{r}
+#| label: "reveal-bulldogzeros"
+
+nyc_license  |> 
+  filter(extract_year == 2018) |> 
+  group_by(breed_rc, zip_code) |> 
+  tally() |> 
+  ungroup() |> 
+  complete(zip_code, breed_rc, 
+             fill = list(n = 0)) |> 
+  # Regroup to get the right denominator
+  group_by(breed_rc) |> 
+  mutate(freq = n / sum(n)) |> 
+  filter(breed_rc == "French Bulldog") ->
+  nyc_fb2
+
+fb_map2 <- left_join(nyc_zips, 
+                     nyc_fb2, 
+                     by = "zip_code")
+
+```
+
+```{r}
+#| echo: FALSE
+save(fb_map2, nyc_fb2, file = "fbnyc2.Rdata")
+```
+
+
+## Keep the Zero-count Zips
+
+```{r }
+#| label: "07-make-maps-60"
+fb_map2 |> select(zip_code, po_name, borough, breed_rc:freq, geometry)
+```
+
+- This time, a number of previous [NA]{.fg-red} rows are now zeroes instead.
+
+
+## Keep the Zero-count Zips
+
+```{r}
+#| label: "reveal-bulldogfb2-1"
+#| output-location: column
+
+fb_map2 |>
+  ggplot(mapping = aes(fill = freq)) + 
+  geom_sf(color = "gray30", size = 0.1) +
+  scale_fill_continuous_sequential(
+    palette = "Oranges", 
+    labels = scales::label_percent()) 
+```
+
+## Keep the Zero-count Zips
+
+```{r}
+#| label: "reveal-bulldogfb2-2"
+#| output-location: column
+
+fb_map2 |>
+  ggplot(mapping = aes(fill = freq)) + 
+  geom_sf(color = "gray30", size = 0.1) +
+  scale_fill_continuous_sequential(
+    palette = "Oranges", 
+    labels = scales::label_percent()) +
+  labs(fill = "Percent of all French Bulldogs") +
+  annotate(geom = "text", 
+           x = -74.145 + 0.029, 
+           y = 40.82-0.012, 
+           label = "New York City's French Bulldogs", 
+           size = 6) + 
+  annotate(geom = "text", 
+           x = -74.1468 + 0.029, 
+           y = 40.7955, 
+           label = "By Zip Code. Based on Licensing Data", 
+           size = 5) + 
+  kjhslides::kjh_theme_nymap() + 
+  guides(fill = 
+           guide_legend(title.position = "top", 
+                        label.position = "bottom",
+                        keywidth = 1, 
+                        nrow = 1))  
+
+```
+
+---
+
+```{r}
+#| label: "07-make-maps-61"
+#| echo: FALSE
+#| fig.width: 12
+#| fig.height: 8
+fb_map2 |> 
+  ggplot(mapping = aes(fill = freq)) +
+  geom_sf(color = "gray30", size = 0.1) +
+  scale_fill_continuous_sequential(
+    palette = "Oranges", 
+    labels = scales::label_percent()) +
+  labs(fill = "Percent of all French Bulldogs") +
+  annotate(geom = "text", 
+           x = -74.145 + 0.029, 
+           y = 40.808, 
+           label = "New York City's French Bulldogs", 
+           size = 6) + 
+  annotate(geom = "text", 
+           x = -74.145 + 0.028, 
+           y = 40.795, 
+           label = "By Zip Code. Based on Licensing Data", 
+           size = 5) + 
+  kjhslides::kjh_theme_nymap() + 
+  guides(fill = 
+           guide_legend(title.position = "top", 
+                        label.position = "bottom",
+                        keywidth = 1, 
+                        nrow = 1))  
+
+```
+
+::: aside
+Zero areas properly zero, missing areas properly missing.  
+:::
+
+
+## Care with Spatial Distributions
+
+![A random point-process](img/09_point_process_random.png)
+
+
+---
+
+## Care with Spatial Distributions
+
+![A heatmap derived from the random process](img/09_kde_heatmap.png)
+
+
+---
+
+## Care with Spatial Distributions
+
+![A formal test of significant hotspots](img/09_local_moran.png)
+
+
+
+# Example: Dorling Cartograms
+
+## Dorling Cartograms
+
+```{r}
+# install.packages("cartogram")
+library(cartogram)
+options(tigris_use_cache = TRUE)
+```
+
+## Dorling Cartograms
+
+```{r}
+pop_names <- tribble(
+    ~varname, ~clean,
+    "B01003_001", "pop",
+    "B01001B_001", "black",
+    "B01001A_001", "white",
+    "B01001H_001", "nh_white",
+    "B01001I_001", "hispanic",
+    "B01001D_001", "asian"
+  )
+  
+pop_names
+
+```
+
+## Dorling Cartograms
+
+```{r}
+fips_pop <- get_acs(geography = "county", 
+                    variables = pop_names$varname, 
+                    cache_table = TRUE) |>  
+  left_join(pop_names, join_by(variable == varname)) |> 
+  mutate(variable = clean) |> 
+  select(-clean, -moe) |>
+  pivot_wider(names_from = variable, values_from = estimate) |> 
+  rename(fips = GEOID, name = NAME) |> 
+  mutate(prop_pop = pop/sum(pop), 
+         prop_black = black/pop, 
+         prop_hisp = hispanic/pop, 
+         prop_white = white/pop, 
+         prop_nhwhite = nh_white/pop, 
+         prop_asian = asian/pop)
+
+fips_map <- get_acs(geography = "county", 
+                    variables = "B01001_001", 
+                    geometry = TRUE,
+                    shift_geo = FALSE,
+                    cache_table = TRUE) |> 
+  select(GEOID, NAME, geometry) |> 
+  rename(fips = GEOID, name = NAME)
+```
+
+## Dorling Cartograms
+
+```{r}
+pop_cat_labels <- c("<5", as.character(seq(10, 95, 5)), "100")
+
+counties_sf <- fips_map |>
+  left_join(fips_pop, by = c("fips", "name")) |> 
+  mutate(black_disc = cut(prop_black*100,
+                         breaks = seq(0, 100, 5),
+                         labels = pop_cat_labels,
+                         ordered_result = TRUE), 
+         hisp_disc = cut(prop_hisp*100,
+                         breaks = seq(0, 100, 5),
+                         labels = pop_cat_labels,
+                         ordered_result = TRUE), 
+         nhwhite_disc = cut(prop_nhwhite*100,
+                         breaks = seq(0, 100, 5),
+                         labels = pop_cat_labels,
+                         ordered_result = TRUE),
+        asian_disc = cut(prop_asian*100,
+                         breaks = seq(0, 100, 5),
+                         labels = pop_cat_labels,
+                         ordered_result = TRUE)) |>
+  sf::st_transform(crs = 2163)
+
+```
+
+## Dorling Cartograms
+
+```{r}
+counties_sf
+```
+
+## Dorling Cartograms
+
+```{r}
+## Be patient
+county_dorling <- cartogram_dorling(x = counties_sf,
+    weight = "prop_pop", 
+    k = 0.2, itermax = 100)
+
+out_black <- county_dorling |>
+  filter(!str_detect(name, "Alaska|Hawaii|Puerto|Guam")) |>
+  ggplot(aes(fill = black_disc)) +
+  geom_sf(color = "grey30", size = 0.1) +
+  coord_sf(crs = 2163, datum = NA) +
+  scale_fill_discrete_sequential(palette = "YlOrBr", 
+                                 na.translate=FALSE) +
+  guides(fill = guide_legend(title.position = "top",
+                             label.position = "bottom",
+                             nrow = 1)) + 
+  labs(
+     subtitle = "Bubble size corresponds to County Population",
+     caption = "Graph: @kjhealy. Source: Census Bureau / American Community Survey",
+       fill = "Percent Black by County") + 
+  theme(legend.position = "top", 
+        legend.spacing.x = unit(0, "cm"),
+        legend.title = element_text(size = rel(1.5), face = "bold"), 
+        legend.text = element_text(size = rel(0.7)),
+        plot.title = element_text(size = rel(1.4), hjust = 0.15))
+
+# ggsave("figures/dorling-bl.pdf", out_black, height = 10, width = 12)
+
+```
+
+## Dorling Cartograms
+
+```{r}
+#| echo: FALSE
+#| warning: FALSE
+#| message: FALSE
+out_hispanic <- county_dorling |>
+  filter(!str_detect(name, "Alaska|Hawaii|Puerto|Guam")) |>
+  ggplot(aes(fill = hisp_disc)) +
+  geom_sf(color = "grey30", size = 0.1) +
+  coord_sf(crs = 2163, datum = NA) +
+  scale_fill_discrete_sequential(palette = "SunsetDark", na.translate=FALSE) +
+  guides(fill = guide_legend(title.position = "top",
+                             label.position = "bottom",
+                             nrow = 1, 
+                             )) + 
+  labs(fill = "Percent Hispanic by County") + 
+  theme(legend.position = "top", 
+        legend.spacing.x = unit(0, "cm"),
+        legend.title = element_text(size = rel(1.5), face = "bold"), 
+        legend.text = element_text(size = rel(0.7)),
+        plot.title = element_text(size = rel(1.4), hjust = 0.15))
+
+# ggsave("figures/dorling-hs.pdf", out_hispanic, height = 10, width = 12)
+
+
+out_white <- county_dorling |>
+  filter(!str_detect(name, "Alaska|Hawaii|Puerto|Guam")) |>
+  ggplot(aes(fill = nhwhite_disc)) +
+  geom_sf(color = "grey30", size = 0.1) +
+  coord_sf(crs = 2163, datum = NA) +
+  scale_fill_discrete_sequential(palette = "BluYl", na.translate=FALSE) +
+  guides(fill = guide_legend(title.position = "top",
+                             label.position = "bottom",
+                             nrow = 1, 
+                             )) + 
+  labs(fill = "Percent Non-Hispanic White by County") + 
+  theme(legend.position = "top", 
+        legend.spacing.x = unit(0, "cm"),
+        legend.title = element_text(size = rel(1.5), face = "bold"), 
+        legend.text = element_text(size = rel(0.7)),
+        plot.title = element_text(size = rel(1.4), hjust = 0.15))
+
+# ggsave("figures/dorling-wh.pdf", out_white, height = 10, width = 12)
+
+out_asian <- county_dorling |>
+  filter(!str_detect(name, "Alaska|Hawaii|Puerto|Guam")) |>
+  ggplot(aes(fill = asian_disc)) +
+  geom_sf(color = "grey30", size = 0.1) +
+  coord_sf(crs = 2163, datum = NA) +
+  scale_fill_discrete_sequential(palette = "Purple-Ora", na.translate=FALSE) +
+  guides(fill = guide_legend(title.position = "top",
+                             label.position = "bottom",
+                             nrow = 1, 
+                             )) + 
+  labs(fill = "Percent Asian by County") + 
+  theme(legend.position = "top", 
+        legend.spacing.x = unit(0, "cm"),
+        legend.title = element_text(size = rel(1.5), face = "bold"), 
+        legend.text = element_text(size = rel(0.7)),
+        plot.title = element_text(size = rel(1.4), hjust = 0.15))
+
+# ggsave("figures/dorling-asian.pdf", out_asian, height = 10, width = 12)
+
+```
+
+---
+
+```{r}
+#| fig.width: 10
+#| fig.height: 8
+print(out_black)
+```
+
+---
+
+```{r}
+#| fig.width: 10
+#| fig.height: 8
+print(out_white)
+```
+
+---
+
+```{r}
+#| fig.width: 10
+#| fig.height: 8
+print(out_hispanic)
+```
+
+---
+
+```{r}
+#| fig.width: 10
+#| fig.height: 8
+print(out_asian)
+```
+
+```{r}
+#| echo: FALSE
+#| message: FALSE
+
+## Clean up. These files end up in different places conditional on 
+## whether we're running this standalone or in a targets pipeline
+if(fs::file_exists(here::here("slides", "fbnyc2.Rdata"))) fs::file_delete(here::here("slides", "fbnyc2.Rdata"))
+if(fs::file_exists(here::here("slides", "fb_map.Rdata"))) fs::file_delete(here::here("slides", "fb_map.Rdata"))
+if(fs::file_exists(here::here("slides", "nyc_fb.Rdata"))) fs::file_delete(here::here("slides", "nyc_fb.Rdata"))
+
+if(fs::file_exists(here::here("fbnyc2.Rdata"))) fs::file_delete(here::here("fbnyc2.Rdata"))
+if(fs::file_exists(here::here("fb_map.Rdata"))) fs::file_delete(here::here("fb_map.Rdata"))
+if(fs::file_exists(here::here("nyc_fb.Rdata"))) fs::file_delete(here::here("nyc_fb.Rdata"))
+
+
+```
+

@@ -1,0 +1,140 @@
+---
+title: "Problem Set 10"
+author: "<PUT YOUR NAME HERE>"
+date: "`r Sys.Date()`"
+format: html
+---
+
+```{r}
+#| label = "load-libraries-data",
+#| warning = FALSE,
+#| message = FALSE
+library(tidyverse)
+library(here)
+library(socviz)
+
+## Make sure sf is installed
+## You only have to uncomment and run this once! Then re-comment it.
+# install.packages("sf")
+
+library(sf)
+```
+
+# Simple Features Maps
+
+First we will load our data. It's a _simple features_ tibble. 
+
+```{r}
+load(here("data", "nyc_trees_by_nta.Rdata"))
+```
+
+Now look at it:
+
+```{r}
+nyc_trees_by_nta
+```
+
+Make sure you know all the variable (column) names:
+
+```{r}
+colnames(nyc_trees_by_nta)
+```
+
+## The Columns
+
+The variables are as follows. (Render this document to see a table.)
+
+```{r}
+#| echo: false
+
+vartable <- tibble(variable = colnames(nyc_trees_by_nta), 
+       meaning = c("Neighborhood Code (2020)", 
+                   "Neighborhood Name (2020)", 
+                   "Borough", 
+                   "Neighborhood Abbreviation",
+                   "Neighborhood Type (as a number)", 
+                   "Neighborhood Type (as a label)", 
+                   "CTDA Code", 
+                   "CDTA Name", 
+                   "Old NTA Code", 
+                   "Old CDTA/NTA Name", 
+                   "Old NTA Type", 
+                   "Median Household Income", 
+                   "Population", 
+                   "Proportion Non-Hispanic White", 
+                   "Proportion Black", 
+                   "Proportion Native American", 
+                   "Proportion Asian", 
+                   "Proportion Hawaiian/Pacific Islander", 
+                   "Proportion Hispanic", 
+                   "Area of NTA in acres", 
+                   "Trees per acre", 
+                   "Number of Trees", 
+                   "Median diameter of trees", 
+                   "Mean diameter of trees", 
+                   "Standard Deviation of tree diameters",
+                   "Proportion trees in Fair health", 
+                   "Proportion trees in Good health", 
+                   "Proportion trees in Poor health", 
+                   "Proportion trees No Health Info", 
+                   "Geometry"))
+
+knitr::kable(vartable)
+```
+
+
+# Questions
+
+# 1. Overview maps
+
+- Draw a map of the city showing just the outlines of the neighborhoods.
+
+```{r}
+
+```
+
+- Draw a map of the city showing the NTAs that are "real" neighborhoods---i.e. that have an `nta_type_label` of "Neighborhood". Hint: remember that you can draw layers on top of one another (i.e. you can use `geom_sf()` more than once, and give layers their own data to draw). 
+
+- Add a layer showing the city's airports or the city's parks
+
+```{r}
+
+```
+
+
+# 2. Choropleth maps
+
+- Draw a choropleth map showing Household income by neighborhood.
+
+```{r}
+
+```
+
+- Draw a choropleth map showing one of the demographic variables (they start with `prop_`)  by neighborhood.
+
+
+```{r}
+
+```
+
+- Draw a choropleth map showing one of the tree-related variables (they start with `trees_`)  by neighborhood.
+
+```{r}
+
+```
+
+Which of the `tree_` measures do you think would be best in look at more carefully? In a sentence or two say why. 
+
+# Histograms, Scatterplots (and others)
+
+Using the `tree_` measure you think is best, examine its overall distribution across neighborhoods, and draw some graphs showing the relationship between it and one or more of the income and demographic variables. Check, with a plot, to see if it varies by borough. For each graph you draw, write a sentence saying what you think it shows. 
+
+```{r}
+
+```
+
+
+
+
+
+
