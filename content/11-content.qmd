@@ -1,0 +1,36 @@
+---
+title: "11. Text as Data"
+date: "2024-03-27"
+---
+
+```{r slides, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+
+slide_details <- tibble::tribble(
+  ~youtube_id,   ~title, ~slide, ~active,
+  "", "", "1", TRUE)
+
+```
+
+## Summary
+
+Treating corpora of text, such as books, as sources of textual tokens whose properties and structure we can analyze. 
+
+## Reading
+
+- @silgerobinson:2017 Chapters 1-4. 
+
+## Slides
+
+The slide deck for this week is available here. 
+
+```{r show-slide-tabs-1, echo=FALSE, results="asis"}
+#slide_buttons("/slides/11-slides")
+```
+
+<div>
+```{=html}
+<!--iframe class="slide-deck" src="/slides/11-slides.html"></iframe-->
+```
+</div>
+
