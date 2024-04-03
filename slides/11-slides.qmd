@@ -494,3 +494,464 @@ out <- pronouns |>
 print(out)
 ```
 
+# Word Embeddings
+
+## What more can we do?
+
+```{r}
+#| label: "r 11-digits"
+#| echo: FALSE
+old_digits <- getOption("digits")
+options(digits = 3)
+```
+
+
+We might like to get a sense of what words mean
+
+One way to think about meaning is by trying to capture context. That is, by trying to quantify the _other_ words a particular _focal_ word appears with (net of "stopwords")
+
+It turns out you can do a lot with this idea, with some linear algebra to help you. 
+
+
+
+## Some Intuition
+
+First, let me back up and give a tiny bit of intuition about the algebra. 
+
+![](img/11_svd_circles.png)
+
+
+## Some Intuition
+
+![](img/11_svd.svg)
+
+## An iconic image
+
+![](img/elvis-nixon.jpeg)
+
+
+## Long Tall Sally
+
+```{r}
+# install.packages("imager")
+img <- imager::load.image(here("files", "data", "elvis-nixon.jpeg"))
+str(img)
+dim(img)
+
+## Long
+img_df_long <- as.data.frame(img)
+
+head(img_df_long)
+```
+
+## Return to Sender
+
+```{r}
+img_df <- pivot_wider(img_df_long, 
+                             names_from = y, 
+                             values_from = value)
+
+dim(img_df)
+
+img_df[1:5, 1:5]
+
+```
+
+
+## Don't be Cruel
+
+```{r}
+tmp <- img_df |> select(-x)
+dim(tmp)
+tmp[1:5, 1:5]
+
+# Scaled and centered
+tmp_norm <- scale(tmp, center = TRUE, scale = TRUE)
+tmp_norm[1:5, 1:5]
+
+
+# Covariance matrix
+cov_mat <- cov(tmp_norm)
+dim(cov_mat)
+cov_mat[1:5, 1:5]
+```
+
+## Don't be Cruel
+
+Doing the decomposition manually
+
+```{r}
+# Decomposition/Factorization into eigenvalues and eigenvectors
+cov_eig <- eigen(cov_mat)
+names(cov_eig)
+
+# Eigenvalues (variances)
+cov_evals <- cov_eig$values
+cov_evals[1:5]
+
+# Eigenvectors (principal components)
+cov_evecs <- cov_eig$vectors 
+cov_evecs[1:5, 1:5]
+
+# Rotation matrix -- ie the coordinates of the 
+# original data points translated into the 
+# transformed coordinate space prcomp$rotation
+tmp_rot <- tmp_norm %*% cov_evecs
+dim(tmp_rot)
+tmp_rot[1:5, 1:5]
+
+# Should be zero
+round(cov(cov_evecs), 2)[1:5,1:5]
+```
+
+## Clean up your own Backyard
+
+```{r}
+img_pca <- img_df |>
+  select(-x) |>
+  prcomp(scale = TRUE, center = TRUE)
+
+pca_tidy <- broom::tidy(img_pca, matrix = "pcs")
+
+pca_tidy
+```
+
+## Return to Sender
+
+```{r}
+names(img_pca)
+
+```
+
+::: {.notes}
+What are these? `sdev` contains the standard deviations of the principal components. `rotation` is a matrix where the rows correspond to the columns of the original data, and the columns are the principal components. `x` is a matrix containing the value of the rotated data multiplied by the `rotation` matrix. Finally, `center` and `scale` are vectors showing the centering and scaling for each observation. 
+
+Now, to get from this information back to the original data matrix, we need to multiply `x` by the transpose of the `rotation` matrix, and then revert the centering and scaling steps. If we multiply by the transpose of the _full_ rotation matrix (and then un-center and un-scale), we'll recover the original data matrix exactly. But we can also choose to use just the first few principal components, instead. There are 633 components in all (corresponding to the number of rows in the original data matrix), but the scree plot suggests that most of the data is "explained" by a much smaller number of components than that. 
+
+Here's a function that takes a PCA object created by `prcomp()` and returns an approximation of the original data, calculated by some number (`n_comp`) of principal components. It returns its results in long format, in a way that mirrors what the Imager library wants. This will make plotting easier in a minute.
+
+:::
+
+## I Gotta Know
+
+::: {.smallcode}
+
+```{r}
+reverse_pca <- function(n_comp = 20, pca_object = img_pca){
+  ## The pca_object is an object created by base R's prcomp() function.
+  
+  ## Multiply the matrix of rotated data by the transpose of the matrix 
+  ## of eigenvalues (i.e. the component loadings) to get back to a 
+  ## matrix of original data values
+  recon <- pca_object$x[, 1:n_comp] %*% t(pca_object$rotation[, 1:n_comp])
+  
+  ## Reverse any scaling and centering that was done by prcomp()
+  
+  if(all(pca_object$scale != FALSE)){
+    ## Rescale by the reciprocal of the scaling factor, i.e. back to
+    ## original range.
+    recon <- scale(recon, center = FALSE, scale = 1/pca_object$scale)
+  }
+  if(all(pca_object$center != FALSE)){
+    ## Remove any mean centering by adding the subtracted mean back in
+    recon <- scale(recon, scale = FALSE, center = -1 * pca_object$center)
+  }
+  
+  ## Make it a data frame that we can easily pivot to long format
+  ## (because that's the format that the excellent imager library wants
+  ## when drawing image plots with ggplot)
+  recon_df <- data.frame(cbind(1:nrow(recon), recon))
+  colnames(recon_df) <- c("x", 1:(ncol(recon_df)-1))
+
+  ## Return the data to long form 
+  recon_df_long <- recon_df |>
+    tidyr::pivot_longer(cols = -x, 
+                        names_to = "y", 
+                        values_to = "value") |>
+    mutate(y = as.numeric(y)) |>
+    arrange(y) |>
+    as.data.frame()
+  
+  tibble::as_tibble(recon_df_long)
+}
+```
+
+:::
+
+
+## It's Now or Never
+
+```{r}
+## The sequence of PCA components we want
+n_pcs <- c(2:5, 10, 20, 50, 100)
+names(n_pcs) <- paste("First", n_pcs, "Components", sep = "_")
+
+## Map reverse_pca() 
+recovered_imgs <- map(n_pcs, reverse_pca) |> 
+  list_rbind(names_to = "pcs") |> 
+  mutate(pcs = str_replace_all(pcs, "_", " "), 
+         pcs = factor(pcs, levels = unique(pcs), ordered = TRUE))
+
+recovered_imgs
+```
+
+## Jailhouse Rock
+
+```{r}
+p <- ggplot(data = recovered_imgs, 
+            mapping = aes(x = x, y = y, fill = value))
+p_out <- p + geom_raster() + 
+  scale_y_reverse() + 
+  scale_fill_gradient(low = "black", high = "white") +
+  facet_wrap(~ pcs, ncol = 4) + 
+  guides(fill = FALSE) + 
+  labs(title = "Recovering the content of an 800x600 pixel image\nfrom a Principal Components Analysis of its pixels") + 
+  theme(strip.text = element_text(face = "bold", size = rel(1.2)),
+        plot.title = element_text(size = rel(1.5)))
+```
+
+---
+
+```{r}
+#| echo: false
+#| message: false
+
+print(p_out)
+```
+
+
+## Back to text
+
+```{r}
+# install.packages("text2map")
+# remotes::install_gitlab("culturalcartography/text2map.corpora")
+# install.packages("quanteda")
+# install.packages("textclean")
+
+library(text2map)
+library(text2map.corpora)
+library(quanteda)
+
+jfk <- tibble(
+  text = c("We choose to go to the moon", 
+           "We choose to go to the moon", 
+           "We choose to go to the moon in this decade and do other things"))
+jfk
+```
+
+## A Term Co-Occurence Matrix
+
+```{r}
+jfk |> 
+  pull(text) |> 
+  tokens() |> 
+  fcm(context = "window", 
+      window = 5) 
+```
+
+We'd like to learn whether any of these co-occurences are _particularly_ informative. This is where the linear algebra comes in. We can decompose this matrix of counts and ones like it. 
+
+## Star Trek TNG Data
+
+```{r}
+data("corpus_tng_season5", package = "text2map.corpora")
+corpus_tng_season5
+```
+
+## Prepare the text
+
+```{r}
+df_trek <- corpus_tng_season5 |> 
+  mutate(text = stringi::stri_trans_general(line, "Any-Latin; Latin-ASCII"), 
+         text = textclean::replace_contraction(text), 
+         text = tolower(text), 
+         text = str_replace_all(text, "[[:punct:]]+", " "), 
+         text = str_replace_all(text, "\\s+", " "))
+  
+df_trek |> 
+  select(line, text) |> 
+  sample_n(10)
+
+```
+
+## Make a TCM 
+
+```{r}
+tcm <- df_trek$text |> 
+  tokens() |> 
+  fcm(context = "window", window = 10) |> 
+  as("dgCMatrix")
+
+tcm
+```
+
+## Weight the matrix
+
+"Pointwise mutual information", or PMI, measures whether events _x_ and _y_ co-occur more than they independently occur. _PPMI_ focuses on the _positive_ cases, i.e. of relatedness rather than unrelatedness, assigning zero to "unrelated" words.
+
+```{r}
+weight_ppmi <- function(tcm) {
+  # correct zero self-occureneces
+  diag(tcm) <- diag(tcm) + 1
+  # weight by PMI
+  tcm <- log(tcm %*% diag(1/diag(tcm)))
+  # positive PMI only
+  tcm[tcm<0] <- 0
+  return(Matrix(tcm, sparse = TRUE))
+  }
+```
+
+## Weight the matrix
+
+We will keep just the words in our matrix with more than 30 occurrences, otherwise doing some upcoming math will take forever. 
+
+```{r}
+tcm <- tcm[colSums(tcm) > 30, colSums(tcm) > 30]
+tcm_ppmi <- weight_ppmi(tcm)
+```
+
+## How to measure similarity?
+
+Having things in a matrix of this sort lets us compute measures of distance between words. One method, for instance, is cosine similarity: 
+
+```{r}
+vec1 <- tcm_ppmi["captain",, drop = FALSE] # NB double comma
+vec2 <- tcm_ppmi["picard",,  drop = FALSE]
+vec3 <- tcm_ppmi["crusher",, drop = FALSE]
+
+text2vec::sim2(vec1, vec2)
+text2vec::sim2(vec1, vec3)
+
+```
+
+
+## The magic of SVD
+
+```{r}
+# Be patient, it's still big
+svd_tng <- svd(tcm_ppmi)
+
+# Get the first 100 cols of the V matrix
+wv_tng <- svd_tng$v[,1:100]
+rownames(wv_tng) <- rownames(tcm_ppmi)
+```
+
+## What is this?
+
+We started with a term x term-context matrix with > 3,000 terms and > 3,000 contexts. Now we have ...
+
+```{r}
+dim(wv_tng)
+```
+
+... a term-by-dimension matrix context matrix with > 3,000 terms and exactly 100 dimensions. (The 100 most "explanatory" ones.) This is a much simpler representation of the data that holds on to as much information from the original as possible. 
+
+## What is this?
+
+```{r}
+wv_tng[1:10,1:5]
+```
+
+
+## We can do more math on this matrix
+
+The classic example is `(v_king - v_man) + v_woman = v_queen`
+
+Consider:
+
+```{r}
+v_picard <- wv_tng["picard",, drop = FALSE]
+v_jean <- wv_tng["jean",, drop = FALSE]
+v_william <- wv_tng["william",, drop = FALSE]
+
+length(v_picard)
+v_picard[1:5]
+```
+
+## We can do more math on this matrix
+
+Now, if we create a _synthetic vector_:
+
+```{r}
+vec_synth <- (v_picard - v_jean) + v_william
+
+vec_synth[1:5]
+
+```
+
+And then we ask, hey, find me the word vectors in the matrix that are closest in metric space to that synthetic vector. 
+
+```{r}
+## This calculates the distance to every word
+closest <- text2vec::sim2(wv_tng, vec_synth, method = "cosine")
+
+closest[,1] |> 
+  sort(decreasing = TRUE) |> 
+  head(n = 5)
+
+```
+
+## Something more contentful
+
+```{r}
+focal <- c("boy", "girl")
+vecs <- wv_tng[focal,]
+sims <- text2vec::sim2(vecs, wv_tng, method = "cosine")
+
+df_sims <- tibble(
+  word1 = sims[1,],
+  word2 = sims[2,],
+  term = colnames(sims)
+)
+
+df_sims
+
+```
+
+## Something more contentful
+
+```{r}
+df_plot <- df_sims |> 
+  mutate(gender_lean = word1 - word2, 
+         gender = ifelse(gender_lean > 0, "boy", "girl"), 
+         gender_lean = abs(gender_lean))
+
+
+```
+
+## Gender Bias in Star Trek TNG Dialog
+
+```{r}
+out <- df_plot |> 
+  group_by(gender) |> 
+  slice_max(gender_lean, n = 30) |> 
+  mutate(term = fct_reorder(term, gender_lean)) |> 
+  ggplot(mapping = aes(gender_lean, term, 
+                       fill = gender, 
+                       label = term)) + 
+  geom_col() +
+  facet_wrap(~ gender, scales = "free") + 
+  guides(fill = "none") + 
+  labs(x = "Bias", y = "")
+```
+
+
+## Gender Bias in Star Trek TNG Dialog
+
+```{r}
+#| fig-width: 8
+#| fig-height: 8
+
+print(out)
+```
+
+```{r}
+#| label: "r 07-[Iterating]{.fg-green}-27"
+#| echo: FALSE
+options(digits = old_digits)
+```
+
+
+## SVD is the most basic method
+
+There are many other, more sophisticated (and more computationally intensive) methods for word-embeddings like this. They form the basis for modern ML methods for Large-Language Models.
