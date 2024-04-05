@@ -99,7 +99,7 @@ website:
             - assignment/07-problem-set.qmd
             - assignment/08-problem-set.qmd
             - assignment/10-problem-set.qmd
-            # - assignment/12-problem-set.qmd
+            - assignment/12-problem-set.qmd
             # - assignment/final-project.qmd
 
     - title: "Examples"

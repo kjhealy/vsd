@@ -1,6 +1,6 @@
 ---
 title: "Problem set 12"
-date: "2023-04-14"
+date: "2024-04-09"
 ---
 
 ```{r setup, include=FALSE}
@@ -14,7 +14,7 @@ source(here::here("R", "slide-things.R"))
 project_buttons("/projects/12-problem-set")
 ```
 
-1. Launch the project by double-clicking on the `08-problem-set.Rproj` file. It will launch a new instance of R. Remember you can have more than one project open and running at a time. Each one is a self-contained RStudio instance. They don't know anything about each other.
+1. Launch the project by double-clicking on the `12-problem-set.Rproj` file. It will launch a new instance of R. Remember you can have more than one project open and running at a time. Each one is a self-contained RStudio instance. They don't know anything about each other.
 
 2. Once RStudio is running, take a look at the `analysis.Rmd` file. Do the tasks it asks.
 
@@ -22,4 +22,4 @@ project_buttons("/projects/12-problem-set")
 
 4. Make sure the `analysis.Rmd` document will knit as an HTML file. 
 
-5. Zip up the whole problem set folder (in the Finder, select the folder, right click, and choose "Compress") and submit it to the Sakai Dropbox.
+5. Zip up the whole problem set folder and submit it to Canvas.

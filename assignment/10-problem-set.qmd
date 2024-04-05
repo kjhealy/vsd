@@ -22,4 +22,4 @@ project_buttons("/projects/10-problem-set")
 
 4. Make sure the `analysis.Rmd` document will knit as an HTML file. 
 
-5. Zip up the whole problem set folder (in the Finder, select the folder, right click, and choose "Compress") and submit it to Canvas.
+5. Zip up the whole problem set folder and submit it to Canvas.

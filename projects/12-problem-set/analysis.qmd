@@ -48,7 +48,7 @@ starwars |>
 
 # Q2 Experiment with some alternative layouts. 
 
-- Try `"fr"`, `"circle"`, `"randomly"`, and `"grid"` 
+- Try `"fr"`, `"circle"`, `"randomly"`, and `"grid"` as arguments to `ggraph(layout = )`
 
 - Which seem more or less useful? What seems to be changing in these layouts and what is staying the same?
 
