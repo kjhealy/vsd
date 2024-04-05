@@ -1895,15 +1895,18 @@
     },
     "kjhnet": {
       "Package": "kjhnet",
-      "Version": "0.0.0.9000",
+      "Version": "0.0.1.9000",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteRepo": "kjhnet",
       "RemoteUsername": "kjhealy",
       "RemoteRef": "HEAD",
-      "RemoteSha": "16fe15ed0bbe88176606e351d5dfe65aa0cfc145",
-      "Hash": "517e84700599647871049f292d39e0b1"
+      "RemoteSha": "edc3b22f3f2bf2500c9de6c8c7dca20965ba5625",
+      "Requirements": [
+        "R"
+      ],
+      "Hash": "4bd3241b797b18c006afc32064129646"
     },
     "kjhslides": {
       "Package": "kjhslides",
