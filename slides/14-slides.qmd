@@ -1,0 +1,172 @@
+---
+title: "Extras"
+format: kjhslides-revealjs
+engine: knitr
+filters:
+  - invert-h1
+  - line-highlight
+  - include-code-files
+author:
+  - name: Kieran Healy
+    affiliation: "Duke University"
+date: last-modified
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| label: "note"
+#| include: FALSE
+## NB: By default the  template will create a new subdirectory with its files inside.
+```
+
+```{r}
+#| label: "packages"
+#| include: FALSE
+library(flipbookr)
+library(here)
+library(tidyverse)
+library(kjhslides)
+```
+
+```{r}
+#| label: "setup"
+#| include: FALSE
+## Configure the slides
+
+kjh_register_tenso()    # Default fonts. Comment out if you don't have Tenso and Berkeley fonts.
+kjh_set_knitr_opts()    
+kjh_set_slide_theme()   # ggplot theme to go with slides. Set tenso = FALSE if necessary.
+
+
+```
+
+# [Extras]{.fg-yellow}
+
+## Load our packages
+
+```{r}
+#| label: "08-polishing-and-presenting-plots-1"
+#| message: FALSE
+library(here)       # manage file paths
+library(tidyverse)  # your friend and mine
+library(socviz)     # data and some useful functions
+library(ggrepel)    # Text and labels
+library(colorspace) # luminance-balanced palettes
+library(scales)      # scale adjustments and enhancements
+library(ggforce)    # useful enhancements to ggplot
+
+## install.packages("gifski")
+## install.packages("gganimate")
+
+library(gapminder)
+library(gganimate) # Animation
+
+```
+
+## Gapminder returns
+
+```{r }
+#| label: "08-polishing-and-presenting-plots-2"
+#| output-location: slide
+p <- ggplot(data = gapminder, 
+            mapping = aes(x = gdpPercap, y=lifeExp, 
+                          size = pop, color = country)) +
+  geom_point(show.legend = FALSE, alpha = 0.7) +
+  scale_color_viridis_d() +
+  scale_size(range = c(2, 12)) +
+  scale_x_log10() +
+  labs(x = "GDP per capita", y = "Life expectancy")
+
+p
+```
+
+## But add one thing
+
+```{r}
+#| label: "08-polishing-and-presenting-plots-3"
+#| output-location: slide
+
+
+p_live <- p + transition_time(year) +
+  labs(title = "Year: {frame_time}")
+animate(p_live, renderer = ffmpeg_renderer())
+
+```
+
+## Everything's Available
+
+```{r}
+#| output-location: slide
+
+p_live2 <- p + facet_wrap(~ continent) +
+  transition_time(year) +
+  labs(title = "Year: {frame_time}")
+animate(p_live2, renderer = ffmpeg_renderer())
+```
+
+## Lots of effects
+
+```{r}
+#| output-location: slide
+
+
+p_live3 <- p + transition_time(year) +
+  labs(title = "Year: {frame_time}") +
+  view_follow(fixed_y = TRUE)
+
+animate(p_live3, renderer = ffmpeg_renderer())
+```
+
+## Lots of effects
+
+```{r}
+#| output-location: slide
+
+
+p_live4 <- p + transition_time(year) +
+  labs(title = "Year: {frame_time}") +
+  shadow_wake(wake_length = 0.1, alpha = FALSE)
+animate(p_live4, renderer = ffmpeg_renderer())
+```
+
+
+## Another Example
+
+```{r}
+#| output-location: slide
+
+p <- ggplot(data = airquality,
+            mapping = aes(Day, Temp, group = Month, 
+                          color = factor(Month))) +
+  geom_line() +
+  scale_color_viridis_d() +
+  labs(x = "Day of Month", y = "Temperature") +
+  theme(legend.position = "top")
+
+p
+
+```
+
+
+## Another Example
+
+```{r}
+#| output-location: slide
+
+p_live6 <- p + transition_reveal(Day)
+animate(p_live6, renderer = ffmpeg_renderer())
+```
+
+## Another Example
+
+```{r}
+#| output-location: slide
+
+p_live7 <- p + geom_point(aes(group = seq_along(Day))) +
+  transition_reveal(Day)
+animate(p_live7, renderer = ffmpeg_renderer())
+```
+
+
+

@@ -5,6 +5,10 @@
       {
         "Name": "CRAN",
         "URL": "https://cloud.r-project.org"
+      },
+      {
+        "Name": "kjhealy",
+        "URL": "https://kjhealy.r-universe.dev"
       }
     ]
   },
@@ -1194,6 +1198,29 @@
       ],
       "Hash": "0e81e7f976441581680fa2ebc5866212"
     },
+    "gganimate": {
+      "Package": "gganimate",
+      "Version": "1.0.9",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "cli",
+        "ggplot2",
+        "glue",
+        "grDevices",
+        "grid",
+        "lifecycle",
+        "progress",
+        "rlang",
+        "scales",
+        "stringi",
+        "transformr",
+        "tweenr",
+        "utils",
+        "vctrs"
+      ],
+      "Hash": "c6e8a7ff1b78529309cb2186ec1e3d38"
+    },
     "ggdist": {
       "Package": "ggdist",
       "Version": "3.3.1",
@@ -1250,7 +1277,7 @@
     },
     "ggplot2": {
       "Package": "ggplot2",
-      "Version": "3.4.4",
+      "Version": "3.5.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1271,7 +1298,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "313d31eff2274ecf4c1d3581db7241f9"
+      "Hash": "52ef83f93f74833007f193b2d4c159a2"
     },
     "ggraph": {
       "Package": "ggraph",
@@ -2059,6 +2086,13 @@
         "rlang"
       ],
       "Hash": "b8552d117e1b808b09a832f589b79035"
+    },
+    "lpSolve": {
+      "Package": "lpSolve",
+      "Version": "5.6.20",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "2801c8082e89ed84cc0dbe43de850d31"
     },
     "lubridate": {
       "Package": "lubridate",
@@ -3132,7 +3166,7 @@
     },
     "showtext": {
       "Package": "showtext",
-      "Version": "0.9-6",
+      "Version": "0.9-7",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -3140,7 +3174,7 @@
         "showtextdb",
         "sysfonts"
       ],
-      "Hash": "c0fd332d248b195bbcb94a0dfda37b0d"
+      "Hash": "ebc23fc796c28737ffe0a64e5404f3d1"
     },
     "showtextdb": {
       "Package": "showtextdb",
@@ -3696,6 +3730,21 @@
       ],
       "Hash": "76d35ebfaaf291e08c15696c9f2ec96d"
     },
+    "transformr": {
+      "Package": "transformr",
+      "Version": "0.1.5",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "cpp11",
+        "lpSolve",
+        "rlang",
+        "sf",
+        "tweenr",
+        "vctrs"
+      ],
+      "Hash": "584eda9966ed571b3adc75e338116147"
+    },
     "triebeard": {
       "Package": "triebeard",
       "Version": "0.4.1",
@@ -3729,7 +3778,7 @@
     },
     "tweenr": {
       "Package": "tweenr",
-      "Version": "2.0.2",
+      "Version": "2.0.3",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -3740,7 +3789,7 @@
         "rlang",
         "vctrs"
       ],
-      "Hash": "c16efcef4c72d3bff5e65031f3f1f841"
+      "Hash": "82fac2b73e6a1f3874fc000aaf96d8bc"
     },
     "tzdb": {
       "Package": "tzdb",

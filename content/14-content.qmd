@@ -1,0 +1,37 @@
+---
+title: "14. Extras: Animation"
+date: "2024-04-17"
+---
+
+```{r slides, echo=FALSE, include=FALSE}
+source(here::here("R", "slide-things.R"))
+
+slide_details <- tibble::tribble(
+  ~youtube_id,   ~title, ~slide, ~active,
+  "", "", "1", TRUE)
+
+```
+
+## Summary
+
+Making moving pictures.
+
+
+## Slides
+
+The slide deck for this week are available here: 
+
+```{r show-slide-tabs-1, echo=FALSE, results="asis"}
+slide_buttons("/slides/14-slides")
+```
+
+<div>
+```{=html}
+<iframe class="slide-deck" src="/slides/14-slides.html"></iframe>
+```
+</div>
+
+
+```{r show-slide-tabs-2, echo=FALSE, results="asis"}
+slide_buttons("/slides/14-slides")
+```

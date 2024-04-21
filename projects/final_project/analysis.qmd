@@ -16,7 +16,13 @@ library(socviz)
 ## Mapping
 library(sf)
 
+## Install nycdogs (you should have this already, but if you don't, 
+## uncomment and run the line below once)
+# remotes::install_github("kjhealy/nycdogs)
+
 ## Census
+## Make sure you have a census API key! You only need one.
+## https://api.census.gov/data/key_signup.html
 library(tidycensus)
 options(tigris_use_cache = TRUE)
 
@@ -24,24 +30,52 @@ options(tigris_use_cache = TRUE)
 ## putting your key in the quotes
 # census_api_key("YOUR_API_KEY_HERE")
 
-## Install this package
+## Optionally install this package
 ## remotes::install_github("kjhealy/nycomplaints")
-library(nycomplaints)
+## library(nycomplaints)
+## But the datasets are also included in the project here.
 
 ```
 
 # The dataset
 
-The dataset is documented here: <https://kjhealy.github.io/nycomplaints/reference/nycomplaints.html>
+The dataset is documented here: <https://kjhealy.github.io/nycomplaints/reference/nycomplaints.html>. The source is documented here: <https://data.cityofnewyork.us/City-Government/NYC-Council-Constituent-Services/b9km-gdpy/about_data>
+
+Note that the specific data provided for the project is older than the current version on NYC's website. 
 
 Read the documentation before working with the data.
 
 # Set up the project
 
+First, load the data objects in the local `data/` folder:
+
+```{r}
+load(here("data", "nycomplaints.rda"))
+load(here("data", "nyzip_demog.rda"))
+```
+
+## The complaints data:
+
+```{r}
+nycomplaints
+```
+
+
+## Zipcode demographics
+
+Population counts (overall, and by race and ethnicity) and median household income for the Zip codes:
+
+```{r}
+nyzip_demog
+```
+
+## Some additional useful tables
+
 Here I provide some tables that might be useful when analyzing the data.
 
 ```{r}
-## Some census variables: official names and short names
+## Some American Community Survey variables from the Census Bureay: 
+## official names and short names
 acs_vars <- tribble(
       ~varname, ~clean_name,
       "B01003_001", "pop",
@@ -67,6 +101,8 @@ ny_county_boros <- tribble(
 ny_county_boros
 ```
 
+## Map base layers
+
 ```{r}
 ## Zip Basemap from nycdogs
 zip_base <- nycdogs::nyc_zips |> 
@@ -74,7 +110,7 @@ zip_base <- nycdogs::nyc_zips |>
   mutate(zip = as.character(zip))
 
 ## ZCTA - Zip Code Tabulation Area - data for New York State, 
-## including Geometry (i.e. map data)
+## including Geometry (i.e. map data).
 zip_data <- get_acs(geography = "zcta", 
         variables = acs_vars$varname, 
         state = "NY", 
@@ -96,7 +132,7 @@ zip_data
 ```
 
 
-Quick map:
+Quick blank map:
 
 ```{r}
 zip_data |> 
@@ -104,8 +140,7 @@ zip_data |>
   geom_sf()
 ```
 
-Compare this to the base map—notice how some zips are missing. (Which ones?)
-
+## County- (i.e. Borough-) level data
 
 ```{r}
 ## Data for the 5 NYC Boroughs, with Borough names patched in
@@ -131,14 +166,20 @@ county_data <- get_acs(geography = "county",
 county_data
 ```
 
+## Additional variables
+
 ```{r}
 ## Table of all 2019 ACS variables:
 acs_vars <- load_variables(year = 2019, dataset = "acs5")
 ```
 
+
+## Other information
+
 _Hint:_ You can use `st_drop_geometry()` to change a spatial table into a simple tibble:
 
 ```{r}
+## See how the `geometry` column disappears
 zip_data |> 
   st_drop_geometry()
 ```
@@ -150,15 +191,22 @@ zip_data |>
 
 - Write a paragraph summarizing what the data is, saying what the unit of observation is, what each column represents, and any other remarks you might have. 
 
-## 2 Look at each column/variable in a littke more detail 
+## 2 Look at each column/variable in a little more detail 
 
 - Explore the basic structure of the data, by e.g. writing code to summarize the variables or investigate aspects of them that seem interesting. You can also create some initial rough exploratory plots if you like, in addition to tables or other summaries. As you go, explain here what it is you are doing and why.
 
-## 3. Explore in more depth: make at least three polished plots or maps 
+## 3. Explore in more depth: make at least three plots or maps 
 
-- Following on from the exploratory work, make at least three plots that you think show something interesting about the data. Polish them up so that they look presentable and effective to you. Show your work (i.e. the code you write). Provide a motivation for and brief discussion of each plot. You can merge in external data if you like (e.g. from the Census), but it's not required. 
+- Following on from the exploratory work, make at least three plots that you think show something interesting about the data. Make sure they look presentable and effective to you. Show your work (i.e. the code you write). Provide a motivation for and brief discussion of each plot. You can merge in external data if you like (e.g. from the Census), but it's not required. 
 
-## 4, Short final discussion: Scope and limits of this data
+
+## 4. Make one properly-polished plot or map. 
+
+- a. _Either_ choose one of the plots you've already made _or_ create a new plot or map using the data. Work it up to something more finished. Aim for something that is both properly informative and as polished as you can make it. Use what you know about `scale_` and `theme()` functions (as well as pre-made themes, if you like) to do this. 
+
+- b. Save this plot or map using `ggsave()`. Create it as a PNG or PDF file. Make its dimensions (width and height) the right size for a printable poster. 
+
+## 5. Short final discussion: Scope and limits of this data
 
 - Say what you think the limits of the dataset are, or the limits of the plots you've made, and e.g. what sort of data you'd need to make it better or more informative.
 
